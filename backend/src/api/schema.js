@@ -45,6 +45,7 @@ const feedbackTypes = require('./feedback/types');
 const feedbackQueries = require('./feedback/queries');
 const feedbackMutations = require('./feedback/mutations');
 
+const answerTypes = require('./answer/types');
 const answerQueries = require('./answer/queries');
 const answerMutations = require('./answer/mutations');
 
@@ -59,6 +60,7 @@ const types = [
   ...quizRecordTypes,
   ...categoryTypes,
   ...feedbackTypes,
+  ...answerTypes,
 ].map((type) => type.schema);
 
 const mutations = [

@@ -17,7 +17,6 @@ class QuestionnairePage extends Component {
 
   render() {
     const { record, loading, match } = this.props;
-    const isQuiz = ((record || {}).type || 'QUIZ') === 'QUIZ';
 
     return (
       <React.Fragment>
@@ -34,12 +33,10 @@ class QuestionnairePage extends Component {
           </PageTitle>
           <QuestionnaireViewToolbar
             match={match}
-            isQuiz={isQuiz}
           />
           <QuestionnaireView
             loading={loading}
             record={record}
-            isQuiz={isQuiz}
           />
         </ContentWrapper>
       </React.Fragment>

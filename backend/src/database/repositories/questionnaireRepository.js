@@ -171,7 +171,6 @@ class QuestionnaireRepository {
     );
     return MongooseRepository.wrapWithSessionIfExists(
       Questionnaire.findById(id)
-        .populate('questions')
         .populate('category')
         .populate('favourites.user')
         .populate('createdBy'),

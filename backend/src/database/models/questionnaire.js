@@ -46,11 +46,6 @@ const Questionnaire = new Schema(
       ref: 'category',
     },
     views: { type: Number, default: 0 },
-    type: {
-      type: String,
-      default: 'QUIZ',
-      enum: ['QUIZ', 'PSYCOMETRIC']
-    },
     answers: [{
       title: {
         type: String,
@@ -66,6 +61,14 @@ const Questionnaire = new Schema(
         default: 'TEXT',
       },
     }],
+    questions: [{
+      title: {
+        type: String,
+        required: true,
+      },
+      createdBy: { type: Schema.Types.ObjectId, ref: 'user' },
+      updatedBy: { type: Schema.Types.ObjectId, ref: 'user' },
+    }]
   },
   {
     timestamps: true,
@@ -76,12 +79,6 @@ const Questionnaire = new Schema(
 
 Questionnaire.virtual('id').get(function() {
   return this._id.toHexString();
-});
-
-Questionnaire.virtual('questions', {
-  ref: 'question',
-  localField: '_id',
-  foreignField: 'questionnaire',
 });
 
 module.exports = database.model(

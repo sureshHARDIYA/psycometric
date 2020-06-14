@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Modal } from 'antd';
 import { i18n } from 'i18n';
-import QuestionForm from 'view/questionnaire/form/QuestionForm';
+import AnswerForm from 'view/questionnaire/form/AnswerForm';
 import Errors from 'modules/shared/error/errors';
-import QuestionService from 'modules/question/questionService';
+import AnswerService from 'modules/answer/service';
 
-class QuestionFormModal extends Component {
+class AnswerFormModal extends Component {
   state = {
     saveLoading: false,
   };
@@ -15,9 +15,8 @@ class QuestionFormModal extends Component {
       this.setState({
         saveLoading: true,
       });
-      const { id } = await QuestionService.create(data);
-      const record = await QuestionService.find(id);
-      this.props.onSuccess(record);
+      const { id } = await AnswerService.create(data);
+      this.props.onSuccess({ id });
     } catch (error) {
       Errors.handle(error);
     } finally {
@@ -34,21 +33,22 @@ class QuestionFormModal extends Component {
 
     return (
       <Modal
-        title={i18n('entities.questionnaire.new.title')}
+        title={i18n('entities.questionnaire.answer.new.title')}
         visible={this.props.visible}
         onCancel={() => this.props.onCancel()}
         footer={false}
         width="80%"
       >
-        <QuestionForm
-          saveLoading={this.state.saveLoading}
+        <AnswerForm
+          modal
           onSubmit={this.doSubmit}
           onCancel={this.props.onCancel}
-          modal
+          saveLoading={this.state.saveLoading}
+          questionnaire={this.props.questionnaire}
         />
       </Modal>
     );
   }
 }
 
-export default QuestionFormModal;
+export default AnswerFormModal;

@@ -2,7 +2,6 @@ import { i18n } from 'i18n';
 import IdField from 'modules/shared/fields/idField';
 import StringField from 'modules/shared/fields/stringField';
 import IntegerField from 'modules/shared/fields/integerField';
-import BooleanField from 'modules/shared/fields/booleanField';
 import EnumeratorField from 'modules/shared/fields/enumeratorField';
 
 function label(name) {
@@ -25,25 +24,21 @@ const fields = {
   score: new IntegerField('score', 'Score', {
     required: true,
   }),
-  isCorrect: new BooleanField(
-    'isCorrect',
-    label('isCorrect'),
-  ),
-  answerType: new EnumeratorField(
-    'answerType',
-    label('answerType'),
+  type: new EnumeratorField(
+    'type',
+    label('type'),
     [
       {
         id: 'CODE',
-        label: enumeratorLabel('answerType', 'CODE'),
+        label: enumeratorLabel('type', 'CODE'),
       },
       {
         id: 'PICTURE',
-        label: enumeratorLabel('answerType', 'PICTURE'),
+        label: enumeratorLabel('type', 'PICTURE'),
       },
       {
         id: 'TEXT',
-        label: enumeratorLabel('answerType', 'TEXT'),
+        label: enumeratorLabel('type', 'TEXT'),
       },
     ],
     { required: false },

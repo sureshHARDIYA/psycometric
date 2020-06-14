@@ -97,7 +97,7 @@ class QuestionnaireView extends Component {
     },
   ];
 
-  columns = (isQuiz) => [
+  columns = [
     {
       title: 'Title',
       dataIndex: 'id',
@@ -117,21 +117,6 @@ class QuestionnaireView extends Component {
           </ButtonLink>
       ),
     },
-    isQuiz &&
-    {
-      title: 'Options',
-      dataIndex: 'options',
-      render: (_, record) => (
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          {(record.answers || []).map((item) => (
-            <div>
-              <Tag color="green">{item.title}</Tag>
-            </div>
-          ))}
-        </div>
-      )
-    },
-    { title: 'Question Type', dataIndex: 'questionType' },
     {
       title: '',
       dataIndex: '',
@@ -158,10 +143,10 @@ class QuestionnaireView extends Component {
         </div>
       ),
     },
-  ].filter(i => i);
+  ];
 
   renderView() {
-    const { record, loading, isQuiz } = this.props;
+    const { record, loading } = this.props;
     const { visible, activeItem } = this.state;
     const activeRecord =
       record &&
@@ -207,30 +192,26 @@ class QuestionnaireView extends Component {
             </Paragraph>
           </Card.Grid>
         </Card>
-        {!isQuiz && (
-          <>
-            <Divider dashed />
-            <Card title="Answers" bodyStyle={{ padding: 0 }}>
-              <Table
-                rowKey="id"
-                loading={loading}
-                scroll={{ x: true }}
-                columns={this.answerColumns}
-                dataSource={record.answers || []}
-              />
-            </Card>
-          </>
-        )}
-        <Divider dashed />
-        <Card title="Questions" bodyStyle={{ padding: 0 }}>
-          <Table
-            rowKey="id"
-            loading={loading}
-            columns={this.columns(isQuiz)}
-            dataSource={record.questions}
-            scroll={{ x: true }}
-          />
-        </Card>
+        <Divider dashed orientation="left">
+          Answers
+        </Divider>
+        <Table
+          rowKey="id"
+          loading={loading}
+          scroll={{ x: true }}
+          columns={this.answerColumns}
+          dataSource={record.answers || []}
+        />
+        <Divider dashed orientation="left">
+          Questions
+        </Divider>
+        <Table
+          rowKey="id"
+          loading={loading}
+          columns={this.columns}
+          dataSource={record.questions}
+          scroll={{ x: true }}
+        />
         <Modal
           visible={visible}
           title="Title"

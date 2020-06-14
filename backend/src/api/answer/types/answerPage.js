@@ -1,7 +1,7 @@
 const schema = `
-  input QuestionInput {
-    title: String!
-    questionnaire: String!
+  type AnswerPage {
+    rows: [Answer!]!
+    count: Int!
   }
 `;
 

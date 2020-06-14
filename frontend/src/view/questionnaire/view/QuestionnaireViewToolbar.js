@@ -9,7 +9,15 @@ import destroySelectors from 'modules/questionnaire/destroy/QuestionnaireDestroy
 import destroyActions from 'modules/questionnaire/destroy/QuestionnaireDestroyActions';
 import auditLogSelectors from 'modules/auditLog/auditLogSelectors';
 
+import AnswerFormModal from 'view/questionnaire/form/AnswerFormModal';
+import QuestionFormModal from 'view/questionnaire/form/QuestionFormModal';
+
 class CasedViewToolbar extends Component {
+  state = {
+    answer: false,
+    question: false,
+  }
+
   id = () => {
     return this.props.match.params.id;
   };
@@ -25,7 +33,6 @@ class CasedViewToolbar extends Component {
       hasPermissionToAuditLogs,
       hasPermissionToDestroy,
       destroyLoading,
-      isQuiz
     } = this.props;
 
     return (
@@ -39,21 +46,15 @@ class CasedViewToolbar extends Component {
         )}
 
         {hasPermissionToEdit && (
-          <Link to={`/questionnaire/${this.id()}/question`}>
-            <Button type="primary" icon="edit">
+          <>
+            <Button type="primary" icon="plus" onClick={() => this.setState({ question: true })}>
               Add Question
             </Button>
-          </Link>
-        )}
-
-        {!isQuiz && (
-          <Link to={`/questionnaire/${this.id()}/answer`}>
-            <Button type="primary" icon="edit">
+            <Button type="primary" icon="plus" onClick={() => this.setState({ answer: true })}>
               Add Answer
             </Button>
-          </Link>
+          </>
         )}
-
         {hasPermissionToDestroy && (
           <Popconfirm
             title={i18n('common.areYouSure')}
@@ -82,6 +83,18 @@ class CasedViewToolbar extends Component {
             </Button>
           </Link>
         )}
+        <QuestionFormModal
+          visible={this.state.question}
+          questionnaire={this.id()}
+          onCancel={() => this.setState({ question: false })}
+          onSuccess={() => this.setState({ question: false })}
+        />
+        <AnswerFormModal
+          visible={this.state.answer}
+          questionnaire={this.id()}
+          onCancel={() => this.setState({ answer: false })}
+          onSuccess={() => this.setState({ answer: false })}
+        />
       </Toolbar>
     );
   }

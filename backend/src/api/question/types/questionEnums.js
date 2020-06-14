@@ -1,10 +1,4 @@
 const schema = `
-  enum AnswerTypeEnum {
-    CODE
-    PICTURE
-    TEXT
-  }
-
   enum QuestionTypeEnum {
     SINGLE
     MULTIPLE

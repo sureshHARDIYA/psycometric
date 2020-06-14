@@ -1,7 +1,8 @@
 const schema = `
-  input QuestionInput {
+  input AnswerInput {
+    score: Int
     title: String!
-    questionnaire: String!
+    type: AnswerType
   }
 `;
 

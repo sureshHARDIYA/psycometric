@@ -16,8 +16,7 @@ class QuestionFormModal extends Component {
         saveLoading: true,
       });
       const { id } = await QuestionService.create(data);
-      const record = await QuestionService.find(id);
-      this.props.onSuccess(record);
+      this.props.onSuccess({ id });
     } catch (error) {
       Errors.handle(error);
     } finally {
@@ -34,17 +33,18 @@ class QuestionFormModal extends Component {
 
     return (
       <Modal
-        title={i18n('entities.questionnaire.new.title')}
+        title={i18n('entities.questionnaire.question.new.title')}
         visible={this.props.visible}
         onCancel={() => this.props.onCancel()}
         footer={false}
         width="80%"
       >
         <QuestionForm
-          saveLoading={this.state.saveLoading}
+          modal
           onSubmit={this.doSubmit}
           onCancel={this.props.onCancel}
-          modal
+          saveLoading={this.state.saveLoading}
+          questionnaire={this.props.questionnaire}
         />
       </Modal>
     );

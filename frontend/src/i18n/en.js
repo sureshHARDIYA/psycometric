@@ -116,15 +116,26 @@ const en = {
         fields: {
           id: 'ID',
           title: 'Answer Title',
-          isCorrect: 'Is this correct?',
-          answerType: 'Answer Type',
+          type: 'Answer Type',
         },
         enumerators: {
-          answerType: {
+          type: {
             CODE: 'CODE',
             PICTURE: 'PICTURE',
             TEXT: 'TEXT',
           },
+        },
+        create: {
+          success: 'Answer saved successfully',
+        },
+        update: {
+          success: 'Answer saved successfully',
+        },
+        destroy: {
+          success: 'Answer deleted successfully',
+        },
+        destroyAll: {
+          success: 'Answer(s) deleted successfully',
         },
       },
       question: {
@@ -150,23 +161,7 @@ const en = {
         },
         fields: {
           id: 'ID',
-          level: 'Level',
-          title: 'Question Title',
-          explainAnswer: 'Explain answer',
-          questionType: 'Question Type',
-          isCorrect: 'Is this correct?',
-          answerType: 'Answer Type',
-        },
-        enumerators: {
-          answerType: {
-            CODE: 'CODE',
-            PICTURE: 'PICTURE',
-            TEXT: 'TEXT',
-          },
-          questionType: {
-            SINGLE: 'SINGLE',
-            MULTIPLE: 'MULTIPLE',
-          },
+          title: 'Question Content',
         },
       },
     },

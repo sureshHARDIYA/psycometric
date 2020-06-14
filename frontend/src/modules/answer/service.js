@@ -33,16 +33,16 @@ export default class AnswerService {
     return response.data.answerDestroy;
   }
 
-  static async create({ questionnaireId, ...data}) {
+  static async create({ questionnaire, ...data}) {
     const response = await graphqlClient.mutate({
       mutation: gql`
-        mutation ANSWER_CREATE($questionnaireId: ID!, $data: AnswerInput!) {
-          answerCreate(questionnaireId: $questionnaireId, data: $data) {
+        mutation ANSWER_CREATE($questionnaire: ID!, $data: AnswerInput!) {
+          answerCreate(questionnaire: $questionnaire, data: $data) {
             id
           }
         }
       `,
-      variables: { questionnaireId, data },
+      variables: { questionnaire, data },
     });
 
     return response.data.answerCreate;

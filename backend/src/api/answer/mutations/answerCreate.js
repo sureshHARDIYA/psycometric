@@ -4,7 +4,7 @@ const permissions = require('../../../security/permissions')
   .values;
 
 const schema = `
-  answerCreate(questionnaireId: ID!, data: AnswerInput!): Answer!
+  answerCreate(questionnaire: ID!, data: AnswerInput!): Answer!
 `;
 
 const resolver = {
@@ -12,7 +12,9 @@ const resolver = {
     new PermissionChecker(context).validateHas(
       permissions.questionnaireEdit,
     );
-    return new AnswerService(context).create(args.questionnaireId, args.data);
+
+    return { ...args.data, id: 1 };
+    // return new AnswerService(context).create(args.questionnaireId, args.data);
   },
 };
 

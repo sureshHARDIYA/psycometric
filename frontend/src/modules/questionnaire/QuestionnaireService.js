@@ -108,15 +108,6 @@ export default class QuestionnaireService {
             questions {
               id
               title
-              explainAnswer
-              questionType
-              answers {
-                id
-                title
-                score
-                isCorrect
-                answerType
-              }
             }
             createdBy {
               id

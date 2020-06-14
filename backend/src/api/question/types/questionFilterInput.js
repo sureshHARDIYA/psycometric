@@ -1,10 +1,7 @@
 const schema = `
   input QuestionFilterInput {
-    id: String!
+    id: String
     title: String
-    explainAnswer: String
-    questionType: QuestionTypeEnum
-    answers: [AnswerTypeInput]
     createdAtRange: [ DateTime ]
   }
 `;

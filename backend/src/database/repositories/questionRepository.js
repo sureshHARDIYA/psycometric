@@ -1,7 +1,7 @@
 const MongooseRepository = require('./mongooseRepository');
 const MongooseQueryUtils = require('../utils/mongooseQueryUtils');
 const AuditLogRepository = require('./auditLogRepository');
-const Question = require('../models/question');
+const Question = require('../models/questionnaire');
 
 class QuestionRepository {
   /**

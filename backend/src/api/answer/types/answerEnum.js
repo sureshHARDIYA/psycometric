@@ -1,7 +1,8 @@
 const schema = `
-  input QuestionInput {
-    title: String!
-    questionnaire: String!
+  enum AnswerType {
+    CODE
+    PICTURE
+    TEXT
   }
 `;
 

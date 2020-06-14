@@ -18,7 +18,6 @@ import {
   Button,
   Form,
 } from 'antd';
-import _get from 'lodash/get';
 
 const { fields } = model;
 
@@ -27,20 +26,20 @@ class AddQuestion extends Component {
     fields.id,
     fields.title,
     fields.score,
-    fields.answerType
+    fields.type
   ]);
 
   handleSubmit = (values) => {
     const { id, ...data } = this.schema.cast(values);
-    const { questionnaireId } = this.props;
+    const { questionnaire } = this.props;
 
     const payload = {
       ...data,
-      questionnaireId: questionnaireId,
+      questionnaire,
     };
 
-    if (!payload.answerType) {
-      payload.answerType = "TEXT"
+    if (!payload.type) {
+      payload.type = "TEXT"
     }
 
     this.props.onSubmit(id, payload);
@@ -72,7 +71,7 @@ class AddQuestion extends Component {
                 )}
                 <TextAreaFormItem
                   name={`title`}
-                  label={fields.title .label}
+                  label={fields.title.label}
                   required={fields.title.required}
                 />
                 <InputNumberFormItem
@@ -83,15 +82,15 @@ class AddQuestion extends Component {
                 />
                 <SelectFormItem
                   defaultValue="TEXT"
-                  name={`answerType`}
-                  label={fields.answerType.label}
-                  options={fields.answerType.options.map(
+                  name={`type`}
+                  label={fields.type.label}
+                  options={fields.type.options.map(
                     (item) => ({
                       value: item.id,
                       label: item.label,
                     }),
                   )}
-                  required={fields.answerType.required}
+                  required={fields.type.required}
                 />
                 <Form.Item
                   className="form-buttons"

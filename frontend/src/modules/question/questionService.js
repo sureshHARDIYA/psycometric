@@ -92,15 +92,6 @@ export default class QuestionService {
           questionFind(id: $id) {
             id
             title
-            explainAnswer
-            questionType
-            answers {
-              id
-              title
-              score
-              isCorrect
-              answerType
-            }
           }
         }
       `,
@@ -128,10 +119,7 @@ export default class QuestionService {
             count
             rows {
               id
-              name
-              description
-              status
-              availableFrom
+              title
               updatedAt
               createdAt
             }
