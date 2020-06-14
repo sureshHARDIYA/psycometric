@@ -1,6 +1,6 @@
 import { i18n } from 'i18n';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
 import Spinner from 'view/shared/Spinner';
 import model from 'modules/questionnaire/QuestionnaireModel';
@@ -19,8 +19,12 @@ import {
 import selectors from 'modules/questionnaire/list/QuestionnaireListSelectors';
 import questionSelectors from 'modules/question/questionSelectors';
 import destroyActions from 'modules/question/destroy/questionDestroyActions';
+import destroyAnswerActions from 'modules/answer/destroy/actions';
 import destroySelectors from 'modules/question/destroy/questionDestroySelectors';
 import AuditLogViewModal from 'view/auditLog/AuditLogViewModal';
+import actions from 'modules/questionnaire/view/QuestionnaireViewActions';
+import AnswerFormModal from 'view/questionnaire/form/AnswerFormModal';
+import QuestionFormModal from 'view/questionnaire/form/QuestionFormModal';
 
 const _find = require('lodash/find');
 
@@ -34,6 +38,7 @@ const gridStyle = {
 
 class QuestionnaireView extends Component {
   state = {
+    answer: null,
     selectedValues: null,
   };
 
@@ -41,12 +46,29 @@ class QuestionnaireView extends Component {
     this.setState({ selectedValues: null });
   }
 
-  doDestroy = (id) => {
-    const { dispatch } = this.props;
-    const questionID = this.props.record.id || '';
-
-    dispatch(destroyActions.doDestroy(id, questionID));
+  doQuestionDestroy = (id) => {
+    const { dispatch, match } = this.props;
+    dispatch(destroyActions.doDestroy(id));
+    dispatch(actions.doFind(match.params.id));
   };
+
+  doAnswerDestroy = (id) => {
+    const { dispatch, match } = this.props;
+    dispatch(destroyAnswerActions.doDestroy(id));
+    dispatch(actions.doFind(match.params.id));
+  };
+
+  doAnswerSubmit = () => {
+    const { dispatch, match } = this.props;
+    dispatch(actions.doFind(match.params.id));
+    this.setState({ answer: false });
+  }
+
+  doQuestionSubmit = () => {
+    this.setState({ question: false });
+    const { dispatch, match } = this.props;
+    dispatch(actions.doFind(match.params.id));
+  }
 
   answerColumns = [
     {
@@ -76,15 +98,14 @@ class QuestionnaireView extends Component {
       render: (_, record) => (
         <div className="table-actions">
           <Divider type="vertical" />
-          <Link
-            to={`/questionnaire/${this.props.record.id}/question/${record.id}/edit`}
-          >
+          <ButtonLink onClick={() => this.setState({ answer: record })}>
             {i18n('common.edit')}
-          </Link>
+          </ButtonLink>
           <Divider type="vertical" />
+
           <Popconfirm
             title={i18n('common.areYouSure')}
-            onConfirm={() => this.doDestroy(record.id)}
+            onConfirm={() => this.doAnswerDestroy(record.id)}
             okText={i18n('common.yes')}
             cancelText={i18n('common.no')}
           >
@@ -124,15 +145,13 @@ class QuestionnaireView extends Component {
       render: (_, record) => (
         <div className="table-actions">
           <Divider type="vertical" />
-          <Link
-            to={`/questionnaire/${this.props.record.id}/question/${record.id}/edit`}
-          >
+          <ButtonLink onClick={() => this.setState({ question: record })}>
             {i18n('common.edit')}
-          </Link>
+          </ButtonLink>
           <Divider type="vertical" />
           <Popconfirm
             title={i18n('common.areYouSure')}
-            onConfirm={() => this.doDestroy(record.id)}
+            onConfirm={() => this.doQuestionDestroy(record.id)}
             okText={i18n('common.yes')}
             cancelText={i18n('common.no')}
           >
@@ -248,6 +267,18 @@ class QuestionnaireView extends Component {
           code={this.state.selectedValues}
           onCancel={() => this.onAuditLogViewModalClose()}
         />
+        <QuestionFormModal
+          visible={!!this.state.question}
+          record={this.state.question || {}}
+          onCancel={() => this.setState({ question: false })}
+          onSuccess={this.doQuestionSubmit}
+        />
+        <AnswerFormModal
+          visible={!!this.state.answer}
+          record={this.state.answer || {}}
+          onCancel={() => this.setState({ answer: false })}
+          onSuccess={this.doAnswerSubmit}
+        />
       </ViewWrapper>
     );
   }
@@ -280,4 +311,4 @@ function select(state) {
   };
 }
 
-export default connect(select)(QuestionnaireView);
+export default connect(select)(withRouter(QuestionnaireView));

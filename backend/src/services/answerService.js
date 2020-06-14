@@ -16,11 +16,11 @@ module.exports = class AnswerService {
    *
    * @param {*} data
    */
-  async create(questionnaireId, data) {
+  async create(data) {
     const session = await MongooseRepository.createSession();
 
     try {
-      const record = await this.repository.create(questionnaireId, data, {
+      const record = await this.repository.create(data, {
         session: session,
         currentUser: this.currentUser,
       });
@@ -35,7 +35,7 @@ module.exports = class AnswerService {
   }
 
   /**
-   * Updates a Question.
+   * Updates a Answer.
    *
    * @param {*} id
    * @param {*} data

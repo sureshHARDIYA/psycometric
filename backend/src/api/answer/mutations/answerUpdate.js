@@ -4,7 +4,7 @@ const permissions = require('../../../security/permissions')
   .values;
 
 const schema = `
-  answerUpdate(id: String!, data: AnswerInput!): Answer!
+  answerUpdate(id: String!, data: AnswerUpdateInput!): Answer!
 `;
 
 const resolver = {

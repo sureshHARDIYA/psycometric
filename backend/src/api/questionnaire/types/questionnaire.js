@@ -4,6 +4,7 @@ const schema = `
     name: String
     description: String
     status: QuestionnaireStatusEnum
+    answers: [Answer]
     questions: [Question]
     availableFrom: String
     level: LevelEnum
@@ -14,7 +15,6 @@ const schema = `
     favourites: [Favourite]
     createdBy: User
     views: Int
-    type: QuestionnaireType
   }
 
   type Favourite {

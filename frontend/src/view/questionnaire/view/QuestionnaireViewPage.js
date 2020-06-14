@@ -8,6 +8,7 @@ import ContentWrapper from 'view/layout/styles/ContentWrapper';
 import QuestionnaireViewToolbar from 'view/questionnaire/view/QuestionnaireViewToolbar';
 import actions from 'modules/questionnaire/view/QuestionnaireViewActions';
 import selectors from 'modules/questionnaire/view/QuestionnaireViewSelectors';
+import ViewWrapper from 'view/shared/styles/ViewWrapper';
 
 class QuestionnairePage extends Component {
   componentDidMount() {
@@ -28,12 +29,14 @@ class QuestionnairePage extends Component {
           ]}
         />
         <ContentWrapper>
-          <PageTitle>
-            {i18n('entities.questionnaire.view.title')}
-          </PageTitle>
-          <QuestionnaireViewToolbar
-            match={match}
-          />
+          <ViewWrapper>
+            <PageTitle>
+              {i18n('entities.questionnaire.view.title')}
+            </PageTitle>
+            <QuestionnaireViewToolbar
+              match={match}
+            />
+          </ViewWrapper>
           <QuestionnaireView
             loading={loading}
             record={record}

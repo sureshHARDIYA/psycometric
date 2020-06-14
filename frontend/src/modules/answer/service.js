@@ -7,10 +7,11 @@ export default class AnswerService {
       mutation: gql`
         mutation ANSWER_UPDATE(
           $id: String!
-          $data: AnswerInput!
+          $data: AnswerUpdateInput!
         ) {
           answerUpdate(id: $id, data: $data) {
             id
+            title
           }
         }
       `,
@@ -33,16 +34,18 @@ export default class AnswerService {
     return response.data.answerDestroy;
   }
 
-  static async create({ questionnaire, ...data}) {
+  static async create(data) {
     const response = await graphqlClient.mutate({
       mutation: gql`
-        mutation ANSWER_CREATE($questionnaire: ID!, $data: AnswerInput!) {
-          answerCreate(questionnaire: $questionnaire, data: $data) {
+        mutation ANSWER_CREATE($data: AnswerInput!) {
+          answerCreate(data: $data) {
             id
+            title
           }
         }
       `,
-      variables: { questionnaire, data },
+      variables: { data },
+      refetchQueries: ['QUESTIONNAIRE_FIND']
     });
 
     return response.data.answerCreate;

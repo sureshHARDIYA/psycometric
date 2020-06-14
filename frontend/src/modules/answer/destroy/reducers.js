@@ -1,4 +1,4 @@
-import actions from 'modules/question/destroy/questionDestroyActions';
+import actions from 'modules/answer/destroy/actions';
 
 const initialData = {
   loading: false,

@@ -8,6 +8,7 @@ import questionnaireSelectors from 'modules/questionnaire/QuestionnaireSelectors
 import destroySelectors from 'modules/questionnaire/destroy/QuestionnaireDestroySelectors';
 import destroyActions from 'modules/questionnaire/destroy/QuestionnaireDestroyActions';
 import auditLogSelectors from 'modules/auditLog/auditLogSelectors';
+import actions from 'modules/questionnaire/view/QuestionnaireViewActions';
 
 import AnswerFormModal from 'view/questionnaire/form/AnswerFormModal';
 import QuestionFormModal from 'view/questionnaire/form/QuestionFormModal';
@@ -26,6 +27,18 @@ class CasedViewToolbar extends Component {
     const { dispatch } = this.props;
     dispatch(destroyActions.doDestroy(this.id()));
   };
+
+  doAnswerSubmit = () => {
+    this.setState({ answer: false });
+    const { dispatch, match } = this.props;
+    dispatch(actions.doFind(match.params.id));
+  }
+
+  doQuestionSubmit = () => {
+    this.setState({ question: false });
+    const { dispatch, match } = this.props;
+    dispatch(actions.doFind(match.params.id));
+  }
 
   render() {
     const {
@@ -87,13 +100,13 @@ class CasedViewToolbar extends Component {
           visible={this.state.question}
           questionnaire={this.id()}
           onCancel={() => this.setState({ question: false })}
-          onSuccess={() => this.setState({ question: false })}
+          onSuccess={this.doQuestionSubmit}
         />
         <AnswerFormModal
           visible={this.state.answer}
           questionnaire={this.id()}
           onCancel={() => this.setState({ answer: false })}
-          onSuccess={() => this.setState({ answer: false })}
+          onSuccess={this.doAnswerSubmit}
         />
       </Toolbar>
     );

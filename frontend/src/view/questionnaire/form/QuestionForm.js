@@ -7,10 +7,7 @@ import model from 'modules/question/questionModel';
 import FormSchema from 'view/shared/form/formSchema';
 import ViewFormItem from 'view/shared/form/items/ViewFormItem';
 import TextAreaFormItem from 'view/shared/form/items/TextAreaFormItem';
-
-import FormWrapper, {
-  tailFormItemLayout,
-} from 'view/shared/styles/FormWrapper';
+import FormWrapper from 'view/shared/styles/FormWrapper';
 
 import {
   Button,
@@ -66,8 +63,7 @@ class AddQuestion extends Component {
                   required={fields.title.required}
                 />
                 <Form.Item
-                  className="form-buttons"
-                  {...tailFormItemLayout}
+                  className="form-buttons ant-col-md-offset-6 ant-col-lg-offset-4"
                 >
                   <Button
                     type="primary"

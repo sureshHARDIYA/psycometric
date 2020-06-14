@@ -5,14 +5,11 @@ import { Formik } from 'formik';
 import { withRouter } from 'react-router-dom';
 import model from 'modules/answer/model';
 import FormSchema from 'view/shared/form/formSchema';
+import FormWrapper from 'view/shared/styles/FormWrapper';
 import ViewFormItem from 'view/shared/form/items/ViewFormItem';
 import TextAreaFormItem from 'view/shared/form/items/TextAreaFormItem';
 import SelectFormItem from 'view/shared/form/items/SelectFormItem';
 import InputNumberFormItem from 'view/shared/form/items/InputNumberFormItem';
-
-import FormWrapper, {
-  tailFormItemLayout,
-} from 'view/shared/styles/FormWrapper';
 
 import {
   Button,
@@ -21,7 +18,7 @@ import {
 
 const { fields } = model;
 
-class AddQuestion extends Component {
+class AnswerForm extends Component {
   schema = new FormSchema(fields.id, [
     fields.id,
     fields.title,
@@ -46,9 +43,13 @@ class AddQuestion extends Component {
   };
 
   initialValues = () => {
-    const record = this.props.record;
+    const record = this.props.record || {};
 
-    return this.schema.initialValues(record || {});
+    if (!record.type) {
+      record.type = "TEXT"
+    }
+
+    return this.schema.initialValues(record);
   };
 
   renderForm() {
@@ -93,8 +94,7 @@ class AddQuestion extends Component {
                   required={fields.type.required}
                 />
                 <Form.Item
-                  className="form-buttons"
-                  {...tailFormItemLayout}
+                  className="form-buttons ant-col-md-offset-6 ant-col-lg-offset-4"
                 >
                   <Button
                     type="primary"
@@ -145,4 +145,4 @@ class AddQuestion extends Component {
   }
 }
 
-export default withRouter(AddQuestion);
+export default withRouter(AnswerForm);

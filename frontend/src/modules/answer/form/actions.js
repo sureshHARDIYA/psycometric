@@ -2,7 +2,6 @@ import { i18n } from 'i18n';
 import Service from 'modules/answer/service';
 import Errors from 'modules/shared/error/errors';
 import Message from 'view/shared/message';
-import { getHistory } from 'modules/store';
 
 const prefix = 'QUESTION_FORM';
 
@@ -27,30 +26,7 @@ const actions = {
     };
   },
 
-  doFind: (id) => async (dispatch) => {
-    try {
-      dispatch({
-        type: actions.FIND_STARTED,
-      });
-
-      const record = await Service.find(id);
-
-      dispatch({
-        type: actions.FIND_SUCCESS,
-        payload: record,
-      });
-    } catch (error) {
-      Errors.handle(error);
-
-      dispatch({
-        type: actions.FIND_ERROR,
-      });
-
-      getHistory().push('/questionnaire');
-    }
-  },
-
-  doCreate: (values, questionID) => async (dispatch) => {
+  doCreate: (values) => async (dispatch) => {
     try {
       dispatch({
         type: actions.CREATE_STARTED,
@@ -64,11 +40,9 @@ const actions = {
 
       Message.success(
         i18n(
-          'entities.questionnaire.question.create.success',
+          'entities.questionnaire.answer.create.success',
         ),
       );
-
-      getHistory().push(`/questionnaire/${questionID}`);
     } catch (error) {
       Errors.handle(error);
 
@@ -78,37 +52,8 @@ const actions = {
     }
   },
 
-  doCreateQuestion: (values) => async (dispatch) => {
-    try {
-      dispatch({
-        type: actions.CREATE_STARTED,
-      });
-
-      await Service.createQuestion(values);
-
-      dispatch({
-        type: actions.CREATE_SUCCESS,
-      });
-
-      Message.success(
-        i18n(
-          'entities.questionnaire.question.createQuestion.success',
-        ),
-      );
-
-      getHistory().push('/questionnaire');
-    } catch (error) {
-      Errors.handle(error);
-
-      dispatch({
-        type: actions.CREATE_ERROR,
-      });
-    }
-  },
-
-  doUpdate: (id, values, questionID) => async (
+  doUpdate: (id, values) => async (
     dispatch,
-    getState,
   ) => {
     try {
       dispatch({
@@ -123,12 +68,8 @@ const actions = {
 
       Message.success(
         i18n(
-          'entities.questionnaire.question.update.success',
+          'entities.questionnaire.answer.update.success',
         ),
-      );
-
-      getHistory().push(
-        `/questionnaire/${questionID}/question/${id}/edit`,
       );
     } catch (error) {
       Errors.handle(error);

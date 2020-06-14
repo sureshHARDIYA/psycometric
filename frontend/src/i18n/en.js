@@ -115,8 +115,8 @@ const en = {
         },
         fields: {
           id: 'ID',
-          title: 'Answer Title',
-          type: 'Answer Type',
+          title: 'Title',
+          type: 'Type',
         },
         enumerators: {
           type: {
@@ -161,7 +161,7 @@ const en = {
         },
         fields: {
           id: 'ID',
-          title: 'Question Content',
+          title: 'Content',
         },
       },
     },

@@ -3,6 +3,13 @@ const schema = `
     score: Int
     title: String!
     type: AnswerType
+    questionnaire: String!
+  }
+
+  input AnswerUpdateInput {
+    score: Int
+    title: String!
+    type: AnswerType
   }
 `;
 

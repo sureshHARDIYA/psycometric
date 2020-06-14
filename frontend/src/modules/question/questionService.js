@@ -7,7 +7,7 @@ export default class QuestionService {
       mutation: gql`
         mutation QUESTION_UPDATE(
           $id: String!
-          $data: QuestionInput!
+          $data: QuestionUpdateInput!
         ) {
           questionUpdate(id: $id, data: $data) {
             id
@@ -43,6 +43,7 @@ export default class QuestionService {
         }
       `,
       variables: { data },
+      refetchQueries: ['QUESTIONNAIRE_FIND']
     });
 
     return response.data.questionCreate;

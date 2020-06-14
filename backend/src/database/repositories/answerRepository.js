@@ -1,7 +1,8 @@
 const MongooseRepository = require('./mongooseRepository');
 const MongooseQueryUtils = require('../utils/mongooseQueryUtils');
 const AuditLogRepository = require('./auditLogRepository');
-const Questionnaire = require('../models/questionnaire');
+const Question = require('../models/questionnaire');
+const Answer = require('../models/questionnaire');
 
 class AnswerRepository {
   /**
@@ -10,55 +11,58 @@ class AnswerRepository {
    * @param {Object} data
    * @param {Object} [options]
    */
-  async create(questionnaireId, data, options) {
+  async create({ questionnaire: id, ...data }, options) {
     if (MongooseRepository.getSession(options)) {
-      await Questionnaire.createCollection();
+      await Answer.createCollection();
     }
 
     const currentUser = MongooseRepository.getCurrentUser(
       options,
     );
 
-
-    const questionnaire = await Questionnaire.findById(questionnaireId)
-
-    const [record] = await Questionnaire.create(
-      [
-        {
+    await Answer.updateOne(
+      { _id: id },
+      { $push: {
+        answers: {
           ...data,
           createdBy: currentUser.id,
           updatedBy: currentUser.id,
-        },
-      ],
+        }
+      }},
       MongooseRepository.getSessionOptionsIfExists(options),
     );
 
     await this._createAuditLog(
-      AuditLogRepository.CREATE,
-      record.id,
+      AuditLogRepository.UPDATE,
+      id,
       data,
       options,
     );
 
-    return this.findById(record.id, options);
+    return this.findById(id, options, true);
   }
 
   /**
-   * Updates the Question.
+   * Updates the Answer.
    *
    * @param {Object} data
    * @param {Object} [options]
    */
   async update(id, data, options) {
+    const params = Object.entries({
+      ...data,
+      updatedBy: MongooseRepository.getCurrentUser(
+        options,
+      ).id,
+    }).reduce((obj, [k, v]) => ({
+      ...obj,
+      [`answers.$.${k}`]: v
+    }), {})
+
     await MongooseRepository.wrapWithSessionIfExists(
-      Question.updateOne(
-        { _id: id },
-        {
-          ...data,
-          updatedBy: MongooseRepository.getCurrentUser(
-            options,
-          ).id,
-        },
+      Answer.updateOne(
+        { 'answers._id': id },
+        { $set: params }
       ),
       options,
     );
@@ -70,20 +74,18 @@ class AnswerRepository {
       options,
     );
 
-    const record = await this.findById(id, options);
-
-    return record;
+    return this.findById(id, options);
   }
 
   /**
-   * Deletes the Question.
+   * Deletes the answer.
    *
    * @param {string} id
    * @param {Object} [options]
    */
   async destroy(id, options) {
     await MongooseRepository.wrapWithSessionIfExists(
-      Question.deleteOne({ _id: id }),
+      Answer.updateOne({}, { $pull: { answers: { _id: id } }}),
       options,
     );
 
@@ -93,8 +95,9 @@ class AnswerRepository {
       null,
       options,
     );
-  }
 
+    return true;
+  }
   /**
    * Counts the number of Questions based on the filter.
    *
@@ -103,7 +106,7 @@ class AnswerRepository {
    */
   async count(filter, options) {
     return MongooseRepository.wrapWithSessionIfExists(
-      Question.countDocuments(filter),
+      Answer.countDocuments(filter),
       options,
     );
   }
@@ -114,11 +117,22 @@ class AnswerRepository {
    * @param {string} id
    * @param {Object} [options]
    */
-  async findById(id, options) {
-    return MongooseRepository.wrapWithSessionIfExists(
-      Question.findById(id),
+  async findById(id, options, isNew) {
+    if (isNew) {
+      const record = await MongooseRepository.wrapWithSessionIfExists(
+        Answer.findOne({ _id: id }, { answers: 1 }),
+        options,
+      );
+
+      return record.answers.slice(-1)[0];
+    }
+
+    const rs = await MongooseRepository.wrapWithSessionIfExists(
+      Answer.findOne({ 'answers._id': id }, { answers: 1 }),
       options,
     );
+
+    return rs.answers.find((i) => i.id === id);
   }
 
   /**
@@ -250,14 +264,14 @@ class AnswerRepository {
     const skip = Number(offset || 0) || undefined;
     const limitEscaped = Number(limit || 0) || undefined;
 
-    const rows = await Question.find(criteria)
+    const rows = await Answer.find(criteria)
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort)
       .populate('modules')
       .populate('patients');
 
-    const count = await Question.countDocuments(criteria);
+    const count = await Answer.countDocuments(criteria);
 
     return { rows, count };
   }
@@ -292,7 +306,7 @@ class AnswerRepository {
     const sort = MongooseQueryUtils.sort('name_ASC');
     const limitEscaped = Number(limit || 0) || undefined;
 
-    const records = await Question.find(criteria)
+    const records = await Answer.find(criteria)
       .limit(limitEscaped)
       .sort(sort);
 
@@ -313,7 +327,7 @@ class AnswerRepository {
   async _createAuditLog(action, id, data, options) {
     await AuditLogRepository.log(
       {
-        entityName: Question.modelName,
+        entityName: Answer.modelName,
         entityId: id,
         action,
         values: data,

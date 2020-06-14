@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-const selectRaw = (state) => state.questionnaire.destroy;
+const selectRaw = (state) => state.answer.destroy;
 
 const selectLoading = createSelector(
   [selectRaw],

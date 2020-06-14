@@ -100,7 +100,6 @@ export default class QuestionnaireService {
             description
             status
             level
-            type
             category {
               name
               id
@@ -108,6 +107,11 @@ export default class QuestionnaireService {
             questions {
               id
               title
+            }
+            answers {
+              id
+              title
+              score
             }
             createdBy {
               id
@@ -150,7 +154,6 @@ export default class QuestionnaireService {
               updatedAt
               createdAt
               views
-              type
               createdBy {
                 id
                 firstName

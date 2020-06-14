@@ -73,21 +73,6 @@ const fields = {
     ],
     { required: true },
   ),
-  type: new EnumeratorField(
-    'type',
-    label('type'),
-    [
-      {
-        id: 'QUIZ',
-        label: enumeratorLabel('types', 'QUIZ'),
-      },
-      {
-        id: 'PSYCOMETRIC',
-        label: enumeratorLabel('types', 'PSYCOMETRIC'),
-      },
-    ],
-    { required: true },
-  ),
   category: new RelationToOneField(
     'category',
     label('category'),

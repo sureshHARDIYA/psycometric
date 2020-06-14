@@ -5,6 +5,42 @@ const Schema = database.Schema;
  * Questionnaire database schema.
  * See https://mongoosejs.com/docs/models.html to learn how to customize it.
  */
+
+const AnswerSchema = new Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  score: {
+    type: Number,
+    default: 0,
+  },
+  answerType: {
+    type: String,
+    enum: ['CODE', 'PICTURE', 'TEXT'],
+    default: 'TEXT',
+  },
+  createdBy: { type: Schema.Types.ObjectId, ref: 'user' },
+  updatedBy: { type: Schema.Types.ObjectId, ref: 'user' },
+})
+
+AnswerSchema.virtual('id').get(function() {
+  return this._id.toHexString();
+});
+
+const QuestionSchema = new Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  createdBy: { type: Schema.Types.ObjectId, ref: 'user' },
+  updatedBy: { type: Schema.Types.ObjectId, ref: 'user' },
+})
+
+QuestionSchema.virtual('id').get(function() {
+  return this._id.toHexString();
+});
+
 const Questionnaire = new Schema(
   {
     name: { type: String, required: true },
@@ -46,21 +82,7 @@ const Questionnaire = new Schema(
       ref: 'category',
     },
     views: { type: Number, default: 0 },
-    answers: [{
-      title: {
-        type: String,
-        required: true,
-      },
-      score: {
-        type: Number,
-        default: 0,
-      },
-      answerType: {
-        type: String,
-        enum: ['CODE', 'PICTURE', 'TEXT'],
-        default: 'TEXT',
-      },
-    }],
+    answers: [AnswerSchema],
     questions: [{
       title: {
         type: String,

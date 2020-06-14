@@ -12,8 +12,7 @@ const resolver = {
     new PermissionChecker(context).validateHas(
       permissions.questionCreate,
     );
-    return { ...args.data, id: 1 };
-    // return new QuestionService(context).create(args.data);
+    return new QuestionService(context).create(args.data);
   },
 };
 

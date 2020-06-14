@@ -10,13 +10,13 @@ class QuestionFormModal extends Component {
     saveLoading: false,
   };
 
-  doSubmit = async (_, data) => {
+  doSubmit = async (id, data) => {
     try {
       this.setState({
         saveLoading: true,
       });
-      const { id } = await QuestionService.create(data);
-      this.props.onSuccess({ id });
+      const rs = await !!id ? QuestionService.update(id, data) : QuestionService.create(data);
+      this.props.onSuccess(rs);
     } catch (error) {
       Errors.handle(error);
     } finally {
@@ -37,11 +37,11 @@ class QuestionFormModal extends Component {
         visible={this.props.visible}
         onCancel={() => this.props.onCancel()}
         footer={false}
-        width="80%"
       >
         <QuestionForm
           modal
           onSubmit={this.doSubmit}
+          record={this.props.record}
           onCancel={this.props.onCancel}
           saveLoading={this.state.saveLoading}
           questionnaire={this.props.questionnaire}

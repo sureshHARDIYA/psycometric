@@ -10,7 +10,7 @@ class QuestionRepository {
    * @param {Object} data
    * @param {Object} [options]
    */
-  async create(data, options) {
+  async create({ questionnaire: id, ...data }, options) {
     if (MongooseRepository.getSession(options)) {
       await Question.createCollection();
     }
@@ -19,25 +19,26 @@ class QuestionRepository {
       options,
     );
 
-    const [record] = await Question.create(
-      [
-        {
+    await Question.updateOne(
+      { _id: id },
+      { $push: {
+        questions: {
           ...data,
           createdBy: currentUser.id,
           updatedBy: currentUser.id,
-        },
-      ],
+        }
+      }},
       MongooseRepository.getSessionOptionsIfExists(options),
     );
 
     await this._createAuditLog(
-      AuditLogRepository.CREATE,
-      record.id,
+      AuditLogRepository.UPDATE,
+      id,
       data,
       options,
     );
 
-    return this.findById(record.id, options);
+    return this.findById(id, options, true);
   }
 
   /**
@@ -47,15 +48,20 @@ class QuestionRepository {
    * @param {Object} [options]
    */
   async update(id, data, options) {
+    const params = Object.entries({
+      ...data,
+      updatedBy: MongooseRepository.getCurrentUser(
+        options,
+      ).id,
+    }).reduce((obj, [k, v]) => ({
+      ...obj,
+      [`questions.$.${k}`]: v
+    }), {})
+
     await MongooseRepository.wrapWithSessionIfExists(
       Question.updateOne(
-        { _id: id },
-        {
-          ...data,
-          updatedBy: MongooseRepository.getCurrentUser(
-            options,
-          ).id,
-        },
+        { 'questions._id': id },
+        { $set: params }
       ),
       options,
     );
@@ -67,9 +73,7 @@ class QuestionRepository {
       options,
     );
 
-    const record = await this.findById(id, options);
-
-    return record;
+    return this.findById(id, options);
   }
 
   /**
@@ -80,7 +84,7 @@ class QuestionRepository {
    */
   async destroy(id, options) {
     await MongooseRepository.wrapWithSessionIfExists(
-      Question.deleteOne({ _id: id }),
+      Question.updateOne({}, { $pull: { questions: { _id: id } }}),
       options,
     );
 
@@ -90,6 +94,8 @@ class QuestionRepository {
       null,
       options,
     );
+
+    return true;
   }
 
   /**
@@ -111,11 +117,22 @@ class QuestionRepository {
    * @param {string} id
    * @param {Object} [options]
    */
-  async findById(id, options) {
-    return MongooseRepository.wrapWithSessionIfExists(
-      Question.findById(id),
+  async findById(id, options, isNew) {
+    if (isNew) {
+      const record = await MongooseRepository.wrapWithSessionIfExists(
+        Question.findOne({ _id: id }, { questions: 1 }),
+        options,
+      );
+
+      return record.questions.slice(-1)[0];
+    }
+
+    const rs = await MongooseRepository.wrapWithSessionIfExists(
+      Question.findOne({ 'questions._id': id }, { questions: 1 }),
       options,
     );
+
+    return rs.questions.find((i) => i.id === id);
   }
 
   /**

@@ -61,14 +61,9 @@ class CategoryListTable extends Component {
       dataIndex: 'id',
       render: (_, record) => (
         <Link to={`/category/${record.id}`}>
-          {record.id}
+          {record.name}
         </Link>
       ),
-    },
-    {
-      title: 'Name',
-      key: 'name',
-      dataIndex: 'name',
     },
     {
       title: 'Description',
@@ -77,12 +72,12 @@ class CategoryListTable extends Component {
       ellipsis: true,
     },
     {
-      title: 'createdAt',
+      title: 'Created At',
       key: 'createdAt',
       dataIndex: 'createdAt',
     },
     {
-      title: '',
+      title: 'Actions',
       dataIndex: '',
       width: '175px',
       render: (_, record) => (

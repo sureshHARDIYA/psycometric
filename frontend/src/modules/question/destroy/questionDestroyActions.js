@@ -15,7 +15,7 @@ const actions = {
   DESTROY_ALL_SUCCESS: `${prefix}_DESTROY_ALL_SUCCESS`,
   DESTROY_ALL_ERROR: `${prefix}_DESTROY_ALL_ERROR`,
 
-  doDestroy: (id, questionID) => async (dispatch) => {
+  doDestroy: (id) => async (dispatch) => {
     try {
       dispatch({ type: actions.DESTROY_STARTED });
 
@@ -28,8 +28,6 @@ const actions = {
           'entities.questionnaire.question.destroy.success',
         ),
       );
-
-      getHistory().push(`/questionnaire/${questionID}`);
     } catch (error) {
       Errors.handle(error);
 
