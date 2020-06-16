@@ -15,7 +15,7 @@ const AnswerSchema = new Schema({
     type: Number,
     default: 0,
   },
-  answerType: {
+  type: {
     type: String,
     enum: ['CODE', 'PICTURE', 'TEXT'],
     default: 'TEXT',

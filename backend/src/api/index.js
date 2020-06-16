@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 const graphqlHTTP = require('express-graphql')
+const playground = require('graphql-playground-middleware-express').default;
 const schema = require('./schema')
 const config = require('../../config')()
 const authMiddleware = require('../auth/authMiddleware')
@@ -56,6 +57,14 @@ app.use(
     }
   }))
 )
+
+app.get(
+  '/playground',
+  playground({
+    endpoint: '/api',
+    subscriptionEndpoint: `/subscriptions`,
+  }),
+);
 
 // Exposes the build of the frontend
 // to the root / of the server

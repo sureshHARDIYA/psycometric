@@ -13,42 +13,16 @@ class QuizRecordRepository {
       await QuizRecord.createCollection();
     }
 
-    const questionnaire = await Questionnaire.findById(data.questionnaire).populate('questions');
+    const questionnaire = await Questionnaire.findById(data.questionnaire)
 
     const currentUser = MongooseRepository.getCurrentUser(
       options,
     );
 
-    const questionsData = data.questions.reduce((obj, item) => ({
-      ...obj,
-      [item.question]: item,
-    }), [])
-
-    const questions = questionnaire.questions.reduce((obj, question) => {
-      if (questionsData[question.id]) {
-        const answers = questionsData[question.id].answers;
-
-        obj.push({
-          question: question.id,
-          questionText: question.title,
-          answers: question.answers.map((answer) => ({
-            answer: answer.id,
-            title: answer.title,
-            score: answer.score,
-            isCorrect: answer.isCorrect,
-            selected: answers.includes(answer.id),
-          }))
-        })
-      }
-
-      return obj;
-    }, [])
-
     const [record] = await QuizRecord.create(
       [
         {
           ...data,
-          questions,
           title: questionnaire.name,
           level: questionnaire.level,
           createdBy: currentUser.id,

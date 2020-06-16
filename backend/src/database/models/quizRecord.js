@@ -1,6 +1,5 @@
 const database = require('../database');
 const Schema = database.Schema;
-const { FileSchema } = require('./file');
 
 const recordSchema = new Schema(
   {
@@ -8,27 +7,7 @@ const recordSchema = new Schema(
       type: String,
       required: true,
     },
-    kind: {
-      type: String,
-      enum: ['PRACTICE', 'TEST'],
-      default: 'PRACTICE',
-    },
-    level: {
-      type: String,
-      enum: [
-        'JUNIOR',
-        'BEGINNER',
-        'INTERMEDIATE',
-        'SENIOR',
-        'EXPERT',
-      ],
-      default: 'JUNIOR',
-    },
     randomizeQuestion: {
-      type: Boolean,
-      default: false,
-    },
-    randomizeOptions: {
       type: Boolean,
       default: false,
     },
@@ -36,22 +15,9 @@ const recordSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Questionnaire',
     },
-    score: {
+    total: {
       default:0,
       type: Number,
-    },
-    totalScore: {
-      default: 0,
-      type: Number,
-      get: function(value) {
-        if (value > 0) {
-          return value;
-        }
-
-        return this.questions.reduce((totalScore, question) => {
-          return totalScore + question.answers.reduce((score, answer) => answer.isCorrect ? score + answer.score : score, 0)
-        }, 0)
-      }
     },
     duration: {
       default:0,
@@ -59,33 +25,21 @@ const recordSchema = new Schema(
     },
     questions: [
       {
-        question: {
-          type: Schema.Types.ObjectId,
-          ref: 'Question',
-        },
-        score: Number,
-        questionText: String,
-        answers: [
-          {
-            title: {
-              type: String,
-              required: true,
-            },
-            answer: {
-              type: String,
-              required: true,
-            },
-            score: Number,
-            selected: {
-              type: Boolean,
-              default: false,
-            },
-            isCorrect: {
-              type: Boolean,
-              default: false,
-            },
+        id: String,
+        title: String,
+        answered: {
+          title: {
+            type: String,
+            required: true,
           },
-        ],
+          type: {
+            type: String
+          },
+          score: {
+            type: Number,
+            default: 0,
+          }
+        },
       },
     ],
     candidate: {
@@ -100,37 +54,8 @@ const recordSchema = new Schema(
   },
 );
 
-recordSchema.virtual('passed').get(function() {
-  return this.totalScore > 0 ? this.score / this.totalScore < 0.45 : false;
-});
-
-recordSchema.pre('save', function(next) {
-  if (this.isNew || this.isModified('quetions')) {
-    this.score = 0;
-    this.questions.forEach(question => {
-      const { score, totalScore } = question.answers.reduce((obj, answer) => {
-        if (answer.isCorrect) {
-          obj.totalScore = answer.score;
-        }
-
-        if (!obj.continue || !answer.isCorrect) {
-          return obj;
-        }
-
-        if (!answer.selected) {
-          return ({ score: 0, continue: false });
-        }
-
-        return ({ score: obj.score + answer.score, continue: true })
-      }, { score: 0, continue: true, totalScore: 0 });
-
-      question.score = score;
-      this.score += score;
-      this.totalScore += totalScore;
-    })
-  }
-
-  next();
+recordSchema.virtual('score').get(function() {
+  return (this.questions || []).reduce((score, question) => score + (question.answered.score || 0), 0)
 });
 
 const QuizRecord = database.model(

@@ -25,6 +25,7 @@ module.exports = class QuizRecordService {
 
       return record;
     } catch (error) {
+      console.log('error:', error)
       await MongooseRepository.abortTransaction(session);
       throw error;
     }

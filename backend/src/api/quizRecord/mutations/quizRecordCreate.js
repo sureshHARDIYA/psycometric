@@ -12,7 +12,6 @@ const resolver = {
     new PermissionChecker(context).validateHas(
       permissions.member,
     );
-
     return new QuizRecordService(context).create(args.data);
   },
 };

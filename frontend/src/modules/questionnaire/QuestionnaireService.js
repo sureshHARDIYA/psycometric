@@ -112,6 +112,7 @@ export default class QuestionnaireService {
               id
               title
               score
+              type
             }
             createdBy {
               id

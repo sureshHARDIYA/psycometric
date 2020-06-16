@@ -2,33 +2,26 @@ const schema = `
   type QuizRecord {
     id: String!
     title: String
-    level: String
-    kind: String
     score: Int
-    totalScore: Int
-    passed: Boolean
+    total: Int
     randomizeQuestion: String
-    randomizeOptions: String
     questionnaire: String
-    questions: [QuestionRecordType]
+    questions: [QuestionRecord]
     candidate: String
     createdAt: DateTime
     updatedAt: DateTime
   }
 
-  type QuestionRecordType {
+  type QuestionRecord {
     id: String
-    score: Int!
-    question: String!
-    questionText: String!
-    answers: [AnswerRecordType]!
+    title: String!
+    answered: AnswerRecord
   }
 
-  type AnswerRecordType {
+  type AnswerRecord {
+    id: String!
     title: String!
-    score: Int!
-    selected: Boolean
-    isCorrect: Boolean
+    score: Int
   }
 `;
 

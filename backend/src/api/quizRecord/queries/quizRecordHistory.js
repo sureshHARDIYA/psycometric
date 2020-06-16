@@ -18,7 +18,7 @@ const resolver = {
       ...args,
       filter: {
         ...(args.filter || {}),
-        candidate: context.currentUser.id
+        // candidate: context.currentUser.id
       },
       requestedAttributes: graphqlSelectRequestedAttributes(
         info,
