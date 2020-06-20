@@ -12,7 +12,6 @@ import FormSchema from 'view/shared/form/formSchema';
 import InputFormItem from 'view/shared/form/items/InputFormItem';
 import TextAreaFormItem from 'view/shared/form/items/TextAreaFormItem';
 import SelectFormItem from 'view/shared/form/items/SelectFormItem';
-import CategoryAutocompleteFormItem from 'view/category/autocomplete/CategoryAutocompleteFormItem';
 
 const { fields } = model;
 
@@ -22,7 +21,7 @@ class CasedForm extends Component {
     fields.description,
     fields.status,
     fields.level,
-    fields.category,
+    fields.frequency,
   ]);
 
   handleSubmit = (values) => {
@@ -91,11 +90,16 @@ class CasedForm extends Component {
                   )}
                   required={fields.level.required}
                 />
-                <CategoryAutocompleteFormItem
-                  name={fields.category.name}
-                  label={fields.category.label}
-                  required={fields.category.required}
-                  form={form}
+                <SelectFormItem
+                  name={fields.frequency.name}
+                  label={fields.frequency.label}
+                  options={fields.frequency.options.map(
+                    (item) => ({
+                      value: item.id,
+                      label: item.label,
+                    }),
+                  )}
+                  required={fields.frequency.required}
                 />
                 <Form.Item
                   className="form-buttons"

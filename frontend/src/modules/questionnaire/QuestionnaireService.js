@@ -100,10 +100,7 @@ export default class QuestionnaireService {
             description
             status
             level
-            category {
-              name
-              id
-            }
+            frequency
             questions {
               id
               title
@@ -160,10 +157,7 @@ export default class QuestionnaireService {
                 firstName
                 email
               }
-              category {
-                name
-                id
-              }
+              frequency
             }
           }
         }

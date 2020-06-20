@@ -15,6 +15,7 @@ const schema = `
     favourites: [Favourite]
     createdBy: User
     views: Int
+    frequency: Frequency
   }
 
   type Favourite {

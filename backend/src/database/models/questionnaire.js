@@ -61,6 +61,11 @@ const Questionnaire = new Schema(
       ],
       default: 'JUNIOR',
     },
+    frequency: {
+      type: String,
+      default: 'EVERYDAY',
+      enum: ['EVERYDAY','EVERYWEEK', 'TWICEAWEEK', 'EVERYMONTH']
+    },
     createdBy: { type: Schema.Types.ObjectId, ref: 'user' },
     updatedBy: { type: Schema.Types.ObjectId, ref: 'user' },
     favourites: [
@@ -82,6 +87,11 @@ const Questionnaire = new Schema(
       ref: 'category',
     },
     views: { type: Number, default: 0 },
+    rules: [{
+      min: Number,
+      max: Number,
+      text: String,
+    }],
     answers: [AnswerSchema],
     questions: [{
       title: {

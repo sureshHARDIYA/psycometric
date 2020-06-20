@@ -76,11 +76,10 @@ const en = {
           DRAFT: 'DRAFT',
         },
         frequency: {
-          EVERYDAY: 'EVERYDAY',
-          EVERYWEEK: 'EVERYWEEK',
-          TWICEAWEEK: 'TWICEAWEEK',
-          EVERY15DAYS: 'EVERY15DAYS',
-          EVERYMONTH: 'EVERYMONTH',
+          EVERYDAY: 'Daily',
+          EVERYWEEK: 'Weekly',
+          TWICEAWEEK: 'Biweekly',
+          EVERYMONTH: 'Monthly',
         },
         levels: {
           JUNIOR: 'JUNIOR',

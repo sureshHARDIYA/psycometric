@@ -27,6 +27,25 @@ const fields = {
     label('description'),
     {},
   ),
+  frequency: new EnumeratorField(
+    'frequency',
+    label('frequency'),
+    [
+      {
+        id: 'EVERYWEEK',
+        label: enumeratorLabel('frequency', 'EVERYWEEK'),
+      },
+      {
+        id: 'TWICEAWEEK',
+        label: enumeratorLabel('frequency', 'TWICEAWEEK'),
+      },
+      {
+        id: 'EVERYMONTH',
+        label: enumeratorLabel('frequency', 'EVERYMONTH'),
+      },
+    ],
+    { required: true },
+  ),
   status: new EnumeratorField(
     'status',
     label('status'),

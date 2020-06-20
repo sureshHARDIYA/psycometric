@@ -1,16 +1,10 @@
 const schema = `
   input QuestionnaireInput {
     name: String!
-    description: String
-    status: QuestionnaireStatusEnum
     level: LevelEnum
-    category: String!
-    type: QuestionnaireType
-  }
-
-  enum QuestionnaireType {
-    QUIZ
-    PSYCOMETRIC
+    description: String
+    frequency: Frequency
+    status: QuestionnaireStatusEnum
   }
 `;
 

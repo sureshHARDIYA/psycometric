@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom';
 import TableWrapper from 'view/shared/styles/TableWrapper';
 import ButtonLink from 'view/shared/styles/ButtonLink';
 
-const _get = require('lodash/get');
 const { fields } = model;
 
 class CasedListTable extends Component {
@@ -43,19 +42,9 @@ class CasedListTable extends Component {
     fields.views.forTable(),
     fields.status.forTable(),
     {
-      title: 'Category',
-      dataIndex: 'category',
-      render: (_, record) => (
-        <Link
-          to={`/category/${_get(
-            record,
-            'category.id',
-            '-',
-          )}`}
-        >
-          {_get(record, 'category.name', '-')}
-        </Link>
-      ),
+      title: 'Frequency',
+      dataIndex: 'frequency',
+      render: (v) => i18n(`entities.questionnaire.enumerators.frequency.${v}`),
     },
     fields.createdAt.forTable(),
     {
