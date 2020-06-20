@@ -8,7 +8,6 @@ const schema = `
     availableFromRange: [ String ]
     createdAtRange: [ DateTime ]
     createdBy: String
-    category: [ String ]
   }
 `;
 

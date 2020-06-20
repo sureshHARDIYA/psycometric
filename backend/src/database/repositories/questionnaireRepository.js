@@ -171,7 +171,6 @@ class QuestionnaireRepository {
     );
     return MongooseRepository.wrapWithSessionIfExists(
       Questionnaire.findById(id)
-        .populate('category')
         .populate('favourites.user')
         .populate('createdBy'),
       options,
@@ -211,15 +210,6 @@ class QuestionnaireRepository {
         criteria = {
           ...criteria,
           _id: MongooseQueryUtils.uuid(filter.id),
-        };
-      }
-
-      if (filter.category) {
-        criteria = {
-          ...criteria,
-          category: {
-            $in: filter.category,
-          },
         };
       }
 
@@ -346,7 +336,6 @@ class QuestionnaireRepository {
     const limitEscaped = Number(limit || 0) || undefined;
 
     const rows = await Questionnaire.find(criteria)
-      .populate('category')
       .skip(skip)
       .limit(limitEscaped)
       .populate('favourites.user')

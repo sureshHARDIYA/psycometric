@@ -143,7 +143,7 @@ const requestCloudinary = (
     }
 
     cloudinary.uploader
-      .upload(fileTempUrl, { folder: 'category' })
+      .upload(fileTempUrl, { folder: 'reminder' })
       .then(function(image) {
         res.status(200).send({
           id: image.public_id,
@@ -195,11 +195,11 @@ const mapAllUploadRequests = (
   );
 
   app.post(
-    prefix + '/upload/category/featuredImage',
+    prefix + '/upload/reminder/featuredImage',
     databaseMiddleware,
     authMiddleware,
-    requestCloudinary('category/featuredImage', {
-      entity: 'category',
+    requestCloudinary('reminder/featuredImage', {
+      entity: 'reminder',
       maxFileSize: undefined,
       folderIncludesAuthenticationUid: false,
     }),

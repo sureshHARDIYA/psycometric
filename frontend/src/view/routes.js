@@ -27,13 +27,13 @@ const privateRoutes = [
     menu: true,
   },
   {
-    path: '/category',
+    path: '/reminder',
     loader: () =>
-      import('view/category/list/CategoryListPage'),
-    permissionRequired: permissions.categoryCreate,
+      import('view/reminder/list/ListPage'),
+    permissionRequired: permissions.reminderCreate,
     exact: true,
     icon: 'folder-add',
-    label: i18n('entities.category.menu'),
+    label: i18n('entities.reminder.menu'),
     menu: true,
   },
   {
@@ -132,11 +132,11 @@ const privateRoutes = [
     exact: true,
   },
   {
-    path: '/category/new',
+    path: '/reminder/new',
     loader: () =>
-      import('view/category/form/CategoryFormPage'),
+      import('view/reminder/form/FormPage'),
     menu: false,
-    permissionRequired: permissions.categoryCreate,
+    permissionRequired: permissions.reminderCreate,
     exact: true,
   },
   {
@@ -160,11 +160,11 @@ const privateRoutes = [
     exact: true,
   },
   {
-    path: '/category/:id/edit',
+    path: '/reminder/:id/edit',
     loader: () =>
-      import('view/category/form/CategoryFormPage'),
+      import('view/reminder/form/FormPage'),
     menu: false,
-    permissionRequired: permissions.categoryEdit,
+    permissionRequired: permissions.reminderEdit,
     exact: true,
   },
   {
@@ -178,11 +178,11 @@ const privateRoutes = [
     exact: true,
   },
   {
-    path: '/category/:id',
+    path: '/reminder/:id',
     loader: () =>
-      import('view/category/view/CategoryViewPage'),
+      import('view/reminder/view/ViewPage'),
     menu: false,
-    permissionRequired: permissions.categoryRead,
+    permissionRequired: permissions.reminderRead,
     exact: true,
   },
   {

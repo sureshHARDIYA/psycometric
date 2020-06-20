@@ -20,7 +20,6 @@ class RadioFormItemNotFast extends Component {
       errorMessage,
       required,
     } = this.props;
-
     return (
       <Form.Item
         {...layout}

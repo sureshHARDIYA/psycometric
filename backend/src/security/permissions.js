@@ -65,8 +65,8 @@ class Permissions {
           roles.trainer,
         ],
       },
-      categoryImport: {
-        id: 'categoryImport',
+      reminderImport: {
+        id: 'reminderImport',
         allowedRoles: [
           roles.owner,
           roles.editor,
@@ -91,10 +91,10 @@ class Permissions {
         ],
         allowedStorageFolders: ['question'],
       },
-      categoryCreate: {
-        id: 'categoryCreate',
+      reminderCreate: {
+        id: 'reminderCreate',
         allowedRoles: [roles.owner, roles.editor],
-        allowedStorageFolders: ['category'],
+        allowedStorageFolders: ['reminder'],
       },
       questionEdit: {
         id: 'questionEdit',
@@ -105,10 +105,10 @@ class Permissions {
         ],
         allowedStorageFolders: ['question'],
       },
-      categoryEdit: {
-        id: 'categoryEdit',
+      reminderEdit: {
+        id: 'reminderEdit',
         allowedRoles: [roles.owner, roles.editor],
-        allowedStorageFolders: ['category'],
+        allowedStorageFolders: ['reminder'],
       },
       questionnaireEdit: {
         id: 'questionnaireEdit',
@@ -137,10 +137,10 @@ class Permissions {
         ],
         allowedStorageFolders: ['question'],
       },
-      categoryDestroy: {
-        id: 'categoryDestroy',
+      reminderDestroy: {
+        id: 'reminderDestroy',
         allowedRoles: [roles.owner, roles.editor],
-        allowedStorageFolders: ['category'],
+        allowedStorageFolders: ['reminder'],
       },
       questionnaireRead: {
         id: 'questionnaireRead',
@@ -164,8 +164,8 @@ class Permissions {
           roles.public,
         ],
       },
-      categoryRead: {
-        id: 'categoryRead',
+      reminderRead: {
+        id: 'reminderRead',
         allowedRoles: [
           roles.owner,
           roles.editor,
@@ -183,8 +183,8 @@ class Permissions {
           roles.trainer,
         ],
       },
-      categoryAutocomplete: {
-        id: 'categoryAutocomplete',
+      reminderAutocomplete: {
+        id: 'reminderAutocomplete',
         allowedRoles: [
           roles.owner,
           roles.editor,

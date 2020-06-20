@@ -8,7 +8,7 @@ import settings from 'modules/settings/settingsReducers';
 import question from 'modules/question/questionReducers';
 import quizRecord from 'modules/quizRecord/quizRecordReducers';
 import questionnaire from 'modules/questionnaire/QuestionnaireReducers';
-import category from 'modules/category/CategoryReducers';
+import reminder from 'modules/reminder/reducer';
 import feedback from 'modules/feedback/FeedbackReducers';
 import answer from 'modules/answer/reducers';
 
@@ -23,7 +23,7 @@ export default (history) =>
     question,
     quizRecord,
     questionnaire,
-    category,
+    reminder,
     feedback,
     answer
   });

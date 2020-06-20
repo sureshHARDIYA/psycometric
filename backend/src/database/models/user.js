@@ -46,9 +46,6 @@ const UserSchema = new Schema(
         default: true,
       },
     },
-    intrestedCategories: [
-      { type: Schema.Types.ObjectId, ref: 'category' },
-    ],
     importHash: { type: String, maxlength: 255 },
   },
   {

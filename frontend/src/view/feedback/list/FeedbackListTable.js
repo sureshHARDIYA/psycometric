@@ -5,7 +5,7 @@ import { Table, Popconfirm } from 'antd';
 import ButtonLink from 'view/shared/styles/ButtonLink';
 import TableWrapper from 'view/shared/styles/TableWrapper';
 import actions from 'modules/feedback/list/feedbackListActions';
-import categorySelector from 'modules/feedback/feedbackSelectors';
+import ReminderSelector from 'modules/feedback/feedbackSelectors';
 import selectors from 'modules/feedback/list/feedbackListSelectors';
 import destroyActions from 'modules/feedback/destroy/feedbackDestroyActions';
 import destroySelectors from 'modules/feedback/destroy/feedbackDestroySelectors';
@@ -136,10 +136,10 @@ function select(state) {
     pagination: selectors.selectPagination(state),
     filter: selectors.selectFilter(state),
     selectedKeys: selectors.selectSelectedKeys(state),
-    hasPermissionToEdit: categorySelector.selectPermissionToEdit(
+    hasPermissionToEdit: ReminderSelector.selectPermissionToEdit(
       state,
     ),
-    hasPermissionToDestroy: categorySelector.selectPermissionToDestroy(
+    hasPermissionToDestroy: ReminderSelector.selectPermissionToDestroy(
       state,
     ),
   };

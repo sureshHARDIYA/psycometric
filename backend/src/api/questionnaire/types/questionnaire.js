@@ -8,7 +8,6 @@ const schema = `
     questions: [Question]
     availableFrom: String
     level: LevelEnum
-    category: Category
     createdAt: DateTime
     updatedAt: DateTime
     favourited: Boolean

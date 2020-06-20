@@ -32,16 +32,16 @@ const fields = {
     label('frequency'),
     [
       {
-        id: 'EVERYWEEK',
-        label: enumeratorLabel('frequency', 'EVERYWEEK'),
+        id: 'WEEKLY',
+        label: enumeratorLabel('frequency', 'WEEKLY'),
       },
       {
-        id: 'TWICEAWEEK',
-        label: enumeratorLabel('frequency', 'TWICEAWEEK'),
+        id: 'BIWEEKLY',
+        label: enumeratorLabel('frequency', 'BIWEEKLY'),
       },
       {
-        id: 'EVERYMONTH',
-        label: enumeratorLabel('frequency', 'EVERYMONTH'),
+        id: 'MONTHLY',
+        label: enumeratorLabel('frequency', 'MONTHLY'),
       },
     ],
     { required: true },

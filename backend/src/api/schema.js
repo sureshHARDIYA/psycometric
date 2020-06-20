@@ -37,9 +37,9 @@ const quizRecordTypes = require('./quizRecord/types');
 const quizRecordMutations = require('./quizRecord/mutations');
 const quizRecordQueries = require('./quizRecord/queries');
 
-const categoryTypes = require('./category/types');
-const categoryQueries = require('./category/queries');
-const categoryMutations = require('./category/mutations');
+const reminderTypes = require('./reminder/types');
+const reminderQueries = require('./reminder/queries');
+const reminderMutations = require('./reminder/mutations');
 
 const feedbackTypes = require('./feedback/types');
 const feedbackQueries = require('./feedback/queries');
@@ -58,7 +58,7 @@ const types = [
   ...questionnaireTypes,
   ...questionTypes,
   ...quizRecordTypes,
-  ...categoryTypes,
+  ...reminderTypes,
   ...feedbackTypes,
   ...answerTypes,
 ].map((type) => type.schema);
@@ -71,7 +71,7 @@ const mutations = [
   ...questionnaireMutations,
   ...questionMutations,
   ...quizRecordMutations,
-  ...categoryMutations,
+  ...reminderMutations,
   ...feedbackMutations,
   ...answerMutations,
 ].map((mutation) => mutation.schema);
@@ -85,7 +85,7 @@ const queries = [
   ...questionQueries,
   ...quizRecordQueries,
   ...feedbackQueries,
-  ...categoryQueries,
+  ...reminderQueries,
   ...answerQueries,
 ].map((query) => query.schema);
 

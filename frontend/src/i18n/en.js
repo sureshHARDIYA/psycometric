@@ -76,10 +76,9 @@ const en = {
           DRAFT: 'DRAFT',
         },
         frequency: {
-          EVERYDAY: 'Daily',
-          EVERYWEEK: 'Weekly',
-          TWICEAWEEK: 'Biweekly',
-          EVERYMONTH: 'Monthly',
+          WEEKLY: 'Weekly',
+          BIWEEKLY: 'Biweekly',
+          MONTHLY: 'Monthly',
         },
         levels: {
           JUNIOR: 'JUNIOR',
@@ -164,53 +163,65 @@ const en = {
         },
       },
     },
-    category: {
-      name: 'Category',
-      label: 'Category',
-      menu: 'Category',
-      exporterFileName: 'category_export',
+    reminder: {
+      name: 'Reminder',
+      label: 'Reminder',
+      menu: 'Reminder',
+      exporterFileName: 'reminder_export',
       list: {
-        menu: 'Category',
-        title: 'Category',
+        menu: 'Reminder',
+        title: 'Reminder',
       },
       create: {
-        success: 'Category saved successfully',
+        success: 'Reminder saved successfully',
       },
       update: {
-        success: 'Category saved successfully',
+        success: 'Reminder saved successfully',
       },
       destroy: {
-        success: 'Category deleted successfully',
+        success: 'Reminder deleted successfully',
       },
       destroyAll: {
-        success: 'Category(s) deleted successfully',
+        success: 'Reminder(s) deleted successfully',
       },
       edit: {
-        title: 'Edit Category',
+        title: 'Edit Reminder',
       },
       fields: {
         id: 'Id',
-        name: 'Name',
-        level: 'Level',
-        description: 'Description',
-        featuredImage: 'Featured image',
-        availableFrom: 'AvailableFrom',
+        title: 'Title',
+        message: 'Message',
+        schedule: 'Schedule',
+        frequency: 'Frequency',
+        audience: 'Audience',
+        audienceList: 'Audience List',
+        questionnaire: 'Questionnaire',
         createdAt: 'Created at',
         updatedAt: 'Updated at',
-        createdAtRange: 'Created at',
       },
       new: {
-        title: 'New Category',
+        title: 'New Reminder',
       },
       importer: {
-        title: 'Import Category',
-        fileName: 'category_import_template',
+        title: 'Import Reminder',
+        fileName: 'reminder_import_template',
         hint:
           'Files/Images columns must be the URLs of the files separated by space.',
       },
       view: {
-        title: 'View Category',
+        title: 'View Reminder',
       },
+      enumerators: {
+        frequency: {
+          WEEKLY: 'Weekly',
+          BIWEEKLY: 'Biweekly',
+          MONTHLY: 'Monthly',
+        },
+        audience: {
+          ALL: 'All users',
+          USER: 'User on list',
+        },
+      }
     },
     feedback: {
       name: 'Feedback',

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import AutocompleteFormItem from 'view/shared/form/items/AutocompleteFormItem';
-import QuestionnaireService from 'modules/cased/casedService';
-import CasedFormModal from 'view/cased/form/CasedFormModal';
 import { connect } from 'react-redux';
-import selectors from 'modules/cased/casedSelectors';
+import AutocompleteFormItem from 'view/shared/form/items/AutocompleteFormItem';
+import QuestionnaireService from 'modules/questionnaire/QuestionnaireService';
+import QuestionnaireFormModal from 'view/questionnaire/form/QuestionnaireFormModal';
+import selectors from 'modules/questionnaire/QuestionnaireSelectors';
 
-class CasedAutocompleteFormItem extends Component {
+class QuestionnaireAutocompleteFormItem extends Component {
   state = {
     modalVisible: false,
   };
@@ -84,7 +84,7 @@ class CasedAutocompleteFormItem extends Component {
           onOpenModal={this.doOpenModal}
         />
 
-        <CasedFormModal
+        <QuestionnaireFormModal
           visible={this.state.modalVisible}
           onCancel={this.doCloseModal}
           onSuccess={this.doCreateSuccess}
@@ -100,4 +100,4 @@ const select = (state) => ({
   ),
 });
 
-export default connect(select)(CasedAutocompleteFormItem);
+export default connect(select)(QuestionnaireAutocompleteFormItem);

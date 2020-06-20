@@ -18,7 +18,6 @@ const schema = `
     favourites: [Questionnaire]
     playedQuizes: [QuizRecord]
     settings: SettingsType
-    intrestedCategories: [Category]
   }
 
   type SettingsType {

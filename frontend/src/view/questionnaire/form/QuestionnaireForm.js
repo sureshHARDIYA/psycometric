@@ -56,7 +56,6 @@ class CasedForm extends Component {
                     label={fields.id.label}
                   />
                 )}
-
                 <InputFormItem
                   name={fields.name.name}
                   label={fields.name.label}

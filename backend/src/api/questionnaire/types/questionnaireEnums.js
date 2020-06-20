@@ -12,13 +12,6 @@ const schema = `
     SENIOR
     EXPERT
   }
-
-  enum Frequency {
-    EVERYDAY
-    EVERYWEEK
-    TWICEAWEEK
-    EVERYMONTH
-  }
 `;
 
 const resolver = {};

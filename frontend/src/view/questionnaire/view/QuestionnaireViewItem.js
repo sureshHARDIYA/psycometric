@@ -4,9 +4,9 @@ import React, { Component } from 'react';
 import { viewItemLayout } from 'view/shared/styles/ViewWrapper';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import selectors from 'modules/cased/casedSelectors';
+import selectors from 'modules/questionnaire/QuestionnaireSelectors';
 
-class CasedViewItem extends Component {
+class QuestionnaireViewItem extends Component {
   valueAsArray = () => {
     const { value } = this.props;
 
@@ -57,7 +57,7 @@ class CasedViewItem extends Component {
   }
 }
 
-CasedViewItem.propTypes = {
+QuestionnaireViewItem.propTypes = {
   label: PropTypes.string,
   value: PropTypes.any,
 };
@@ -68,4 +68,4 @@ const select = (state) => ({
   ),
 });
 
-export default connect(select)(CasedViewItem);
+export default connect(select)(QuestionnaireViewItem);

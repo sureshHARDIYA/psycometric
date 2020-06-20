@@ -21,7 +21,6 @@ const schema = `
     createdAt: DateTime
     updatedAt: DateTime
     settings: SettingsType
-    intrestedCategories: [Category]
 
     favourites(filter: QuestionnaireFilterInput, limit: Int, offset: Int, orderBy: QuestionnaireOrderByEnum): QuestionnairePage!
     playedQuizes(filter: QuizRecordFilterInput, limit: Int, offset: Int, orderBy: QuizRecordOrderByEnum): QuizRecordPage!

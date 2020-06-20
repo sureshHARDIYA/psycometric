@@ -16,7 +16,7 @@ import InputFormItem from 'view/shared/form/items/InputFormItem';
 import ViewFormItem from 'view/shared/form/items/ViewFormItem';
 import FormSchema from 'view/shared/form/formSchema';
 import CheckboxFormItem from 'view/shared/form/items/CheckboxFormItem';
-import CategoryAutocompleteFormItem from 'view/category/autocomplete/CategoryAutocompleteFormItem';
+import AutocompleteFormItem from 'view/reminder/autocomplete/AutocompleteFormItem';
 
 const { fields } = model;
 
@@ -133,7 +133,7 @@ class IamEditForm extends Component {
                           .remindersAlert.label
                       }
                     />
-                    <CategoryAutocompleteFormItem
+                    <AutocompleteFormItem
                       name={fields.intrestedCategories.name}
                       label={
                         fields.intrestedCategories.label

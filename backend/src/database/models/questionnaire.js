@@ -82,10 +82,6 @@ const Questionnaire = new Schema(
       ),
     ],
     importHash: { type: String },
-    category: {
-      type: Schema.Types.ObjectId,
-      ref: 'category',
-    },
     views: { type: Number, default: 0 },
     rules: [{
       min: Number,
