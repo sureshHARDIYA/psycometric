@@ -187,4 +187,8 @@ module.exports = class ReminderService {
 
     return count > 0;
   }
+
+  static reloadAllReminder() {
+    return ReminderRepository.reloadAllReminder();
+  }
 };

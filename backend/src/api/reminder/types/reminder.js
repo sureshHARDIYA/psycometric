@@ -3,10 +3,10 @@ const schema = `
     id: String!
     title: String!
     message: String!
-    schedule: String
+    schedule: DateTime
     frequency: Frequency
     audience: Audience
-    audienceList: [User]
+    audienceList: [String]
     questionnaire: Questionnaire
     createdAt: DateTime
     updatedAt: DateTime

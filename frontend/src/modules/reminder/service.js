@@ -100,6 +100,7 @@ export default class ReminderService {
               id
               name
             }
+            audienceList
             createdAt
           }
         }

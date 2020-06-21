@@ -1,6 +1,7 @@
 const MongooseRepository = require('./mongooseRepository');
 const MongooseQueryUtils = require('../utils/mongooseQueryUtils');
 const AuditLogRepository = require('./auditLogRepository');
+const NotificationRepository = require('./notificationRepository');
 const Reminder = require('../models/reminder');
 
 class ReminderRepository {
@@ -37,7 +38,10 @@ class ReminderRepository {
       options,
     );
 
-    return this.findById(record.id, options);
+    const newRecord = await this.findById(record.id, options);
+    NotificationRepository.schedule(newRecord, options)
+
+    return newRecord;
   }
 
   /**
@@ -67,7 +71,9 @@ class ReminderRepository {
       options,
     );
 
+
     const record = await this.findById(id, options);
+    NotificationRepository.schedule(record, options)
 
     return record;
   }
@@ -83,6 +89,8 @@ class ReminderRepository {
       Reminder.deleteOne({ _id: id }),
       options,
     );
+
+    NotificationRepository.delete(id)
 
     await this._createAuditLog(
       AuditLogRepository.DELETE,
@@ -279,6 +287,24 @@ class ReminderRepository {
       },
       options,
     );
+  }
+
+  /**
+   * Setup the Reminder for push notification when server is started.
+   *
+   */
+  static async reloadAllReminder() {
+    console.log('Reload all reminder')
+    try {
+      const list = await Reminder.find({});
+      for (const reminder of list) {
+        NotificationRepository.schedule(reminder)
+      }
+
+      console.log('JOB LIST:', NotificationRepository.list());
+    } catch (e) {
+      console.log('error');
+    }
   }
 }
 

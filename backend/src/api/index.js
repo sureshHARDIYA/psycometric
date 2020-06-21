@@ -12,6 +12,7 @@ const { init: databaseInit, middleware: databaseMiddleware } = require(
 const path = require('path')
 const fs = require('fs')
 const helmet = require('helmet')
+const ReminderService = require('../services/reminderService');
 
 // Enables CORS
 app.use(cors({ origin: true }))
@@ -21,14 +22,16 @@ app.use(cors({ origin: true }))
 app.use(helmet())
 
 // Initializes the Database
-databaseInit().catch(error => console.error(error))
+databaseInit()
+  .catch(error => console.error(error))
+  .then(() => ReminderService.reloadAllReminder())
 
 // Sets up the Upload endpoint, which is required to be REST
 const upload = require('./file/upload')
 upload.mapAllUploadRequests('/api', app, databaseMiddleware, authMiddleware)
 
 // Sets up the Download endpoint, which is required to be REST
-const download = require('./file/download')
+const download = require('./file/download');
 app.get('/api/download', databaseMiddleware, authMiddleware, download)
 
 // Sets up the GraphQL endpoint

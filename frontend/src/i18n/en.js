@@ -23,7 +23,7 @@ const en = {
   },
 
   app: {
-    title: 'Tech Quiz',
+    title: 'Psychometric',
   },
 
   entities: {

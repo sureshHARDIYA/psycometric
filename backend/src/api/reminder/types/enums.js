@@ -7,7 +7,7 @@ const schema = `
 
   enum Audience {
     ALL
-    SELECT
+    USER
   }
 `;
 

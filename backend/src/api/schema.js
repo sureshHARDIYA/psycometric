@@ -49,6 +49,8 @@ const answerTypes = require('./answer/types');
 const answerQueries = require('./answer/queries');
 const answerMutations = require('./answer/mutations');
 
+const notificationMutations = require('./notification/mutations');
+
 const types = [
   ...sharedTypes,
   ...iamTypes,
@@ -74,6 +76,7 @@ const mutations = [
   ...reminderMutations,
   ...feedbackMutations,
   ...answerMutations,
+  ...notificationMutations
 ].map((mutation) => mutation.schema);
 
 const queries = [

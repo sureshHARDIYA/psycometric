@@ -1,3 +1,4 @@
+const moment = require('moment');
 const database = require('../database');
 const Schema = database.Schema;
 
@@ -7,12 +8,13 @@ const ReminderSchema = new Schema(
     message: { type: String, required: true },
     schedule: {
       type: Date,
-      default: () => new Date()
+      default: () => moment(),
+      set: v => !!v ? v : moment(),
     },
     audience: {
       type: String,
       default: 'ALL',
-      enum: ['ALL', 'SELECT']
+      enum: ['ALL', 'USER']
     },
     frequency: {
       type: String,
