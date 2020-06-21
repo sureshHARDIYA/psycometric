@@ -5,7 +5,7 @@ export default class QuizRecordService {
   static async destroyAll(ids) {
     const response = await graphqlClient.mutate({
       mutation: gql`
-        mutation QUESTION_DESTROY($ids: [String!]!) {
+        mutation RECORD_DESTROY($ids: [String!]!) {
           quizRecordDestroy(ids: $ids)
         }
       `,
@@ -17,7 +17,7 @@ export default class QuizRecordService {
   static async import(values, importHash) {
     const response = await graphqlClient.mutate({
       mutation: gql`
-        mutation QUESTION_IMPORT(
+        mutation RECORD_IMPORT(
           $data: QuizRecordInput!
           $importHash: String!
         ) {
@@ -36,17 +36,25 @@ export default class QuizRecordService {
   static async find(id) {
     const response = await graphqlClient.query({
       query: gql`
-        query QUESTION_FIND($id: String!) {
+        query RECORD_FIND($id: String!) {
           quizRecordFind(id: $id) {
             id
             title
-            explainAnswer
-            quizRecordType
-            answers {
+            score
+            total
+            duration
+            questionnaire {
+              id
+              name
+            }
+            questions {
+              id
               title
-              score
-              isCorrect
-              answerType
+              answered {
+                id
+                title
+                score
+              }
             }
           }
         }
@@ -60,7 +68,7 @@ export default class QuizRecordService {
   static async list(filter, orderBy, limit, offset) {
     const response = await graphqlClient.query({
       query: gql`
-        query QUESTION_LIST(
+        query RECORD_LIST(
           $filter: QuizRecordFilterInput
           $limit: Int
           $offset: Int
@@ -74,18 +82,13 @@ export default class QuizRecordService {
             rows {
               id
               title
-              kind
-              randomizeQuestion
-              randomizeOptions
-              questionnaire
+              score
+              total
+              duration
               questions {
-                question
-                score
-                questionText
-                answers {
+                title
+                answered {
                   title
-                  score
-                  isCorrect
                 }
               }
             }
@@ -101,7 +104,7 @@ export default class QuizRecordService {
   static async listAutocomplete(query, limit) {
     const response = await graphqlClient.query({
       query: gql`
-        query QUESTION_AUTOCOMPLETE(
+        query RECORD_AUTOCOMPLETE(
           $query: String
           $limit: Int
         ) {

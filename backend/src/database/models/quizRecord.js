@@ -13,7 +13,7 @@ const recordSchema = new Schema(
     },
     questionnaire: {
       type: Schema.Types.ObjectId,
-      ref: 'Questionnaire',
+      ref: 'questionnaire',
     },
     total: {
       default:0,
@@ -44,7 +44,7 @@ const recordSchema = new Schema(
     ],
     candidate: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'user',
     },
   },
   {

@@ -2,6 +2,7 @@ import { i18n } from 'i18n';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { Table } from 'antd';
+import { Link } from 'react-router-dom';
 import ButtonLink from 'view/shared/styles/ButtonLink';
 import TableWrapper from 'view/shared/styles/TableWrapper';
 import actions from 'modules/quizRecord/list/QuizRecordListActions';
@@ -39,16 +40,18 @@ class QuizRecordListTable extends Component {
 
   columns = [
     {
-      title: 'ID',
-      dataIndex: 'id',
-    },
-    {
       title: 'Title',
-      dataIndex: 'title',
+      dataIndex: 'id',
+      render: (_, record) => (
+        <Link to={`/questionnaire/${record.id}`}>
+          {record.title}
+        </Link>
+      ),
     },
     {
-      title: 'Kind',
-      dataIndex: 'kind',
+      title: 'Score',
+      dataIndex: 'score',
+      render: (_, record) => <span>{record.score} / {record.total}</span>
     },
     {
       title: '',

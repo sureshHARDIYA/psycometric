@@ -118,8 +118,8 @@ class QuizRecordRepository {
   async findById(id, options) {
     return MongooseRepository.wrapWithSessionIfExists(
       QuizRecord.findById(id)
-        .populate('modules')
-        .populate('patients'),
+        .populate('questionnaire')
+        .populate('candidate'),
       options,
     );
   }
@@ -156,42 +156,21 @@ class QuizRecordRepository {
         };
       }
 
-      if (filter.kind) {
-        criteria.kind = filter.kind;
-      }
-
-      if (filter.name) {
+      if (filter.title) {
         criteria = {
           ...criteria,
-          name: {
+          title: {
             $regex: MongooseQueryUtils.escapeRegExp(
-              filter.name,
+              filter.title,
             ),
             $options: 'i',
           },
         };
-      }
-
-      if (filter.description) {
-        criteria = {
-          ...criteria,
-          description: {
-            $regex: MongooseQueryUtils.escapeRegExp(
-              filter.description,
-            ),
-            $options: 'i',
-          },
-        };
-      }
-
-      if (filter.status) {
-        criteria = { ...criteria, status: filter.status };
       }
 
       if (filter.candidate) {
         criteria = { ...criteria, candidate: filter.candidate };
       }
-
 
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
@@ -230,6 +209,7 @@ class QuizRecordRepository {
     const skip = Number(offset || 0) || undefined;
     const limitEscaped = Number(limit || 0) || undefined;
     const rows = await QuizRecord.find(criteria)
+      .populate('questionnaire')
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort);

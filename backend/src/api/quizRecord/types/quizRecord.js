@@ -4,12 +4,13 @@ const schema = `
     title: String
     score: Int
     total: Int
+    duration: Float
     randomizeQuestion: String
-    questionnaire: String
     questions: [QuestionRecord]
     candidate: String
     createdAt: DateTime
     updatedAt: DateTime
+    questionnaire: Questionnaire
   }
 
   type QuestionRecord {
