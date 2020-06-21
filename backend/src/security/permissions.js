@@ -11,13 +11,17 @@ class Permissions {
         id: 'public',
         allowedRoles: [roles.public],
       },
-      member: {
-        id: 'member',
-        allowedRoles: [roles.member],
+      patient: {
+        id: 'patient',
+        allowedRoles: [roles.patient],
       },
       owner: {
         id: 'owner',
         allowedRoles: [roles.owner],
+      },
+      editor: {
+        id: 'editor',
+        allowedRoles: [roles.editor],
       },
       iamEdit: {
         id: 'iamEdit',
@@ -41,7 +45,7 @@ class Permissions {
         allowedRoles: [
           roles.owner,
           roles.editor,
-          roles.trainer,
+          roles.doctor,
         ],
       },
       auditLogRead: {
@@ -49,7 +53,7 @@ class Permissions {
         allowedRoles: [
           roles.owner,
           roles.editor,
-          roles.trainer,
+          roles.doctor,
           roles.learner,
         ],
       },
@@ -62,7 +66,7 @@ class Permissions {
         allowedRoles: [
           roles.owner,
           roles.editor,
-          roles.trainer,
+          roles.doctor,
         ],
       },
       reminderImport: {
@@ -70,7 +74,7 @@ class Permissions {
         allowedRoles: [
           roles.owner,
           roles.editor,
-          roles.trainer,
+          roles.doctor,
         ],
       },
       questionnaireCreate: {
@@ -78,7 +82,7 @@ class Permissions {
         allowedRoles: [
           roles.owner,
           roles.editor,
-          roles.trainer,
+          roles.doctor,
         ],
         allowedStorageFolders: ['questionnaire'],
       },
@@ -87,7 +91,7 @@ class Permissions {
         allowedRoles: [
           roles.owner,
           roles.editor,
-          roles.trainer,
+          roles.doctor,
         ],
         allowedStorageFolders: ['question'],
       },
@@ -101,7 +105,7 @@ class Permissions {
         allowedRoles: [
           roles.owner,
           roles.editor,
-          roles.trainer,
+          roles.doctor,
         ],
         allowedStorageFolders: ['question'],
       },
@@ -115,7 +119,7 @@ class Permissions {
         allowedRoles: [
           roles.owner,
           roles.editor,
-          roles.trainer,
+          roles.doctor,
         ],
         allowedStorageFolders: ['questionnaire'],
       },
@@ -124,7 +128,7 @@ class Permissions {
         allowedRoles: [
           roles.owner,
           roles.editor,
-          roles.trainer,
+          roles.doctor,
         ],
         allowedStorageFolders: ['questionnaire'],
       },
@@ -133,7 +137,7 @@ class Permissions {
         allowedRoles: [
           roles.owner,
           roles.editor,
-          roles.trainer,
+          roles.doctor,
         ],
         allowedStorageFolders: ['question'],
       },
@@ -147,8 +151,8 @@ class Permissions {
         allowedRoles: [
           roles.owner,
           roles.editor,
-          roles.trainer,
-          roles.member,
+          roles.doctor,
+          roles.patient,
           roles.learner,
           roles.public,
         ],
@@ -158,8 +162,8 @@ class Permissions {
         allowedRoles: [
           roles.owner,
           roles.editor,
-          roles.trainer,
-          roles.member,
+          roles.doctor,
+          roles.patient,
           roles.learner,
           roles.public,
         ],
@@ -169,8 +173,8 @@ class Permissions {
         allowedRoles: [
           roles.owner,
           roles.editor,
-          roles.trainer,
-          roles.member,
+          roles.doctor,
+          roles.patient,
           roles.learner,
           roles.public,
         ],
@@ -180,7 +184,7 @@ class Permissions {
         allowedRoles: [
           roles.owner,
           roles.editor,
-          roles.trainer,
+          roles.doctor,
         ],
       },
       reminderAutocomplete: {
@@ -188,7 +192,7 @@ class Permissions {
         allowedRoles: [
           roles.owner,
           roles.editor,
-          roles.trainer,
+          roles.doctor,
         ],
       },
       feedbackRead: {
@@ -200,7 +204,7 @@ class Permissions {
         allowedRoles: [
           roles.owner,
           roles.editor,
-          roles.trainer,
+          roles.doctor,
         ],
       },
       quizRecordAutocomplete: {
@@ -208,7 +212,7 @@ class Permissions {
         allowedRoles: [
           roles.owner,
           roles.editor,
-          roles.trainer,
+          roles.doctor,
         ],
       },
     };

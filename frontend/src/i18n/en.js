@@ -517,16 +517,12 @@ const en = {
       label: 'Editor',
       description: 'Edit access to all resources',
     },
-    trainer: {
-      label: 'Trainer',
-      description: 'Edits access to all resources',
+    doctor: {
+      label: 'Doctor',
+      description: 'Edit access to all resources',
     },
-    learner: {
-      label: 'Learner',
-      description: 'Access learning resources',
-    },
-    member: {
-      label: 'Member',
+    patient: {
+      label: 'Patient',
       description: `Restricted access`,
     },
     public: {

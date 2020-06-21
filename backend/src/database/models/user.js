@@ -27,7 +27,7 @@ const UserSchema = new Schema(
     passwordResetTokenExpiresAt: { type: Date },
     disabled: { type: Boolean, default: false },
     avatars: [FileSchema],
-    roles: [{ type: String, default: 'learner' }],
+    roles: [{ type: String, default: 'patient' }],
     createdBy: {
       type: Schema.Types.ObjectId,
       ref: 'user',

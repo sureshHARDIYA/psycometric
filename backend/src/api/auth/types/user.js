@@ -32,6 +32,7 @@ const resolver = {
       !instance.roles || !instance.roles.length
         ? ['learner']
         : instance.roles,
+    fullName: (instance) => [instance.firstName || '', instance.lastName || ''].join(' ').trim(),
   },
 };
 

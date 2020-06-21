@@ -6,9 +6,8 @@ class Roles {
     return {
       owner: 'owner',
       editor: 'editor',
-      trainer: 'trainer',
-      learner: 'learner',
-      member: 'member',
+      doctor: 'doctor',
+      patient: 'patient',
       public: 'public',
     };
   }

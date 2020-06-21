@@ -142,14 +142,7 @@ export default class IamService {
               rows {
                 id
                 title
-                kind
-                questionnaire
-                level
               }
-            }
-            intrestedCategories {
-              id
-              name
             }
             avatars {
               id

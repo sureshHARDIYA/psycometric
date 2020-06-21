@@ -35,6 +35,8 @@ const resolver = {
         ? ['learner']
         : instance.roles,
 
+    fullName: (instance) => [instance.firstName || '', instance.lastName || ''].join(' ').trim(),
+
     favourites: async (root, args, context, info) => {
       new PermissionChecker(context).validateHas(
         permissions.public,
