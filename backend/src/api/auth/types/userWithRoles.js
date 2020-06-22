@@ -32,7 +32,7 @@ const resolver = {
   UserWithRoles: {
     roles: (instance) =>
       !instance.roles || !instance.roles.length
-        ? ['learner']
+        ? ['patient']
         : instance.roles,
 
     fullName: (instance) => [instance.firstName || '', instance.lastName || ''].join(' ').trim(),

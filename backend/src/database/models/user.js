@@ -74,7 +74,7 @@ UserSchema.virtual('id').get(function() {
 
 UserSchema.pre('save', function(next) {
   if (!this.roles || !this.roles.length) {
-    this.roles = ['learner'];
+    this.roles = ['patient'];
   }
 
   next();

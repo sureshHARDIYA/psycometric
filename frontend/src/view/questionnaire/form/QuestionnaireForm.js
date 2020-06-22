@@ -20,8 +20,6 @@ class CasedForm extends Component {
     fields.name,
     fields.description,
     fields.status,
-    fields.level,
-    fields.frequency,
   ]);
 
   handleSubmit = (values) => {
@@ -77,28 +75,6 @@ class CasedForm extends Component {
                     }),
                   )}
                   required={fields.status.required}
-                />
-                <SelectFormItem
-                  name={fields.level.name}
-                  label={fields.level.label}
-                  options={fields.level.options.map(
-                    (item) => ({
-                      value: item.id,
-                      label: item.label,
-                    }),
-                  )}
-                  required={fields.level.required}
-                />
-                <SelectFormItem
-                  name={fields.frequency.name}
-                  label={fields.frequency.label}
-                  options={fields.frequency.options.map(
-                    (item) => ({
-                      value: item.id,
-                      label: item.label,
-                    }),
-                  )}
-                  required={fields.frequency.required}
                 />
                 <Form.Item
                   className="form-buttons"

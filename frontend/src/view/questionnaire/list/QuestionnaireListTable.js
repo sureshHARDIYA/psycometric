@@ -38,14 +38,8 @@ class CasedListTable extends Component {
         </Link>
       ),
     },
-    fields.level.forTable(),
     fields.views.forTable(),
     fields.status.forTable(),
-    {
-      title: 'Frequency',
-      dataIndex: 'frequency',
-      render: (v) => i18n(`entities.questionnaire.enumerators.frequency.${v}`),
-    },
     fields.createdAt.forTable(),
     {
       title: '',

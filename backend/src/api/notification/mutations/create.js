@@ -12,6 +12,7 @@ const resolver = {
       user: _get(context, 'currentUser.id', '')
     }
 
+    console.log('notificationCreate:', data)
     await new NotificationService(context).create(data);
     return true;
   },
