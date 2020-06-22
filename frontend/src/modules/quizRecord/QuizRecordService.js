@@ -85,6 +85,11 @@ export default class QuizRecordService {
               score
               total
               duration
+              createdAt
+              candidate {
+                id
+                fullName
+              }
               questions {
                 title
                 answered {

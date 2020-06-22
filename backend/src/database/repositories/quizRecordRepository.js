@@ -209,6 +209,7 @@ class QuizRecordRepository {
     const skip = Number(offset || 0) || undefined;
     const limitEscaped = Number(limit || 0) || undefined;
     const rows = await QuizRecord.find(criteria)
+      .populate('candidate')
       .populate('questionnaire')
       .skip(skip)
       .limit(limitEscaped)

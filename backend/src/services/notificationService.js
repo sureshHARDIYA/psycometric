@@ -2,7 +2,6 @@ const NotificationRepository = require('../database/repositories/notificationRep
 
 module.exports = class NotificationService {
   constructor({ language }) {
-    this.repository = new NotificationRepository();
     this.language = language;
   }
 
@@ -13,7 +12,7 @@ module.exports = class NotificationService {
    */
   async create(data) {
     try {
-      return this.repository.create(data);
+      return NotificationRepository.create(data);
     } catch (error) {
       throw error;
     }
@@ -27,7 +26,7 @@ module.exports = class NotificationService {
   async destroyAll(ids) {
     try {
       for (const id of ids) {
-        await this.repository.destroy(id);
+        await NotificationRepository.destroy(id);
       }
     } catch (error) {
       throw error;
@@ -40,7 +39,7 @@ module.exports = class NotificationService {
    * @param {*} id
    */
   async findById(id) {
-    return this.repository.findById(id);
+    return NotificationRepository.findById(id);
   }
 
   /**
@@ -49,6 +48,6 @@ module.exports = class NotificationService {
    * @param {*} args
    */
   async findAndCountAll(args) {
-    return this.repository.findAndCountAll(args);
+    return NotificationRepository.findAndCountAll(args);
   }
 };

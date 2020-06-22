@@ -142,6 +142,9 @@ export default class IamService {
               rows {
                 id
                 title
+                score
+                total
+                createdAt
               }
             }
             avatars {

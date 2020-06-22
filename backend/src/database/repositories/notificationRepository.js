@@ -6,7 +6,6 @@ const MongooseQueryUtils = require('../utils/mongooseQueryUtils');
 const Reminder = require('../models/reminder');
 const Notification = require('../models/notification');
 const manager = require('../crontab');
-const CronJob = require('cron').CronJob;
 
 const expo = new Expo();
 
@@ -25,10 +24,10 @@ class NotificationRepository {
     if (MongooseRepository.getSession(options)) {
       await Notification.createCollection();
     }
-   return await Notification.findOneAndUpdate({ token: data.token }, data, { upsert: true });
+    return await Notification.findOneAndUpdate({ token: data.token }, data, { upsert: true, new: true });
   }
 
-  async destroy(id, options) {
+  static async destroy(id, options) {
     await MongooseRepository.wrapWithSessionIfExists(
       Notification.deleteOne({ _id: id }),
       options,
@@ -37,14 +36,14 @@ class NotificationRepository {
     this.delete(id);
   }
 
-  async count(filter, options) {
+  static async count(filter, options) {
     return MongooseRepository.wrapWithSessionIfExists(
       Notification.countDocuments(filter),
       options,
     );
   }
 
-  async findAndCountAll(
+  static async findAndCountAll(
     { filter, limit, offset, orderBy } = {
       filter: null,
       limit: 0,
@@ -145,72 +144,80 @@ class NotificationRepository {
       await Notification.createCollection();
     }
 
-    console.log(`Start push notification of ${id}`)
+    try {
+      console.log(`Start push notification of ${id}`)
 
-    const data = await Reminder.findById(id).populate('questionnaire')
+      const data = await Reminder.findById(id).populate('questionnaire')
 
-    const messages = [];
-    const audienceList = await Notification.getTokens(data.audience, data.audienceList)
+      const messages = [];
+      const audienceList = await Notification.getTokens(data.audience, data.audienceList)
 
-    for (const audience of audienceList) {
-      const pushToken = audience.token;
+      console.log('audienceList:', JSON.stringify(audienceList, null, 1))
 
-      if (!Expo.isExpoPushToken(pushToken)) {
-        console.error(`Push token ${pushToken} is not a valid Expo push token`);
-        continue;
-      }
+      for (const audience of audienceList) {
+        const pushToken = audience.token;
 
-      // Construct a message (see https://docs.expo.io/versions/latest/guides/push-notifications)
-      messages.push({
-        to: pushToken,
-        sound: 'default',
-        title: data.title,
-        body: data.message,
-        data: {
-          id: data.id,
-          title: data.title,
-          message: data.message,
-          questionnaire: data.questionnaire,
+        if (!Expo.isExpoPushToken(pushToken)) {
+          console.error(`Push token ${pushToken} is not a valid Expo push token`);
+          continue;
         }
-      });
-    }
 
-    const chunks = expo.chunkPushNotifications(messages);
-    const tickets = [];
-    for (const chunk of chunks) {
-      try {
-        const ticketChunk = await expo.sendPushNotificationsAsync(chunk);
-        tickets.push(...ticketChunk);
-      } catch (error) {
-        console.error(error);
+        // Construct a message (see https://docs.expo.io/versions/latest/guides/push-notifications)
+        messages.push({
+          to: pushToken,
+          sound: 'default',
+          title: data.title,
+          body: data.message,
+          data: {
+            id: data.id,
+            title: data.title,
+            message: data.message,
+            questionnaire: data.questionnaire,
+          }
+        });
       }
-    }
 
-    const receiptIds = [];
-    for (const ticket of tickets) {
-      if (ticket.id) {
-        receiptIds.push(ticket.id);
+      const chunks = expo.chunkPushNotifications(messages);
+      console.log('messages:', messages.length)
+      const tickets = [];
+      for (const chunk of chunks) {
+        try {
+          const ticketChunk = await expo.sendPushNotificationsAsync(chunk);
+          tickets.push(...ticketChunk);
+        } catch (error) {
+          console.error(error);
+        }
       }
-    }
 
-    const receiptIdChunks = expo.chunkPushNotificationReceiptIds(receiptIds);
-    for (const chunk of receiptIdChunks) {
-      try {
-        const receipts = await expo.getPushNotificationReceiptsAsync(chunk);
-        for (const receiptId in receipts) {
-          const { status, message, details } = receipts[receiptId];
-          if (status === 'ok') {
-            continue;
-          } else if (status === 'error') {
-            console.error(`There was an error sending a notification: ${message}`);
-            if (details && details.error) {
-              console.error(`The error code is ${details.error}`);
+      const receiptIds = [];
+      for (const ticket of tickets) {
+        if (ticket.id) {
+          receiptIds.push(ticket.id);
+        }
+      }
+
+      const receiptIdChunks = expo.chunkPushNotificationReceiptIds(receiptIds);
+      for (const chunk of receiptIdChunks) {
+        try {
+          const receipts = await expo.getPushNotificationReceiptsAsync(chunk);
+          for (const receiptId in receipts) {
+            const { status, message, details } = receipts[receiptId];
+            if (status === 'ok') {
+              continue;
+            } else if (status === 'error') {
+              console.error(`There was an error sending a notification: ${message}`);
+              if (details && details.error) {
+                console.error(`The error code is ${details.error}`);
+              }
             }
           }
+        } catch (error) {
+          console.error(error);
         }
-      } catch (error) {
-        console.error(error);
       }
+    } catch (e) {
+      console.error(e);
+      throw e;
     }
   }
 }

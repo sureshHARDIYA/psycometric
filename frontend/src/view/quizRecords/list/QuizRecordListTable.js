@@ -1,5 +1,6 @@
 import { i18n } from 'i18n';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import React, { Component } from 'react';
 import { Table } from 'antd';
 import { Link } from 'react-router-dom';
@@ -49,12 +50,26 @@ class QuizRecordListTable extends Component {
       ),
     },
     {
+      title: 'Patient',
+      dataIndex: 'candidate',
+      render: (candidate, record) => (
+        <Link to={`/iam/${candidate.id}`}>
+          {candidate.fullName}
+        </Link>
+      ),
+    },
+    {
       title: 'Score',
       dataIndex: 'score',
       render: (_, record) => <span>{record.score} / {record.total}</span>
     },
     {
-      title: '',
+      title: 'Time',
+      dataIndex: 'createdAt',
+      render: (_, record) => <span>{moment(record.createdAt).format('YYYY-MM-DD HH:mm')}</span>
+    },
+    {
+      title: 'Action',
       dataIndex: '',
       width: '160px',
       render: (_, record) => (

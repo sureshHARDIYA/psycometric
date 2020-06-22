@@ -7,7 +7,7 @@ const schema = `
     duration: Float
     randomizeQuestion: String
     questions: [QuestionRecord]
-    candidate: String
+    candidate: User
     createdAt: DateTime
     updatedAt: DateTime
     questionnaire: Questionnaire

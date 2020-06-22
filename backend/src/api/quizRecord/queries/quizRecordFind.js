@@ -1,4 +1,4 @@
-const QuestionService = require('../../../services/questionService');
+const QuizRecordService = require('../../../services/quizRecordService');
 const PermissionChecker = require('../../../services/iam/permissionChecker');
 const permissions = require('../../../security/permissions')
   .values;
@@ -13,7 +13,7 @@ const resolver = {
       permissions.quizRecordRead,
     );
 
-    return new QuestionService(context).findById(args.id);
+    return new QuizRecordService(context).findById(args.id);
   },
 };
 

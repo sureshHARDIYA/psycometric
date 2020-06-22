@@ -1,4 +1,5 @@
 import { i18n } from 'i18n';
+import moment from 'moment';
 import { Tooltip, Tag, Table, Divider } from 'antd';
 import Roles from 'security/roles';
 import model from 'modules/auth/userModel';
@@ -45,12 +46,14 @@ class IamView extends Component {
       ),
     },
     {
-      title: 'Level',
-      dataIndex: 'level',
+      title: 'Score',
+      dataIndex: 'score',
+      render: (_, record) => <span>{record.score} / {record.total}</span>
     },
     {
-      title: 'Kind',
-      dataIndex: 'kind',
+      title: 'Time',
+      dataIndex: 'createdAt',
+      render: (_, record) => <span>{moment(record.createdAt).format('YYYY-MM-DD HH:mm')}</span>
     },
   ];
 
