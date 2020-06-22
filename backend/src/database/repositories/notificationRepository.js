@@ -10,11 +10,13 @@ const CronJob = require('cron').CronJob;
 
 const expo = new Expo();
 
+const SCHEDULE_TIME = process.env.SCHEDULE_TIME || "[0 23]";
+
 const parseTime = (frequence, date) => {
   switch (frequence) {
-    case 'MONTHLY': return date.format('[0 23] D [* *]');
-    case 'BIWEEKLY': return date.format('[0 23] [*] [*] [*/2]');
-    default: return date.format('[0 23] [*] [*] ddd');
+    case 'MONTHLY': return date.format(`${SCHEDULE_TIME} D [* *]`);
+    case 'BIWEEKLY': return date.format(`${SCHEDULE_TIME} [*] [*] [*/2]`);
+    default: return date.format(`${SCHEDULE_TIME} [*] [*] ddd`);
   }
 }
 
@@ -134,7 +136,8 @@ class NotificationRepository {
     }
     const reminderKey = data.id;
     const date = moment(data.schedule)
-    manager.add(reminderKey, parseTime(data.frequency, date.clone().add(5, 'seconds')), () => this.pushNotification(reminderKey, options), null, date.toDate())
+    const task = manager.add(reminderKey, parseTime(data.frequency, date.clone().add(5, 'seconds')), () => this.pushNotification(reminderKey, options), null, date.toDate())
+    task && console.log(`${task.cronTime.source} status: ${task.running ? "Running" : "Stopped"}`)
   }
 
   static async pushNotification(id, options) {
@@ -142,7 +145,7 @@ class NotificationRepository {
       await Notification.createCollection();
     }
 
-    console.log('Start push notification')
+    console.log(`Start push notification of ${id}`)
 
     const data = await Reminder.findById(id).populate('questionnaire')
 
