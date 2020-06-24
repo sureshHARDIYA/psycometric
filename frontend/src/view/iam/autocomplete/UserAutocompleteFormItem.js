@@ -77,6 +77,12 @@ class UserAutocompleteFormItem extends Component {
         return undefined;
       }
 
+      if (typeof value === 'string') {
+        return ({
+          key: value,
+        })
+      }
+
       return {
         id: value.key,
         label: value.label,

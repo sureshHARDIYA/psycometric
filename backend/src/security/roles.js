@@ -8,6 +8,7 @@ class Roles {
       editor: 'editor',
       doctor: 'doctor',
       patient: 'patient',
+      member: 'member',
       public: 'public',
     };
   }

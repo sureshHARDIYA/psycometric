@@ -5,6 +5,7 @@ import DateTimeRangeField from 'modules/shared/fields/dateTimeRangeField';
 import StringField from 'modules/shared/fields/stringField';
 import EnumeratorField from 'modules/shared/fields/enumeratorField';
 import RelationToOneField from 'modules/shared/fields/relationToOneField';
+import RelationToManyField from 'modules/shared/fields/relationToManyField';
 
 function label(name) {
   return i18n(`entities.questionnaire.fields.${name}`);
@@ -27,25 +28,6 @@ const fields = {
     label('description'),
     {},
   ),
-  frequency: new EnumeratorField(
-    'frequency',
-    label('frequency'),
-    [
-      {
-        id: 'WEEKLY',
-        label: enumeratorLabel('frequency', 'WEEKLY'),
-      },
-      {
-        id: 'BIWEEKLY',
-        label: enumeratorLabel('frequency', 'BIWEEKLY'),
-      },
-      {
-        id: 'MONTHLY',
-        label: enumeratorLabel('frequency', 'MONTHLY'),
-      },
-    ],
-    { required: true },
-  ),
   status: new EnumeratorField(
     'status',
     label('status'),
@@ -65,37 +47,48 @@ const fields = {
     ],
     { required: true },
   ),
-  level: new EnumeratorField(
-    'level',
-    label('level'),
+  schedule: new DateTimeField(
+    'schedule',
+    label('schedule'),
+  ),
+  frequency: new EnumeratorField(
+    'frequency',
+    label('frequency'),
     [
       {
-        id: 'JUNIOR',
-        label: enumeratorLabel('levels', 'JUNIOR'),
+        id: 'WEEKLY',
+        label: enumeratorLabel('frequency', 'WEEKLY'),
       },
       {
-        id: 'BEGINNER',
-        label: enumeratorLabel('levels', 'BEGINNER'),
+        id: 'BIWEEKLY',
+        label: enumeratorLabel('frequency', 'BIWEEKLY'),
       },
       {
-        id: 'INTERMEDIATE',
-        label: enumeratorLabel('levels', 'INTERMEDIATE'),
-      },
-      {
-        id: 'SENIOR',
-        label: enumeratorLabel('levels', 'SENIOR'),
-      },
-      {
-        id: 'EXPERT',
-        label: enumeratorLabel('levels', 'EXPERT'),
+        id: 'MONTHLY',
+        label: enumeratorLabel('frequency', 'MONTHLY'),
       },
     ],
-    { required: true },
+    {},
   ),
-  category: new RelationToOneField(
-    'category',
-    label('category'),
-    { required: true },
+  audience: new EnumeratorField(
+    'audience',
+    label('audience'),
+    [
+      {
+        id: 'ALL',
+        label: enumeratorLabel('audience', 'ALL'),
+      },
+      {
+        id: 'USER',
+        label: enumeratorLabel('audience', 'USER'),
+      },
+    ],
+    {},
+  ),
+  audienceList: new RelationToManyField(
+    'audienceList',
+    label('audienceList'),
+    {},
   ),
   createdBy: new RelationToOneField(
     'createdBy',

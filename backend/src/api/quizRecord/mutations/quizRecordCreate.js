@@ -10,8 +10,9 @@ const schema = `
 const resolver = {
   quizRecordCreate: async (root, args, context) => {
     new PermissionChecker(context).validateHas(
-      permissions.patient,
+      permissions.member,
     );
+
     return new QuizRecordService(context).create(args.data);
   },
 };

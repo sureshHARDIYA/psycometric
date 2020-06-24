@@ -10,7 +10,7 @@ const schema = `
 const resolver = {
   questionnaireFavourite: async (root, args, context) => {
     new PermissionChecker(context).validateHas(
-      permissions.public,
+      permissions.member,
     );
 
     return new QuestionnaireService(

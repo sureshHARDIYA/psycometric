@@ -1,3 +1,4 @@
+const moment = require('moment');
 const database = require('../database');
 const Schema = database.Schema;
 
@@ -96,7 +97,22 @@ const Questionnaire = new Schema(
       },
       createdBy: { type: Schema.Types.ObjectId, ref: 'user' },
       updatedBy: { type: Schema.Types.ObjectId, ref: 'user' },
-    }]
+    }],
+    schedule: {
+      type: Date,
+      default: () => moment(),
+      set: v => !!v ? v : moment(),
+    },
+    audience: {
+      type: String,
+      default: 'ALL',
+      enum: ['ALL', 'USER']
+    },
+    frequency: {
+      type: String,
+      default: 'WEEKLY',
+      enum: ['WEEKLY', 'BIWEEKLY', 'MONTHLY']
+    },
   },
   {
     timestamps: true,

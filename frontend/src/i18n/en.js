@@ -68,6 +68,9 @@ const en = {
         category: 'Select your category',
         createdBy: 'Created by',
         views: 'Views',
+        audience: 'Audience',
+        schedule: 'Schedule',
+        audienceList: 'Audience List',
       },
       enumerators: {
         status: {
@@ -79,6 +82,10 @@ const en = {
           WEEKLY: 'Weekly',
           BIWEEKLY: 'Biweekly',
           MONTHLY: 'Monthly',
+        },
+        audience: {
+          ALL: 'All users',
+          USER: 'User on list',
         },
         levels: {
           JUNIOR: 'JUNIOR',

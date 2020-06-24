@@ -96,11 +96,11 @@ export default class ReminderService {
             schedule
             audience
             frequency
+            audienceList
             questionnaire {
               id
               name
             }
-            audienceList
             createdAt
           }
         }
@@ -134,6 +134,7 @@ export default class ReminderService {
               schedule
               audience
               frequency
+              audienceList
               questionnaire {
                 id
                 name

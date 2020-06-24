@@ -14,7 +14,10 @@ const schema = `
     favourites: [Favourite]
     createdBy: User
     views: Int
+    schedule: DateTime
     frequency: Frequency
+    audience: Audience
+    audienceList: [String]
   }
 
   type Favourite {

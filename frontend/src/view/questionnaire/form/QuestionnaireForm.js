@@ -12,6 +12,9 @@ import FormSchema from 'view/shared/form/formSchema';
 import InputFormItem from 'view/shared/form/items/InputFormItem';
 import TextAreaFormItem from 'view/shared/form/items/TextAreaFormItem';
 import SelectFormItem from 'view/shared/form/items/SelectFormItem';
+import DatePickerFormItem from 'view/shared/form/items/DatePickerFormItem';
+import RadioFormItem from 'view/shared/form/items/RadioFormItem';
+import UserAutocompleteFormItem from 'view/iam/autocomplete/UserAutocompleteFormItem';
 
 const { fields } = model;
 
@@ -20,6 +23,10 @@ class CasedForm extends Component {
     fields.name,
     fields.description,
     fields.status,
+    fields.schedule,
+    fields.frequency,
+    fields.audience,
+    fields.audienceList,
   ]);
 
   handleSubmit = (values) => {
@@ -30,10 +37,13 @@ class CasedForm extends Component {
   initialValues = () => {
     const record = this.props.record || {};
 
-    if (!record.type) {
-      record.type = "QUIZ";
+    if (!record.audience) {
+      record.audience = "ALL"
     }
 
+    if (!record.frequency) {
+      record.frequency = "WEEKLY"
+    }
     return this.schema.initialValues(record);
   };
 
@@ -76,6 +86,44 @@ class CasedForm extends Component {
                   )}
                   required={fields.status.required}
                 />
+                <DatePickerFormItem
+                  showTime={{ format: 'HH:mm' }}
+                  format="YYYY-MM-DD HH:mm"
+                  name={fields.schedule.name}
+                  label={fields.schedule.label}
+                  required={fields.schedule.required}
+                />
+                <RadioFormItem
+                  name={fields.frequency.name}
+                  label={fields.frequency.label}
+                  options={fields.frequency.options.map(
+                    (item) => ({
+                      value: item.id,
+                      label: item.label,
+                    }),
+                  )}
+                  required={fields.frequency.required}
+                />
+                <RadioFormItem
+                  name={fields.audience.name}
+                  label={fields.audience.label}
+                  options={fields.audience.options.map(
+                    (item) => ({
+                      value: item.id,
+                      label: item.label,
+                    }),
+                  )}
+                  required={fields.audience.required}
+                />
+                {form.values.audience === 'USER' && (
+                  <UserAutocompleteFormItem
+                    form={form}
+                    mode="multiple"
+                    name={fields.audienceList.name}
+                    label={fields.audienceList.label}
+                    required={fields.audienceList.required}
+                  />
+                )}
                 <Form.Item
                   className="form-buttons"
                   {...tailFormItemLayout}

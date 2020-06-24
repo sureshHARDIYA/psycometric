@@ -11,6 +11,10 @@ class Permissions {
         id: 'public',
         allowedRoles: [roles.public],
       },
+      member: {
+        id: 'member',
+        allowedRoles: [roles.member],
+      },
       patient: {
         id: 'patient',
         allowedRoles: [roles.patient],

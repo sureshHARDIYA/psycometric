@@ -99,8 +99,10 @@ export default class QuestionnaireService {
             name
             description
             status
-            level
+            schedule
+            audience
             frequency
+            audienceList
             questions {
               id
               title
@@ -152,12 +154,17 @@ export default class QuestionnaireService {
               updatedAt
               createdAt
               views
+              schedule
+              audience
+              frequency
+              audienceList
               createdBy {
                 id
                 firstName
                 email
               }
-              frequency
+              createdAt
+              updatedAt
             }
           }
         }

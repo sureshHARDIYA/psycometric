@@ -58,7 +58,7 @@ const resolver = {
     },
     playedQuizes: async (root, args, context, info) => {
       new PermissionChecker(context).validateHas(
-        permissions.owner,
+        permissions.member,
       );
 
       return new QuizRecordService(context).findAndCountAll(

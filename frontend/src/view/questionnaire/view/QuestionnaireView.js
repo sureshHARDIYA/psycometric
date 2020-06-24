@@ -177,7 +177,7 @@ class QuestionnaireView extends Component {
       <ViewWrapper>
         <Card title="Questionnaire Meta Information">
           <Card.Grid hoverable={false} style={gridStyle}>
-            <Text strong>{fields.name.label}:</Text>
+            <Text strong>{fields.name.label}: </Text>
             {fields.name.forView(record.name)}
           </Card.Grid>
           <Card.Grid style={gridStyle}>
@@ -185,12 +185,20 @@ class QuestionnaireView extends Component {
             {fields.status.forView(record.status)}
           </Card.Grid>
           <Card.Grid style={gridStyle}>
-            <Text strong>{fields.level.label}: </Text>
-            {fields.level.forView(record.level)}
+            <Text strong>{fields.frequency.label}: </Text>
+            {fields.frequency.forView(record.frequency)}
+          </Card.Grid>
+          <Card.Grid style={gridStyle}>
+            <Text strong>{fields.schedule.label}: </Text>
+            {fields.schedule.forView(record.schedule)}
+          </Card.Grid>
+          <Card.Grid style={gridStyle}>
+            <Text strong>{fields.audience.label}: </Text>
+            {fields.audience.forView(record.audience)}
           </Card.Grid>
           <Card.Grid style={gridStyle}>
             <Text strong>{fields.createdBy.label}: </Text>
-            {record.createdBy.firstName},
+            {record.createdBy.firstName}
           </Card.Grid>
           <Card.Grid style={gridStyle}>
             <Text strong>{fields.createdAt.label}: </Text>

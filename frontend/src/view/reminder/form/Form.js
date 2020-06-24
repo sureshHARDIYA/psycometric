@@ -13,8 +13,8 @@ import InputFormItem from 'view/shared/form/items/InputFormItem';
 import TextAreaFormItem from 'view/shared/form/items/TextAreaFormItem';
 import RadioFormItem from 'view/shared/form/items/RadioFormItem';
 import DatePickerFormItem from 'view/shared/form/items/DatePickerFormItem';
-import QuestionnaireAutocompleteFormItem from 'view/questionnaire/autocomplete/QuestionnaireAutocompleteFormItem';
 import UserAutocompleteFormItem from 'view/iam/autocomplete/UserAutocompleteFormItem';
+import QuestionnaireAutocompleteFormItem from 'view/questionnaire/autocomplete/QuestionnaireAutocompleteFormItem';
 
 const { fields } = model;
 
@@ -76,6 +76,8 @@ class ReminderForm extends Component {
                   required={fields.message.required}
                 />
                 <DatePickerFormItem
+                  showTime={{ format: 'HH:mm' }}
+                  format="YYYY-MM-DD HH:mm"
                   name={fields.schedule.name}
                   label={fields.schedule.label}
                   required={fields.schedule.required}

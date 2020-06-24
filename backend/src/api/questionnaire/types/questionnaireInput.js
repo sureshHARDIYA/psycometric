@@ -3,6 +3,11 @@ const schema = `
     name: String!
     description: String
     status: QuestionnaireStatusEnum
+
+    schedule: String
+    audience: Audience
+    audienceList: [String]
+    frequency: Frequency
   }
 `;
 

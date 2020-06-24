@@ -1,6 +1,5 @@
 import { i18n } from 'i18n';
 import IdField from 'modules/shared/fields/idField';
-import DateField from 'modules/shared/fields/dateField';
 import DateTimeField from 'modules/shared/fields/dateTimeField';
 import StringField from 'modules/shared/fields/stringField';
 import EnumeratorField from 'modules/shared/fields/enumeratorField';
@@ -21,7 +20,7 @@ const fields = {
     label('message'),
     { required: true, },
   ),
-  schedule: new DateField(
+  schedule: new DateTimeField(
     'schedule',
     label('schedule'),
   ),
