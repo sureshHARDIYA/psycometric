@@ -11,6 +11,7 @@ import questionnaire from 'modules/questionnaire/QuestionnaireReducers';
 import reminder from 'modules/reminder/reducer';
 import feedback from 'modules/feedback/FeedbackReducers';
 import answer from 'modules/answer/reducers';
+import questionnaireRule from 'modules/rule/reducers';
 
 export default (history) =>
   combineReducers({
@@ -25,5 +26,6 @@ export default (history) =>
     questionnaire,
     reminder,
     feedback,
-    answer
+    answer,
+    questionnaireRule
   });

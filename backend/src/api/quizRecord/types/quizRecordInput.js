@@ -1,6 +1,8 @@
 const schema = `
   input QuizRecordInput {
     total: Int
+    score: Int
+    caption: String
     duration: Float
     questionnaire: String!
     randomizeQuestion: Boolean

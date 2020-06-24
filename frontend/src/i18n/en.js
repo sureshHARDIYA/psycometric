@@ -111,12 +111,38 @@ const en = {
       view: {
         title: 'View Questionnaire',
       },
+      rule: {
+        edit: {
+          title: 'Edit Rule',
+        },
+        new: {
+          title: 'Add Rule',
+        },
+        fields: {
+          id: 'ID',
+          min: 'Min Score',
+          max: 'Max Score',
+          message: 'Message',
+        },
+        create: {
+          success: 'Rule saved successfully',
+        },
+        update: {
+          success: 'Rule saved successfully',
+        },
+        destroy: {
+          success: 'Rule deleted successfully',
+        },
+        destroyAll: {
+          success: 'Rule(s) deleted successfully',
+        },
+      },
       answer: {
         edit: {
           title: 'Edit Answer',
         },
         new: {
-          title: 'Add New Answer',
+          title: 'Add Answer',
         },
         fields: {
           id: 'ID',
@@ -150,7 +176,7 @@ const en = {
           title: 'Edit Question',
         },
         new: {
-          title: 'Add New Question',
+          title: 'Add Question',
         },
         create: {
           success: 'Question saved successfully',

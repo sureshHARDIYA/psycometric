@@ -85,7 +85,7 @@ class AnswerRepository {
    */
   async destroy(id, options) {
     await MongooseRepository.wrapWithSessionIfExists(
-      Answer.updateOne({}, { $pull: { answers: { _id: id } }}),
+      Answer.updateOne({ 'answers._id': id }, { $pull: { answers: { _id: id } }}),
       options,
     );
 

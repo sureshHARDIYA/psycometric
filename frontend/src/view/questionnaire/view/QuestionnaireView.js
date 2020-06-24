@@ -20,11 +20,13 @@ import selectors from 'modules/questionnaire/list/QuestionnaireListSelectors';
 import questionSelectors from 'modules/question/questionSelectors';
 import destroyActions from 'modules/question/destroy/questionDestroyActions';
 import destroyAnswerActions from 'modules/answer/destroy/actions';
+import destroyRuleActions from 'modules/rule/destroy/actions';
 import destroySelectors from 'modules/question/destroy/questionDestroySelectors';
 import AuditLogViewModal from 'view/auditLog/AuditLogViewModal';
 import actions from 'modules/questionnaire/view/QuestionnaireViewActions';
 import AnswerFormModal from 'view/questionnaire/form/AnswerFormModal';
 import QuestionFormModal from 'view/questionnaire/form/QuestionFormModal';
+import RuleFormModal from 'view/questionnaire/form/RuleFormModal';
 
 const _find = require('lodash/find');
 
@@ -38,6 +40,7 @@ const gridStyle = {
 
 class QuestionnaireView extends Component {
   state = {
+    rule: null,
     answer: null,
     selectedValues: null,
   };
@@ -46,29 +49,87 @@ class QuestionnaireView extends Component {
     this.setState({ selectedValues: null });
   }
 
+  doRefersh = () => {
+    const { dispatch, match } = this.props;
+    dispatch(actions.doRefresh(match.params.id));
+  }
+
+  doRuleDestroy = (id) => {
+    const { dispatch, match } = this.props;
+    dispatch(destroyRuleActions.doDestroy(id));
+    this.doRefersh();
+  };
+
+  doRuleSubmit = () => {
+    this.setState({ rule: false });
+    this.doRefersh();
+  }
+
   doQuestionDestroy = (id) => {
     const { dispatch, match } = this.props;
     dispatch(destroyActions.doDestroy(id));
-    dispatch(actions.doFind(match.params.id));
+    this.doRefersh();
   };
 
   doAnswerDestroy = (id) => {
     const { dispatch, match } = this.props;
     dispatch(destroyAnswerActions.doDestroy(id));
-    dispatch(actions.doFind(match.params.id));
+    this.doRefersh();
   };
 
   doAnswerSubmit = () => {
-    const { dispatch, match } = this.props;
-    dispatch(actions.doFind(match.params.id));
     this.setState({ answer: false });
+    this.doRefersh();
   }
 
   doQuestionSubmit = () => {
     this.setState({ question: false });
-    const { dispatch, match } = this.props;
-    dispatch(actions.doFind(match.params.id));
+    this.doRefersh();
   }
+
+  ruleColumns = [
+    { title: 'Min Score', dataIndex: 'min' },
+    { title: 'Max Score', dataIndex: 'max' },
+    { title: 'Result', dataIndex: 'message' },
+    {
+      title: '',
+      dataIndex: '',
+      width: '180px',
+      render: (_, record) => (
+        <div className="table-actions">
+          <ButtonLink
+            style={{ textAlign: 'left' }}
+            onClick={() =>
+              this.setState({
+                selectedValues: JSON.stringify(
+                  record,
+                  null,
+                  2,
+                ),
+              })
+            }>
+            {i18n('common.view')}
+          </ButtonLink>
+          <Divider type="vertical" />
+          <ButtonLink onClick={() => this.setState({ rule: record })}>
+            {i18n('common.edit')}
+          </ButtonLink>
+          <Divider type="vertical" />
+
+          <Popconfirm
+            title={i18n('common.areYouSure')}
+            onConfirm={() => this.doRuleDestroy(record.id)}
+            okText={i18n('common.yes')}
+            cancelText={i18n('common.no')}
+          >
+            <ButtonLink>
+              {i18n('common.destroy')}
+            </ButtonLink>
+          </Popconfirm>
+        </div>
+      ),
+    },
+  ];
 
   answerColumns = [
     {
@@ -220,6 +281,16 @@ class QuestionnaireView extends Component {
           </Card.Grid>
         </Card>
         <Divider dashed orientation="left">
+          Rules
+        </Divider>
+        <Table
+          rowKey="id"
+          loading={loading}
+          scroll={{ x: true }}
+          columns={this.ruleColumns}
+          dataSource={record.rules || []}
+        />
+        <Divider dashed orientation="left">
           Answers
         </Divider>
         <Table
@@ -287,13 +358,19 @@ class QuestionnaireView extends Component {
           onCancel={() => this.setState({ answer: false })}
           onSuccess={this.doAnswerSubmit}
         />
+        <RuleFormModal
+          visible={!!this.state.rule}
+          record={this.state.rule || {}}
+          onCancel={() => this.setState({ rule: false })}
+          onSuccess={this.doRuleSubmit}
+        />
       </ViewWrapper>
     );
   }
 
   render() {
     const { record, loading } = this.props;
-    if (loading || !record) {
+    if (!record || loading) {
       return <Spinner />;
     }
 

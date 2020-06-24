@@ -1,8 +1,8 @@
-import QuestionnaireService from 'modules/questionnaire/QuestionnaireService';
+import QuestionService from 'modules/question/questionService';
 import Errors from 'modules/shared/error/errors';
 import { getHistory } from 'modules/store';
 
-const prefix = 'QUESTIONNAIRE_VIEW';
+const prefix = 'QUESTION_VIEW';
 
 const actions = {
   FIND_STARTED: `${prefix}_FIND_STARTED`,
@@ -15,26 +15,7 @@ const actions = {
         type: actions.FIND_STARTED,
       });
 
-      const record = await QuestionnaireService.find(id);
-
-      dispatch({
-        type: actions.FIND_SUCCESS,
-        payload: record,
-      });
-    } catch (error) {
-      Errors.handle(error);
-
-      dispatch({
-        type: actions.FIND_ERROR,
-      });
-
-      getHistory().push('/questionnaire');
-    }
-  },
-
-  doRefresh: (id) => async (dispatch) => {
-    try {
-      const record = await QuestionnaireService.find(id);
+      const record = await QuestionService.find(id);
 
       dispatch({
         type: actions.FIND_SUCCESS,

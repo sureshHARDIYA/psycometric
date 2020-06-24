@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Modal } from 'antd';
 import { i18n } from 'i18n';
-import AnswerForm from 'view/questionnaire/form/AnswerForm';
+import Service from 'modules/rule/service';
 import Errors from 'modules/shared/error/errors';
-import AnswerService from 'modules/answer/service';
+import RuleForm from 'view/questionnaire/form/RuleForm';
 
-class AnswerFormModal extends Component {
+class RuleFormModal extends Component {
   state = {
     saveLoading: false,
   };
@@ -15,7 +15,7 @@ class AnswerFormModal extends Component {
       this.setState({
         saveLoading: true,
       });
-      const rs = await !!id ? AnswerService.update(id, data) : AnswerService.create(data);
+      const rs = await !!id ? Service.update(id, data) : Service.create(data);
       this.props.onSuccess(rs);
     } catch (error) {
       Errors.handle(error);
@@ -33,12 +33,12 @@ class AnswerFormModal extends Component {
 
     return (
       <Modal
-        title={i18n('entities.questionnaire.answer.new.title')}
+        title={i18n('entities.questionnaire.rule.new.title')}
         visible={this.props.visible}
         onCancel={() => this.props.onCancel()}
         footer={false}
       >
-        <AnswerForm
+        <RuleForm
           modal
           onSubmit={this.doSubmit}
           record={this.props.record}
@@ -51,4 +51,4 @@ class AnswerFormModal extends Component {
   }
 }
 
-export default AnswerFormModal;
+export default RuleFormModal;

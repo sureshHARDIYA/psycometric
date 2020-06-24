@@ -19,6 +19,14 @@ const recordSchema = new Schema(
       default:0,
       type: Number,
     },
+    score: {
+      default: 0,
+      type: Number,
+      get: function(value) {
+        return !!value ? value : (this.questions || []).reduce((score, question) => score + (question.answered.score || 0), 0)
+      }
+    },
+    caption: String,
     duration: {
       default:0,
       type: Number,
@@ -53,10 +61,6 @@ const recordSchema = new Schema(
     toJSON: { getters: true, virtuals: true },
   },
 );
-
-recordSchema.virtual('score').get(function() {
-  return (this.questions || []).reduce((score, question) => score + (question.answered.score || 0), 0)
-});
 
 const QuizRecord = database.model(
   'quizRecord',

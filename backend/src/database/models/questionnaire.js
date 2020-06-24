@@ -98,6 +98,14 @@ const Questionnaire = new Schema(
       createdBy: { type: Schema.Types.ObjectId, ref: 'user' },
       updatedBy: { type: Schema.Types.ObjectId, ref: 'user' },
     }],
+    rules: [{
+      message: {
+        type: String,
+        required: true,
+      },
+      min: Number,
+      max: Number,
+    }],
     schedule: {
       type: Date,
       default: () => moment(),

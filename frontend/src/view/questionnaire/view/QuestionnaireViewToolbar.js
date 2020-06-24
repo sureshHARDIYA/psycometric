@@ -10,11 +10,13 @@ import destroyActions from 'modules/questionnaire/destroy/QuestionnaireDestroyAc
 import auditLogSelectors from 'modules/auditLog/auditLogSelectors';
 import actions from 'modules/questionnaire/view/QuestionnaireViewActions';
 
+import RuleFormModal from 'view/questionnaire/form/RuleFormModal';
 import AnswerFormModal from 'view/questionnaire/form/AnswerFormModal';
 import QuestionFormModal from 'view/questionnaire/form/QuestionFormModal';
 
 class CasedViewToolbar extends Component {
   state = {
+    rule: false,
     answer: false,
     question: false,
   }
@@ -23,21 +25,29 @@ class CasedViewToolbar extends Component {
     return this.props.match.params.id;
   };
 
+  doRefersh = () => {
+    const { dispatch, match } = this.props;
+    dispatch(actions.doRefresh(match.params.id));
+  }
+
   doDestroy = () => {
     const { dispatch } = this.props;
     dispatch(destroyActions.doDestroy(this.id()));
   };
 
+  doRuleSubmit = () => {
+    this.setState({ rule: false });
+    this.doRefersh();
+  }
+
   doAnswerSubmit = () => {
     this.setState({ answer: false });
-    const { dispatch, match } = this.props;
-    dispatch(actions.doFind(match.params.id));
+    this.doRefersh();
   }
 
   doQuestionSubmit = () => {
     this.setState({ question: false });
-    const { dispatch, match } = this.props;
-    dispatch(actions.doFind(match.params.id));
+    this.doRefersh();
   }
 
   render() {
@@ -65,6 +75,9 @@ class CasedViewToolbar extends Component {
             </Button>
             <Button type="primary" icon="plus" onClick={() => this.setState({ answer: true })}>
               Add Answer
+            </Button>
+            <Button type="primary" icon="plus" onClick={() => this.setState({ rule: true })}>
+              Add Rule
             </Button>
           </>
         )}
@@ -107,6 +120,12 @@ class CasedViewToolbar extends Component {
           questionnaire={this.id()}
           onCancel={() => this.setState({ answer: false })}
           onSuccess={this.doAnswerSubmit}
+        />
+        <RuleFormModal
+          visible={this.state.rule}
+          questionnaire={this.id()}
+          onCancel={() => this.setState({ rule: false })}
+          onSuccess={this.doRuleSubmit}
         />
       </Toolbar>
     );

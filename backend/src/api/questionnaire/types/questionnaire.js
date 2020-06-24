@@ -5,6 +5,7 @@ const schema = `
     description: String
     status: QuestionnaireStatusEnum
     answers: [Answer]
+    rules: [Rule]
     questions: [Question]
     availableFrom: String
     level: LevelEnum

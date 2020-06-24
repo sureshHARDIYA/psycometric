@@ -107,6 +107,12 @@ export default class QuestionnaireService {
               id
               title
             }
+            rules {
+              id
+              min
+              max
+              message
+            }
             answers {
               id
               title

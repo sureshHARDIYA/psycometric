@@ -47,6 +47,9 @@ const answerTypes = require('./answer/types');
 const answerQueries = require('./answer/queries');
 const answerMutations = require('./answer/mutations');
 
+const ruleTypes = require('./rule/types');
+const ruleMutations = require('./rule/mutations');
+
 const notificationMutations = require('./notification/mutations');
 
 const types = [
@@ -61,6 +64,7 @@ const types = [
   ...reminderTypes,
   ...feedbackTypes,
   ...answerTypes,
+  ...ruleTypes,
 ].map((type) => type.resolver);
 
 const queries = [
@@ -88,6 +92,7 @@ const mutations = [
   ...feedbackMutations,
   ...answerMutations,
   ...notificationMutations,
+  ...ruleMutations,
 ].map((mutation) => mutation.resolver);
 
 module.exports = mergeResolvers(types, queries, mutations);

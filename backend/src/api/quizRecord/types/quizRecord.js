@@ -4,6 +4,7 @@ const schema = `
     title: String
     score: Int
     total: Int
+    caption: String
     duration: Float
     randomizeQuestion: String
     questions: [QuestionRecord]
