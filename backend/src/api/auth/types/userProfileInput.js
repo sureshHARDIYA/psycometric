@@ -5,6 +5,7 @@ const schema = `
     avatars: [FileInput!]
     password: String
     newPassword: String
+    notification: String
     intrestedCategories: [String]
   }
 `;

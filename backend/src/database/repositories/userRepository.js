@@ -176,6 +176,7 @@ module.exports = class UserRepository {
       phoneNumber: data.phoneNumber || null,
       updatedBy: currentUser.id,
       avatars: data.avatars || [],
+      notification: data.notification || null,
       intrestedCategories: data.intrestedCategories || [],
     };
 

@@ -46,6 +46,7 @@ const UserSchema = new Schema(
         default: true,
       },
     },
+    notification: String,
     importHash: { type: String, maxlength: 255 },
   },
   {

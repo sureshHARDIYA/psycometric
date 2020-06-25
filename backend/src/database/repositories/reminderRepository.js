@@ -2,6 +2,7 @@ const MongooseRepository = require('./mongooseRepository');
 const MongooseQueryUtils = require('../utils/mongooseQueryUtils');
 const AuditLogRepository = require('./auditLogRepository');
 const NotificationRepository = require('./notificationRepository');
+const QuestionnaireRepository = require('./questionnaireRepository');
 const Reminder = require('../models/reminder');
 
 class ReminderRepository {
@@ -294,14 +295,14 @@ class ReminderRepository {
    *
    */
   static async reloadAllReminder() {
+    QuestionnaireRepository.reloadAllSchedule();
     console.log('Reload all reminder')
+
     try {
       const list = await Reminder.find({});
       for (const reminder of list) {
         NotificationRepository.schedule(reminder)
       }
-
-      console.log('JOB LIST:', NotificationRepository.list());
     } catch (e) {
       console.log('error');
     }

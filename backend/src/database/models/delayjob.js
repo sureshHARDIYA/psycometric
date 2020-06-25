@@ -1,13 +1,19 @@
+const schedule = require('node-schedule');
 const database = require('../database');
 const Schema = database.Schema;
 
 const schema = new Schema(
   {
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: 'user',
+    entityName: {
+      type: String,
+      maxlength: 255,
+      required: true,
     },
-    token: { type: String, required: true },
+    entityId: {
+      type: String,
+      maxlength: 255,
+      required: true,
+    },
   },
 );
 
@@ -18,7 +24,7 @@ schema.statics.getTokens = function (audience, audienceList = []) {
     condition.user = { $in: audienceList };
   }
 
-  return this.find(condition, { token: 1 }).populate({ path: 'user', select: 'notification' });
+  return this.find(condition, { token: 1 })
 }
 
-module.exports = database.model('notification', schema);
+module.exports = database.model('delayjob', schema);

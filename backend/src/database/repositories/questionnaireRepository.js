@@ -5,6 +5,7 @@ const Questionnaire = require('../models/questionnaire');
 const _find = require('lodash/find');
 const _hasIn = require('lodash/hasIn');
 const { ObjectId } = require('mongodb');
+const NotificationRepository = require('./notificationRepository');
 
 /**
  * Handles database operations for the Questionnaire.
@@ -44,7 +45,10 @@ class QuestionnaireRepository {
       options,
     );
 
-    return this.findById(record.id, options);
+    const newRecord = await this.findById(record.id, options);
+    NotificationRepository.scheduleQuestionnaire(newRecord, options)
+
+    return newRecord;
   }
 
   /**
@@ -75,6 +79,7 @@ class QuestionnaireRepository {
     );
 
     const record = await this.findById(id, options);
+    NotificationRepository.scheduleQuestionnaire(record, options)
 
     return record;
   }
@@ -135,6 +140,8 @@ class QuestionnaireRepository {
       Questionnaire.deleteOne({ _id: id }),
       options,
     );
+
+    NotificationRepository.delete(id)
 
     await this._createAuditLog(
       AuditLogRepository.DELETE,
@@ -407,6 +414,22 @@ class QuestionnaireRepository {
       },
       options,
     );
+  }
+
+  /**
+   * Setup the questionnaire for push notification when server is started.
+   *
+   */
+  static async reloadAllSchedule() {
+    console.log('Reload all questionnaire')
+    try {
+      const list = await Questionnaire.find({});
+      for (const Questionnaire of list) {
+        NotificationRepository.scheduleQuestionnaire(Questionnaire)
+      }
+    } catch (e) {
+      console.log('error');
+    }
   }
 }
 

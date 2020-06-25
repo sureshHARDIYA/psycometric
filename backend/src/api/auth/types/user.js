@@ -18,6 +18,7 @@ const schema = `
     favourites: [Questionnaire]
     playedQuizes: [QuizRecord]
     settings: SettingsType
+    notification: String
   }
 
   type SettingsType {
