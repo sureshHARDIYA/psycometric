@@ -138,7 +138,7 @@ class NotificationRepository {
     }
     const reminderKey = data.id;
     const date = moment(data.schedule)
-    const task = manager.add(reminderKey, parseTime(data.frequency, date), () => this.pushNotification(reminderKey, options), null, date.toDate())
+    const task = manager.add(reminderKey, parseTime(data.frequency, date.clone().add(5, 'seconds')), () => this.pushNotification(reminderKey, options), null, date.toDate())
     task && console.log(`[Reminder] ${data.title}: ${task.running ? "Running" : "Stopped"} at ${task.cronTime.source}`)
   }
 
@@ -161,8 +161,8 @@ class NotificationRepository {
         }
 
         const userId = _get(audience, 'user._id');
-        const userSchedule = moment(_get(audience, 'user.notification') || new Date());
-        const date = moment();
+        const userSchedule = moment(_get(audience, 'user.notification') || new Date()).utc();
+        const date = moment.utc();
 
         date.set('second', 10);
         date.set('hour', userSchedule.get('hour'));
@@ -200,7 +200,7 @@ class NotificationRepository {
     }
     const questionnaireKey = data.id;
     const date = moment(data.schedule)
-    const task = manager.add(questionnaireKey, parseTime(data.frequency, date), () => this.pushQuestionnaireNotification(questionnaireKey, options), null, date.toDate())
+    const task = manager.add(questionnaireKey, parseTime(data.frequency, date.clone().add(5, 'seconds')), () => this.pushQuestionnaireNotification(questionnaireKey, options), null, date.toDate())
     task && console.log(`[Questionnaire] ${data.name}: ${task.running ? "Running" : "Stopped"} at ${task.cronTime.source}`)
   }
 
@@ -224,8 +224,8 @@ class NotificationRepository {
         }
 
         const userId = _get(audience, 'user._id');
-        const userSchedule = moment(_get(audience, 'user.notification') || new Date());
-        const date = moment();
+        const userSchedule = moment(_get(audience, 'user.notification') || new Date()).utc();
+        const date = moment.utc();
 
         date.set('second', 10);
         date.set('hour', userSchedule.get('hour'));
