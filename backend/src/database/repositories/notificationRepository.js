@@ -171,11 +171,11 @@ class NotificationRepository {
         const message = {
           to: pushToken,
           sound: 'default',
-          title: data.name,
-          body: 'Test on questionnaire is scheduled',
+          title: data.title,
+          body: data.message,
           data: {
             id: data.id,
-            title: data.name,
+            title: data.title,
             type: 'Questionnaire',
           }
         }
