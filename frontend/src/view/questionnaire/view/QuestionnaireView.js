@@ -55,7 +55,7 @@ class QuestionnaireView extends Component {
   }
 
   doRuleDestroy = (id) => {
-    const { dispatch, match } = this.props;
+    const { dispatch } = this.props;
     dispatch(destroyRuleActions.doDestroy(id));
     this.doRefersh();
   };
@@ -66,13 +66,13 @@ class QuestionnaireView extends Component {
   }
 
   doQuestionDestroy = (id) => {
-    const { dispatch, match } = this.props;
+    const { dispatch } = this.props;
     dispatch(destroyActions.doDestroy(id));
     this.doRefersh();
   };
 
   doAnswerDestroy = (id) => {
-    const { dispatch, match } = this.props;
+    const { dispatch } = this.props;
     dispatch(destroyAnswerActions.doDestroy(id));
     this.doRefersh();
   };

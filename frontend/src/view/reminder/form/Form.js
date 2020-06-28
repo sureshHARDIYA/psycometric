@@ -44,6 +44,11 @@ class ReminderForm extends Component {
     if (!record.frequency) {
       record.frequency = "WEEKLY"
     }
+
+    if (record.audienceList) {
+      record.audienceList = record.audienceList.filter(Boolean)
+    }
+
     return this.schema.initialValues(record);
   };
 
