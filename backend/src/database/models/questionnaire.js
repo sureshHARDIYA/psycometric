@@ -116,6 +116,7 @@ const Questionnaire = new Schema(
       default: 'ALL',
       enum: ['ALL', 'USER']
     },
+    audienceList: [String],
     frequency: {
       type: String,
       default: 'WEEKLY',

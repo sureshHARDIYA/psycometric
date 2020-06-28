@@ -255,8 +255,17 @@ class QuestionnaireRepository {
         };
       }
 
-      if (filter.level) {
-        criteria = { ...criteria, level: filter.level };
+      if (filter.assgined) {
+        criteria = {
+          ...criteria,
+            $or: [{
+              audience: 'ALL'
+            }, {
+              audienceList: {
+                $in: [filter.assgined]
+              }
+            }]
+        };
       }
 
       if (filter.favourite) {
