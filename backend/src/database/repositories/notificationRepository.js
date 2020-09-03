@@ -140,6 +140,10 @@ class NotificationRepository {
     const date = moment(data.schedule)
     const task = manager.add(reminderKey, parseTime(data.frequency, date.clone().add(5, 'seconds')), () => this.pushNotification(reminderKey, options), null, date.toDate())
     task && console.log(`[Reminder] ${data.title}: ${task.running ? "Running" : "Stopped"} at ${task.cronTime.source}`)
+
+    if (data && data.test === 'yes') {
+      this.pushNotification(reminderKey, options)
+    }
   }
 
   static async pushNotification(id, options) {
@@ -180,6 +184,10 @@ class NotificationRepository {
           }
         }
 
+        if (data && data.test === 'yes') {
+          this.sendNotification(message)
+        }
+
         console.log(`Scheduled push notification to ${userId} at ${date.toDate()}`)
         schedule.scheduleJob(date.toDate(), () => {
           console.log(`Send push notification to ${userId} at ${date.toDate()}`)
@@ -198,8 +206,15 @@ class NotificationRepository {
     if (MongooseRepository.getSession(options)) {
       await Notification.createCollection();
     }
+
     const questionnaireKey = data.id;
     const date = moment(data.schedule)
+
+    if (data && data.test === 'yes') {
+      console.log('test QuestionnaireNotification')
+      this.pushQuestionnaireNotification(questionnaireKey, options)
+    }
+
     const task = manager.add(questionnaireKey, parseTime(data.frequency, date.clone().add(5, 'seconds')), () => this.pushQuestionnaireNotification(questionnaireKey, options), null, date.toDate())
     task && console.log(`[Questionnaire] ${data.name}: ${task.running ? "Running" : "Stopped"} at ${task.cronTime.source}`)
   }
@@ -241,6 +256,11 @@ class NotificationRepository {
             title: data.name,
             type: 'Questionnaire',
           }
+        }
+
+        if (data && data.test === 'yes') {
+          console.log('test ReminderNotification')
+          this.sendNotification(message)
         }
 
         console.log(`Scheduled push notification to ${userId} at ${date.toDate()}`)

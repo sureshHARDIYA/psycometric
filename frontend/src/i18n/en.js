@@ -59,6 +59,7 @@ const en = {
         description: 'Description',
         question: 'Question',
         status: 'Status',
+        test: 'Send test schedule?',
         frequency: 'Frequency',
         availableFromRange: 'AvailableFrom',
         availableFrom: 'AvailableFrom',
@@ -82,6 +83,10 @@ const en = {
           WEEKLY: 'Weekly',
           BIWEEKLY: 'Biweekly',
           MONTHLY: 'Monthly',
+        },
+        test: {
+          yes: 'Yes',
+          no: 'No',
         },
         audience: {
           ALL: 'All users',
@@ -231,6 +236,7 @@ const en = {
         questionnaire: 'Questionnaire',
         createdAt: 'Created at',
         updatedAt: 'Updated at',
+        test: 'Send test schedule?',
       },
       new: {
         title: 'New Reminder',
@@ -253,6 +259,10 @@ const en = {
         audience: {
           ALL: 'All users',
           USER: 'User on list',
+        },
+        test: {
+          yes: 'Yes',
+          no: 'No',
         },
       }
     },

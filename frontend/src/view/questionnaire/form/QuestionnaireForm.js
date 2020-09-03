@@ -21,6 +21,7 @@ const { fields } = model;
 class CasedForm extends Component {
   schema = new FormSchema(fields.id, [
     fields.name,
+    fields.test,
     fields.description,
     fields.status,
     fields.schedule,
@@ -97,6 +98,17 @@ class CasedForm extends Component {
                   name={fields.schedule.name}
                   label={fields.schedule.label}
                   required={fields.schedule.required}
+                />
+                <RadioFormItem
+                  name={fields.test.name}
+                  label={fields.test.label}
+                  options={fields.test.options.map(
+                    (item) => ({
+                      value: item.id,
+                      label: item.label,
+                    }),
+                  )}
+                  required={fields.test.required}
                 />
                 <RadioFormItem
                   name={fields.frequency.name}

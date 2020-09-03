@@ -122,6 +122,10 @@ const Questionnaire = new Schema(
       default: 'WEEKLY',
       enum: ['WEEKLY', 'BIWEEKLY', 'MONTHLY']
     },
+    test: {
+      type: String,
+      default: 'no'
+    }
   },
   {
     timestamps: true,

@@ -26,6 +26,7 @@ class ReminderForm extends Component {
     fields.frequency,
     fields.audience,
     fields.questionnaire,
+    fields.test,
     fields.audienceList,
   ]);
 
@@ -86,6 +87,17 @@ class ReminderForm extends Component {
                   name={fields.schedule.name}
                   label={fields.schedule.label}
                   required={fields.schedule.required}
+                />
+                <RadioFormItem
+                  name={fields.test.name}
+                  label={fields.test.label}
+                  options={fields.test.options.map(
+                    (item) => ({
+                      value: item.id,
+                      label: item.label,
+                    }),
+                  )}
+                  required={fields.test.required}
                 />
                 <QuestionnaireAutocompleteFormItem
                   name={fields.questionnaire.name}

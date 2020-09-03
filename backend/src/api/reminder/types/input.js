@@ -4,6 +4,7 @@ const schema = `
     message: String!
     schedule: String
     audience: Audience
+    test: String
     audienceList: [String]
     frequency: Frequency
     questionnaire: String!

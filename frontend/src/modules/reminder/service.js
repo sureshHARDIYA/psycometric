@@ -92,6 +92,7 @@ export default class ReminderService {
           reminderFind(id: $id) {
             id
             title
+            test
             message
             schedule
             audience
@@ -130,6 +131,7 @@ export default class ReminderService {
             rows {
               id
               title
+              test
               message
               schedule
               audience

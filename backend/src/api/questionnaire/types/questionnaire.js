@@ -15,6 +15,7 @@ const schema = `
     favourites: [Favourite]
     createdBy: User
     views: Int
+    test: String
     schedule: DateTime
     frequency: Frequency
     audience: Audience
@@ -38,6 +39,7 @@ const resolver = {
         ({ user }) => user.id === context.currentUser.id,
       );
     },
+    test: (root) => root.test || 'no',
   },
 };
 

@@ -101,6 +101,7 @@ export default class QuestionnaireService {
             status
             schedule
             audience
+            test
             frequency
             audienceList
             questions {
@@ -160,6 +161,7 @@ export default class QuestionnaireService {
               updatedAt
               createdAt
               views
+              test
               schedule
               audience
               frequency

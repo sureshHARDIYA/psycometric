@@ -26,6 +26,10 @@ const ReminderSchema = new Schema(
       ref: 'questionnaire',
     },
     audienceList: [String],
+    test: {
+      type: String,
+      default: 'no'
+    },
     createdBy: { type: Schema.Types.ObjectId, ref: 'user' },
     updatedBy: { type: Schema.Types.ObjectId, ref: 'user' },
   },

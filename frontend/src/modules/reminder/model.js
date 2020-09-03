@@ -43,6 +43,21 @@ const fields = {
     ],
     {},
   ),
+  test: new EnumeratorField(
+    'test',
+    label('test'),
+    [
+      {
+        id: 'yes',
+        label: enumeratorLabel('test', 'yes'),
+      },
+      {
+        id: 'no',
+        label: enumeratorLabel('test', 'no'),
+      },
+    ],
+    {},
+  ),
   audience: new EnumeratorField(
     'audience',
     label('audience'),

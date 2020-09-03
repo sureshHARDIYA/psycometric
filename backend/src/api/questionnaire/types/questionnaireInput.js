@@ -5,6 +5,7 @@ const schema = `
     status: QuestionnaireStatusEnum
 
     schedule: String
+    test: String
     audience: Audience
     audienceList: [String]
     frequency: Frequency

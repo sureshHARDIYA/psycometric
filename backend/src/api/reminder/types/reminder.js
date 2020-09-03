@@ -6,6 +6,7 @@ const schema = `
     schedule: DateTime
     frequency: Frequency
     audience: Audience
+    test: String
     audienceList: [String]
     questionnaire: Questionnaire
     createdAt: DateTime
