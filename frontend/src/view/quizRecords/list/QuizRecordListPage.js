@@ -4,6 +4,7 @@ import Breadcrumb from 'view/shared/Breadcrumb';
 import PageTitle from 'view/shared/styles/PageTitle';
 import ContentWrapper from 'view/layout/styles/ContentWrapper';
 import QuizRecordListTable from 'view/quizRecords/list/QuizRecordListTable';
+import QuizRecordListToolbar from 'view/quizRecords/list/QuizRecordListToolbar';
 
 class QuizRecordListPage extends Component {
   render() {
@@ -18,8 +19,9 @@ class QuizRecordListPage extends Component {
 
         <ContentWrapper>
           <PageTitle>
-            {i18n('entities.questionnaire.list.title')}
+            {i18n('entities.quizRecords.list.title')}
           </PageTitle>
+          <QuizRecordListToolbar />
           <QuizRecordListTable />
         </ContentWrapper>
       </React.Fragment>

@@ -24,7 +24,6 @@ class IamEditForm extends Component {
     fields.email,
     fields.firstName,
     fields.lastName,
-    fields.phoneNumber,
     fields.avatarsIam,
     fields.roles,
     fields.settings,
@@ -83,13 +82,6 @@ class IamEditForm extends Component {
                   name={fields.lastName.name}
                   label={fields.lastName.label}
                   autoComplete={fields.lastName.name}
-                />
-
-                <InputFormItem
-                  name={fields.phoneNumber.name}
-                  label={fields.phoneNumber.label}
-                  autoComplete={fields.phoneNumber.name}
-                  prefix={'+'}
                 />
 
                 <ImagesFormItem

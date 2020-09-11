@@ -4,7 +4,6 @@ const schema = `
     firstName: String
     lastName: String
     postStatus: String
-    phoneNumber: String
     avatars: [FileInput!]
     roles: [ String! ]!
     settings: UserSettingsInput

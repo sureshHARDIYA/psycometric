@@ -25,7 +25,6 @@ class ProfileFormPage extends Component {
     fields.email,
     fields.firstName,
     fields.lastName,
-    fields.phoneNumber,
     fields.avatarsProfile,
     fields.roles,
     fields.password,
@@ -36,7 +35,6 @@ class ProfileFormPage extends Component {
     fields.email,
     fields.firstName,
     fields.lastName,
-    fields.phoneNumber,
     fields.avatarsProfile,
     fields.roles,
   ]);
@@ -47,10 +45,9 @@ class ProfileFormPage extends Component {
       actions.doUpdateProfile(
         values.firstName,
         values.lastName,
-        values.phoneNumber,
         values.avatars,
         this.state.password && values.password,
-        this.state.password && values.newPassword
+        this.state.password && values.newPassword,
       ),
     );
   };
@@ -68,7 +65,11 @@ class ProfileFormPage extends Component {
       <FormWrapper>
         <Formik
           initialValues={this.initialValues()}
-          validationSchema={password ? this.schema.schema : this.schemaNoPassword.schema}
+          validationSchema={
+            password
+              ? this.schema.schema
+              : this.schemaNoPassword.schema
+          }
           onSubmit={this.handleSubmit}
           render={(form) => {
             return (
@@ -91,13 +92,6 @@ class ProfileFormPage extends Component {
                   autoComplete={fields.lastName.name}
                 />
 
-                <InputFormItem
-                  name={fields.phoneNumber.name}
-                  label={fields.phoneNumber.label}
-                  autoComplete={fields.phoneNumber.name}
-                  prefix={'+'}
-                />
-
                 <ImagesFormItem
                   name={fields.avatarsProfile.name}
                   label={fields.avatarsProfile.label}
@@ -117,9 +111,13 @@ class ProfileFormPage extends Component {
                 >
                   <Button
                     disabled={saveLoading}
-                    onClick={() => this.setState({ password: !password })}
+                    onClick={() =>
+                      this.setState({ password: !password })
+                    }
                   >
-                    {password ? i18n('auth.changepassword.hide') : i18n('auth.changepassword.add')}
+                    {password
+                      ? i18n('auth.changepassword.hide')
+                      : i18n('auth.changepassword.add')}
                   </Button>
                 </Form.Item>
 

@@ -1,31 +1,367 @@
 const ptBR = {
   common: {
-    or: 'ou',
-    cancel: 'Cancelar',
-    reset: 'Limpar',
-    save: 'Salvar',
-    search: 'Buscar',
-    edit: 'Editar',
-    remove: 'Remover',
-    new: 'Novo',
-    export: 'Exportar para Excel',
+    or: 'Eller',
+    cancel: 'Avbryt',
+    reset: 'Nullstille',
+    save: 'Lagre',
+    search: 'Søk',
+    edit: 'Redigere',
+    remove: 'Ta vekk',
+    new: 'Ny',
+    export: 'Eksport Excel',
     noDataToExport: 'Não há dados para exportar',
     import: 'Importar',
     discard: 'Descartar',
-    yes: 'Sim',
-    no: 'Não',
-    pause: 'Pausar',
-    areYouSure: 'Tem certeza?',
-    view: 'Visualizar',
-    destroy: 'Deletar',
+    yes: 'Ja',
+    no: 'Nei',
+    pause: 'pause',
+    areYouSure: 'Er du sikker?',
+    view: 'Utsikt',
+    destroy: 'Slett',
     mustSelectARow: 'Selecine uma linha',
   },
 
   app: {
-    title: 'Aplicação',
+    title: 'Psychometric',
   },
 
   entities: {
+    questionnaire: {
+      name: 'Spørreskjema',
+      label: 'Spørreskjema',
+      menu: 'Spørreskjema',
+      exporterFileName: 'questionnaire_export',
+      list: {
+        menu: 'Spørreskjema',
+        title: 'Spørreskjema',
+      },
+      create: {
+        success: 'Spørreskjema saved successfully',
+      },
+      update: {
+        success: 'Spørreskjema saved successfully',
+      },
+      destroy: {
+        success: 'Spørreskjema deleted successfully',
+      },
+      destroyAll: {
+        success: 'Spørreskjema(s) deleted successfully',
+      },
+      edit: {
+        title: 'Edit Spørreskjema',
+      },
+      fields: {
+        id: 'Id',
+        name: 'Name',
+        level: 'Level',
+        type: 'Type',
+        description: 'Description',
+        question: 'Question',
+        status: 'Status',
+        test: 'Send test schedule?',
+        frequency: 'Frequency',
+        availableFromRange: 'AvailableFrom',
+        availableFrom: 'AvailableFrom',
+        createdAt: 'Created at',
+        updatedAt: 'Updated at',
+        createdAtRange: 'Created at',
+        category: 'Select your category',
+        createdBy: 'Created by',
+        views: 'Views',
+        audience: 'Audience',
+        schedule: 'Schedule',
+        audienceList: 'Audience List',
+      },
+      enumerators: {
+        status: {
+          ACTIVE: 'ACTIVE',
+          INACTIVE: 'INACTIVE',
+          DRAFT: 'DRAFT',
+        },
+        frequency: {
+          WEEKLY: 'Weekly',
+          BIWEEKLY: 'Biweekly',
+          MONTHLY: 'Monthly',
+        },
+        test: {
+          yes: 'Yes',
+          no: 'No',
+        },
+        audience: {
+          ALL: 'All users',
+          USER: 'User on list',
+        },
+        levels: {
+          JUNIOR: 'JUNIOR',
+          BEGINNER: 'BEGINNER',
+          INTERMEDIATE: 'INTERMEDIATE',
+          SENIOR: 'SENIOR',
+          EXPERT: 'EXPERT',
+        },
+        types: {
+          QUIZ: 'QUIZ',
+          PSYCOMETRIC: 'PSYCOMETRIC',
+        },
+      },
+      new: {
+        title: 'New Spørreskjema',
+      },
+      importer: {
+        title: 'Import Cases',
+        fileName: 'cased_import_template',
+        hint:
+          'Files/Images columns must be the URLs of the files separated by space.',
+      },
+      view: {
+        title: 'View Spørreskjema',
+      },
+      rule: {
+        edit: {
+          title: 'Edit Rule',
+        },
+        new: {
+          title: 'Add Rule',
+        },
+        fields: {
+          id: 'ID',
+          min: 'Min Score',
+          max: 'Max Score',
+          message: 'Message',
+        },
+        create: {
+          success: 'Rule saved successfully',
+        },
+        update: {
+          success: 'Rule saved successfully',
+        },
+        destroy: {
+          success: 'Rule deleted successfully',
+        },
+        destroyAll: {
+          success: 'Rule(s) deleted successfully',
+        },
+      },
+      answer: {
+        edit: {
+          title: 'Edit Answer',
+        },
+        new: {
+          title: 'Add Answer',
+        },
+        fields: {
+          id: 'ID',
+          title: 'Title',
+          type: 'Type',
+        },
+        enumerators: {
+          type: {
+            CODE: 'CODE',
+            PICTURE: 'PICTURE',
+            TEXT: 'TEXT',
+          },
+        },
+        create: {
+          success: 'Answer saved successfully',
+        },
+        update: {
+          success: 'Answer saved successfully',
+        },
+        destroy: {
+          success: 'Answer deleted successfully',
+        },
+        destroyAll: {
+          success: 'Answer(s) deleted successfully',
+        },
+      },
+      question: {
+        name: 'question',
+        label: 'Question',
+        edit: {
+          title: 'Edit Question',
+        },
+        new: {
+          title: 'Add Question',
+        },
+        create: {
+          success: 'Question saved successfully',
+        },
+        update: {
+          success: 'Question saved successfully',
+        },
+        destroy: {
+          success: 'Question deleted successfully',
+        },
+        destroyAll: {
+          success: 'Question(s) deleted successfully',
+        },
+        fields: {
+          id: 'ID',
+          title: 'Content',
+        },
+      },
+    },
+    quizRecords: {
+      list: {
+        menu: 'Submissions',
+        title: 'Submissions',
+      },
+    },
+    reminder: {
+      name: 'Reminder',
+      label: 'Reminder',
+      menu: 'Reminder',
+      exporterFileName: 'reminder_export',
+      list: {
+        menu: 'Reminder',
+        title: 'Reminder',
+      },
+      create: {
+        success: 'Reminder saved successfully',
+      },
+      update: {
+        success: 'Reminder saved successfully',
+      },
+      destroy: {
+        success: 'Reminder deleted successfully',
+      },
+      destroyAll: {
+        success: 'Reminder(s) deleted successfully',
+      },
+      edit: {
+        title: 'Edit Reminder',
+      },
+      fields: {
+        id: 'Id',
+        title: 'Title',
+        message: 'Message',
+        schedule: 'Schedule',
+        frequency: 'Frequency',
+        audience: 'Audience',
+        audienceList: 'Audience List',
+        questionnaire: 'Spørreskjema',
+        createdAt: 'Created at',
+        updatedAt: 'Updated at',
+        test: 'Send test schedule?',
+      },
+      new: {
+        title: 'New Reminder',
+      },
+      importer: {
+        title: 'Import Reminder',
+        fileName: 'reminder_import_template',
+        hint:
+          'Files/Images columns must be the URLs of the files separated by space.',
+      },
+      view: {
+        title: 'View Reminder',
+      },
+      enumerators: {
+        frequency: {
+          WEEKLY: 'Weekly',
+          BIWEEKLY: 'Biweekly',
+          MONTHLY: 'Monthly',
+        },
+        audience: {
+          ALL: 'All users',
+          USER: 'User on list',
+        },
+        test: {
+          yes: 'Yes',
+          no: 'No',
+        },
+      },
+    },
+    feedback: {
+      name: 'Feedback',
+      label: 'Feedback',
+      menu: 'Feedback',
+      list: {
+        menu: 'Feedback',
+        title: 'Feedback',
+      },
+      create: {
+        submit: 'Submit',
+        title: 'Feedback sent',
+        description:
+          'Thanks for the feedback on app experience to development team. We sincerely appreciate your insight because it helps us build a app better',
+      },
+      destroy: {
+        success: 'Feedback deleted successfully',
+      },
+      destroyAll: {
+        success: 'Feedback(s) deleted successfully',
+      },
+      fields: {
+        id: 'Id',
+        email: 'Email',
+        message: 'Message',
+        createdAt: 'Created at',
+        createdAtRange: 'Created at',
+      },
+      view: {
+        title: 'View Feedback',
+      },
+    },
+    records: {
+      name: 'records',
+      label: 'Quiz Record',
+      menu: 'Records',
+      single: 'Module',
+      exporterFileName: 'module_export',
+      list: {
+        menu: 'Modules',
+        title: 'Modules',
+      },
+      create: {
+        success: 'Module saved successfully',
+      },
+      update: {
+        success: 'Module saved successfully',
+      },
+      destroy: {
+        success: 'Module deleted successfully',
+      },
+      destroyAll: {
+        success: 'Module(s) deleted successfully',
+      },
+      edit: {
+        title: 'Edit Module',
+      },
+      fields: {
+        id: 'Id',
+        owner: 'Owner',
+        name: 'Name',
+        next: 'Next task',
+        description: 'Description',
+        status: 'Status',
+        tasks: 'Tasks',
+        featuredImage: 'FeaturedImage',
+        prerequisite: 'Prerequisite',
+        createdAt: 'Created at',
+        updatedAt: 'Updated at',
+        createdAtRange: 'Created at',
+      },
+      enumerators: {
+        status: {
+          ACTIVE: 'ACTIVE',
+          INACTIVE: 'INACTIVE',
+          DRAFT: 'DRAFT',
+        },
+      },
+      new: {
+        title: 'New Module',
+      },
+      view: {
+        title: 'View Module',
+      },
+      importer: {
+        title: 'Import Modules',
+        fileName: 'module_import_template',
+        hint:
+          'Files/Images columns must be the URLs of the files separated by space.',
+      },
+    },
+
     patient: {
       name: 'Patient',
       label: 'Patients',
@@ -52,20 +388,20 @@ const ptBR = {
       },
       fields: {
         id: 'Id',
-        'name': 'Name',
-        'birthdateRange': 'Birthdate',
-        'birthdate': 'Birthdate',
-        'gender': 'Gender',
-        'assignCase': 'AssignCase',
-        'phone': 'Phone',
+        name: 'Name',
+        birthdateRange: 'Birthdate',
+        birthdate: 'Birthdate',
+        gender: 'Gender',
+        assignCase: 'AssignCase',
+        phone: 'Phone',
         createdAt: 'Criado em',
         updatedAt: 'Atualizado em',
         createdAtRange: 'Criado em',
       },
       enumerators: {
-        'gender': {
-          'male': 'Male',
-          'female': 'Female',
+        gender: {
+          male: 'Male',
+          female: 'Female',
         },
       },
       new: {
@@ -77,293 +413,6 @@ const ptBR = {
       importer: {
         title: 'Importar Patients',
         fileName: 'patient_template_importacao',
-        hint:
-          'Arquivos/Imagens devem ser as URLs dos arquivos, separados por espaço. Relacionamentos devem ser os IDs separados por espaço.',
-      },
-    },
-
-    cased: {
-      name: 'Case',
-      label: 'Cases',
-      menu: 'Cases',
-      exporterFileName: 'Case_exportados',
-      list: {
-        menu: 'Cases',
-        title: 'Cases',
-      },
-      create: {
-        success: 'Case salvo com sucesso',
-      },
-      update: {
-        success: 'Case salvo com sucesso',
-      },
-      destroy: {
-        success: 'Case deletado com sucesso',
-      },
-      destroyAll: {
-        success: 'Case(s) deletado com sucesso',
-      },
-      edit: {
-        title: 'Editar Case',
-      },
-      fields: {
-        id: 'Id',
-        'name': 'Name',
-        'description': 'Description',
-        'status': 'Status',
-        'featuredImage': 'FeaturedImage',
-        'modules': 'Modules',
-        'patients': 'Patients',
-        'availableFromRange': 'AvailableFrom',
-        'availableFrom': 'AvailableFrom',
-        createdAt: 'Criado em',
-        updatedAt: 'Atualizado em',
-        createdAtRange: 'Criado em',
-      },
-      enumerators: {
-        'status': {
-          'ACTIVE': 'ACTIVE',
-          'INACTIVE': 'INACTIVE',
-          'DRAFT': 'DRAFT',
-        },
-      },
-      new: {
-        title: 'Novo Case',
-      },
-      view: {
-        title: 'Visualizar Case',
-      },
-      importer: {
-        title: 'Importar Cases',
-        fileName: 'cased_template_importacao',
-        hint:
-          'Arquivos/Imagens devem ser as URLs dos arquivos, separados por espaço. Relacionamentos devem ser os IDs separados por espaço.',
-      },
-    },
-
-    module: {
-      name: 'Module',
-      label: 'Modules',
-      menu: 'Modules',
-      exporterFileName: 'Module_exportados',
-      list: {
-        menu: 'Modules',
-        title: 'Modules',
-      },
-      create: {
-        success: 'Module salvo com sucesso',
-      },
-      update: {
-        success: 'Module salvo com sucesso',
-      },
-      destroy: {
-        success: 'Module deletado com sucesso',
-      },
-      destroyAll: {
-        success: 'Module(s) deletado com sucesso',
-      },
-      edit: {
-        title: 'Editar Module',
-      },
-      fields: {
-        id: 'Id',
-        'owner': 'Owner',
-        'name': 'Name',
-        'description': 'Description',
-        'status': 'Status',
-        'tasks': 'Tasks',
-        'featuredImage': 'FeaturedImage',
-        'prerequisite': 'Prerequisite',
-        createdAt: 'Criado em',
-        updatedAt: 'Atualizado em',
-        createdAtRange: 'Criado em',
-      },
-      enumerators: {
-        'status': {
-          'ACTIVE': 'ACTIVE',
-          'INACTIVE': 'INACTIVE',
-          'DRAFT': 'DRAFT',
-        },
-      },
-      new: {
-        title: 'Novo Module',
-      },
-      view: {
-        title: 'Visualizar Module',
-      },
-      importer: {
-        title: 'Importar Modules',
-        fileName: 'module_template_importacao',
-        hint:
-          'Arquivos/Imagens devem ser as URLs dos arquivos, separados por espaço. Relacionamentos devem ser os IDs separados por espaço.',
-      },
-    },
-
-    task: {
-      name: 'Task',
-      label: 'Tasks',
-      menu: 'Tasks',
-      exporterFileName: 'Task_exportados',
-      list: {
-        menu: 'Tasks',
-        title: 'Tasks',
-      },
-      create: {
-        success: 'Task salvo com sucesso',
-      },
-      update: {
-        success: 'Task salvo com sucesso',
-      },
-      destroy: {
-        success: 'Task deletado com sucesso',
-      },
-      destroyAll: {
-        success: 'Task(s) deletado com sucesso',
-      },
-      edit: {
-        title: 'Editar Task',
-      },
-      fields: {
-        id: 'Id',
-        'name': 'Name',
-        'description': 'Description',
-        'status': 'Status',
-        'tags': 'Tags',
-        'pointsRange': 'Points',
-        'points': 'Points',
-        'completionRequired': 'CompletionRequired',
-        'complexityLevelRange': 'ComplexityLevel',
-        'complexityLevel': 'ComplexityLevel',
-        'type': 'Type',
-        'owner': 'Owner',
-        'elements': 'Elements',
-        createdAt: 'Criado em',
-        updatedAt: 'Atualizado em',
-        createdAtRange: 'Criado em',
-      },
-      enumerators: {
-        'status': {
-          'ACTIVE': 'ACTIVE',
-          'INACTIVE': 'INACTIVE',
-          'DRAFT': 'DRAFT',
-        },
-        'type': {
-          'AUDIO': 'AUDIO',
-          'VIDEO': 'VIDEO',
-          'TEXT': 'TEXT',
-          'ASSESSMENT': 'ASSESSMENT',
-          'FEEDBACK': 'FEEDBACK',
-        },
-      },
-      new: {
-        title: 'Novo Task',
-      },
-      view: {
-        title: 'Visualizar Task',
-      },
-      importer: {
-        title: 'Importar Tasks',
-        fileName: 'task_template_importacao',
-        hint:
-          'Arquivos/Imagens devem ser as URLs dos arquivos, separados por espaço. Relacionamentos devem ser os IDs separados por espaço.',
-      },
-    },
-
-    audio: {
-      name: 'Audio',
-      label: 'Audio',
-      menu: 'Audio',
-      exporterFileName: 'Audio_exportados',
-      list: {
-        menu: 'Audio',
-        title: 'Audio',
-      },
-      create: {
-        success: 'Audio salvo com sucesso',
-      },
-      update: {
-        success: 'Audio salvo com sucesso',
-      },
-      destroy: {
-        success: 'Audio deletado com sucesso',
-      },
-      destroyAll: {
-        success: 'Audio(s) deletado com sucesso',
-      },
-      edit: {
-        title: 'Editar Audio',
-      },
-      fields: {
-        id: 'Id',
-        'url': 'Url',
-        'audiolengthRange': 'Audiolength',
-        'audiolength': 'Audiolength',
-        createdAt: 'Criado em',
-        updatedAt: 'Atualizado em',
-        createdAtRange: 'Criado em',
-      },
-      enumerators: {
-
-      },
-      new: {
-        title: 'Novo Audio',
-      },
-      view: {
-        title: 'Visualizar Audio',
-      },
-      importer: {
-        title: 'Importar Audio',
-        fileName: 'audio_template_importacao',
-        hint:
-          'Arquivos/Imagens devem ser as URLs dos arquivos, separados por espaço. Relacionamentos devem ser os IDs separados por espaço.',
-      },
-    },
-
-    document: {
-      name: 'Text',
-      label: 'Documents',
-      menu: 'Documents',
-      exporterFileName: 'Text_exportados',
-      list: {
-        menu: 'Documents',
-        title: 'Documents',
-      },
-      create: {
-        success: 'Text salvo com sucesso',
-      },
-      update: {
-        success: 'Text salvo com sucesso',
-      },
-      destroy: {
-        success: 'Text deletado com sucesso',
-      },
-      destroyAll: {
-        success: 'Text(s) deletado com sucesso',
-      },
-      edit: {
-        title: 'Editar Text',
-      },
-      fields: {
-        id: 'Id',
-        'contentHTML': 'ContentHTML',
-        'totalreadtimeRange': 'Totalreadtime',
-        'totalreadtime': 'Totalreadtime',
-        createdAt: 'Criado em',
-        updatedAt: 'Atualizado em',
-        createdAtRange: 'Criado em',
-      },
-      enumerators: {
-
-      },
-      new: {
-        title: 'Novo Text',
-      },
-      view: {
-        title: 'Visualizar Text',
-      },
-      importer: {
-        title: 'Importar Documents',
-        fileName: 'document_template_importacao',
         hint:
           'Arquivos/Imagens devem ser as URLs dos arquivos, separados por espaço. Relacionamentos devem ser os IDs separados por espaço.',
       },
@@ -559,7 +608,6 @@ const ptBR = {
       lastName: 'Sobrenome',
       status: 'Estado',
       disabled: 'Desativado',
-      phoneNumber: 'Telefone',
       role: 'Perfil',
       createdAt: 'Criado em',
       updatedAt: 'Atualizado em',
@@ -621,7 +669,7 @@ const ptBR = {
     },
   },
   home: {
-    menu: 'Inicial',
+    menu: 'Hjem',
     message: `Esta página usa dados falsos apenas para fins de demonstração. Você pode editá-la em frontend/view/home/HomePage.js.`,
     charts: {
       day: 'Dia',

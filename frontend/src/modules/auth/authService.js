@@ -1,21 +1,22 @@
-import gql from 'graphql-tag'
-import graphqlClient from 'modules/shared/graphql/graphqlClient'
-import { AuthToken } from 'modules/auth/authToken'
+import gql from 'graphql-tag';
+import graphqlClient from 'modules/shared/graphql/graphqlClient';
+import { AuthToken } from 'modules/auth/authToken';
 
 export default class AuthService {
-  static async sendEmailVerification () {
+  static async sendEmailVerification() {
     const response = await graphqlClient.mutate({
       mutation: gql`
         mutation AUTH_SEND_EMAIL_ADDRESS_VERIFICATION_EMAIL {
           authSendEmailAddressVerificationEmail
         }
-      `
-    })
+      `,
+    });
 
-    return response.data.authSendEmailAddressVerificationEmail
+    return response.data
+      .authSendEmailAddressVerificationEmail;
   }
 
-  static async sendPasswordResetEmail (email) {
+  static async sendPasswordResetEmail(email) {
     const response = await graphqlClient.mutate({
       mutation: gql`
         mutation AUTH_SEND_PASSWORD_RESET_EMAIL(
@@ -24,13 +25,16 @@ export default class AuthService {
           authSendPasswordResetEmail(email: $email)
         }
       `,
-      variables: { email }
-    })
+      variables: { email },
+    });
 
-    return response.data.authSendPasswordResetEmail
+    return response.data.authSendPasswordResetEmail;
   }
 
-  static async registerWithEmailAndPassword (email, password) {
+  static async registerWithEmailAndPassword(
+    email,
+    password,
+  ) {
     const response = await graphqlClient.mutate({
       mutation: gql`
         mutation AUTH_SIGN_UP(
@@ -40,13 +44,13 @@ export default class AuthService {
           authSignUp(email: $email, password: $password)
         }
       `,
-      variables: { email, password }
-    })
+      variables: { email, password },
+    });
 
-    return response.data.authSignUp
+    return response.data.authSignUp;
   }
 
-  static async signinWithEmailAndPassword (email, password) {
+  static async signinWithEmailAndPassword(email, password) {
     const response = await graphqlClient.mutate({
       mutation: gql`
         mutation AUTH_SIGN_IN(
@@ -56,13 +60,13 @@ export default class AuthService {
           authSignIn(email: $email, password: $password)
         }
       `,
-      variables: { email, password }
-    })
+      variables: { email, password },
+    });
 
-    return response.data.authSignIn
+    return response.data.authSignIn;
   }
 
-  static async fetchMe () {
+  static async fetchMe() {
     const response = await graphqlClient.query({
       query: gql`
         {
@@ -73,7 +77,6 @@ export default class AuthService {
             fullName
             firstName
             lastName
-            phoneNumber
             email
             roles
             avatars {
@@ -83,30 +86,36 @@ export default class AuthService {
             }
           }
         }
-      `
-    })
+      `,
+    });
 
-    return response.data['authMe']
+    return response.data['authMe'];
   }
 
-  static async isEmailConfigured () {
+  static async isEmailConfigured() {
     const response = await graphqlClient.query({
       query: gql`
         {
           authIsEmailConfigured
         }
-      `
-    })
+      `,
+    });
 
-    return response.data['authIsEmailConfigured']
+    return response.data['authIsEmailConfigured'];
   }
 
-  static signout () {
-    AuthToken.set(null, true)
+  static signout() {
+    AuthToken.set(null, true);
   }
 
-  static async updateProfile (firstName, lastName, phoneNumber, avatars, password, newPassword) {
-    const profile = { firstName, lastName, phoneNumber, avatars };
+  static async updateProfile(
+    firstName,
+    lastName,
+    avatars,
+    password,
+    newPassword,
+  ) {
+    const profile = { firstName, lastName, avatars };
 
     if (password && newPassword) {
       profile.password = password;
@@ -121,13 +130,13 @@ export default class AuthService {
           authUpdateProfile(profile: $profile)
         }
       `,
-      variables: { profile }
-    })
+      variables: { profile },
+    });
 
-    return response.data.authUpdateProfile
+    return response.data.authUpdateProfile;
   }
 
-  static async passwordReset (token, password) {
+  static async passwordReset(token, password) {
     const response = await graphqlClient.mutate({
       mutation: gql`
         mutation AUTH_PASSWORD_RESET(
@@ -140,38 +149,41 @@ export default class AuthService {
           )
         }
       `,
-      variables: { token, password }
-    })
+      variables: { token, password },
+    });
 
-    return response.data.authPasswordReset
+    return response.data.authPasswordReset;
   }
 
-  static async verifyEmail (token) {
+  static async verifyEmail(token) {
     const response = await graphqlClient.mutate({
       mutation: gql`
         mutation AUTH_VERIFY_EMAIL($token: String!) {
           authVerifyEmail(token: $token)
         }
       `,
-      variables: { token }
-    })
+      variables: { token },
+    });
 
-    return response.data.authPasswordReset
+    return response.data.authPasswordReset;
   }
 
-  static async changePassword (password, newPassword) {
+  static async changePassword(password, newPassword) {
     const response = await graphqlClient.mutate({
       mutation: gql`
         mutation AUTH_CHANGE_PASSWORD(
           $password: String!
           $newPassword: String!
         ) {
-          result: authChangePassword(password: $password, newPassword: $newPassword)
+          result: authChangePassword(
+            password: $password
+            newPassword: $newPassword
+          )
         }
       `,
-      variables: { password, newPassword }
-    })
+      variables: { password, newPassword },
+    });
 
-    return response.data.result
+    return response.data.result;
   }
 }

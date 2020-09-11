@@ -7,8 +7,8 @@ export default [
   fields.name,
   fields.description,
   fields.status,
-  fields.level,
-  fields.category,
+  fields.frequency,
+  fields.views,
   fields.createdAt,
   fields.updatedAt,
 ];

@@ -48,12 +48,22 @@ class IamView extends Component {
     {
       title: 'Score',
       dataIndex: 'score',
-      render: (_, record) => <span>{record.score} / {record.total}</span>
+      render: (_, record) => (
+        <span>
+          {record.score} / {record.total}
+        </span>
+      ),
     },
     {
       title: 'Time',
       dataIndex: 'createdAt',
-      render: (_, record) => <span>{moment(record.createdAt).format('YYYY-MM-DD HH:mm')}</span>
+      render: (_, record) => (
+        <span>
+          {moment(record.createdAt).format(
+            'YYYY-MM-DD HH:mm',
+          )}
+        </span>
+      ),
     },
   ];
 
@@ -83,13 +93,6 @@ class IamView extends Component {
         <TextViewItem
           label={fields.lastName.label}
           value={fields.lastName.forView(user.lastName)}
-        />
-        <TextViewItem
-          label={fields.phoneNumber.label}
-          value={fields.phoneNumber.forView(
-            user.phoneNumber,
-          )}
-          prefix={'+'}
         />
         <ImagesViewItem
           label={fields.avatarsIam.label}

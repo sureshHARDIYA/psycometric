@@ -11,7 +11,6 @@ const schema = `
     fullName: String
     firstName: String
     lastName: String
-    phoneNumber: String
     email: String!
     avatars: [File!]
     authenticationUid: String
@@ -36,7 +35,10 @@ const resolver = {
         ? ['patient']
         : instance.roles,
 
-    fullName: (instance) => [instance.firstName || '', instance.lastName || ''].join(' ').trim(),
+    fullName: (instance) =>
+      [instance.firstName || '', instance.lastName || '']
+        .join(' ')
+        .trim(),
 
     favourites: async (root, args, context, info) => {
       new PermissionChecker(context).validateHas(
@@ -81,19 +83,19 @@ const resolver = {
         permissions.public,
       );
 
-      return new QuestionnaireService(context).findAndCountAll(
-        {
-          ...args,
-          filter: {
-            ...args.filter,
-            createdBy: root.id,
-          },
-          requestedAttributes: graphqlSelectRequestedAttributes(
-            info,
-            'rows',
-          ),
+      return new QuestionnaireService(
+        context,
+      ).findAndCountAll({
+        ...args,
+        filter: {
+          ...args.filter,
+          createdBy: root.id,
         },
-      );
+        requestedAttributes: graphqlSelectRequestedAttributes(
+          info,
+          'rows',
+        ),
+      });
     },
   },
 };

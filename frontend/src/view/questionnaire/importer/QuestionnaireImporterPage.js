@@ -22,7 +22,10 @@ class CasedImportPage extends Component {
         <Breadcrumb
           items={[
             [i18n('home.menu'), '/'],
-            [i18n('entities.questionnaire.menu'), '/questionnaire'],
+            [
+              i18n('entities.questionnaire.menu'),
+              '/questionnaire',
+            ],
             [i18n('entities.questionnaire.importer.title')],
           ]}
         />

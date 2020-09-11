@@ -20,13 +20,15 @@ class RuleRepository {
 
     await Rule.updateOne(
       { _id: id },
-      { $push: {
-        rules: {
-          ...data,
-          createdBy: currentUser.id,
-          updatedBy: currentUser.id,
-        }
-      }},
+      {
+        $push: {
+          rules: {
+            ...data,
+            createdBy: currentUser.id,
+            updatedBy: currentUser.id,
+          },
+        },
+      },
       MongooseRepository.getSessionOptionsIfExists(options),
     );
 
@@ -49,19 +51,18 @@ class RuleRepository {
   async update(id, data, options) {
     const params = Object.entries({
       ...data,
-      updatedBy: MongooseRepository.getCurrentUser(
-        options,
-      ).id,
-    }).reduce((obj, [k, v]) => ({
-      ...obj,
-      [`rules.$.${k}`]: v
-    }), {})
+      updatedBy: MongooseRepository.getCurrentUser(options)
+        .id,
+    }).reduce(
+      (obj, [k, v]) => ({
+        ...obj,
+        [`rules.$.${k}`]: v,
+      }),
+      {},
+    );
 
     await MongooseRepository.wrapWithSessionIfExists(
-      Rule.updateOne(
-        { 'rules._id': id },
-        { $set: params }
-      ),
+      Rule.updateOne({ 'rules._id': id }, { $set: params }),
       options,
     );
 
@@ -82,10 +83,17 @@ class RuleRepository {
    * @param {Object} [options]
    */
   async destroy(id, options) {
-    console.log('id:', id)
-
     await MongooseRepository.wrapWithSessionIfExists(
-      Rule.updateOne({ 'rules._id': id }, { $pull: { rules: { _id: MongooseRepository.idFromString(id) } }}),
+      Rule.updateOne(
+        { 'rules._id': id },
+        {
+          $pull: {
+            rules: {
+              _id: MongooseRepository.idFromString(id),
+            },
+          },
+        },
+      ),
       options,
     );
 

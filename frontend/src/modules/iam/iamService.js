@@ -120,7 +120,6 @@ export default class IamService {
             firstName
             lastName
             authenticationUid
-            phoneNumber
             email
             roles
             createdAt
@@ -186,7 +185,6 @@ export default class IamService {
               id
               fullName
               email
-              phoneNumber
               avatars {
                 id
                 name

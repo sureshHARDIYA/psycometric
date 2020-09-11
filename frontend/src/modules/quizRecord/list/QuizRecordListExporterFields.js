@@ -1,15 +1,17 @@
-import model from 'modules/questionnaire/QuestionnaireModel';
+import model from 'modules/quizRecord/QuizRecordModel';
 
 const { fields } = model;
 
 export default [
   fields.id,
-  fields.name,
-  fields.description,
-  fields.status,
-  fields.featuredImage,
-  fields.modules,
-  fields.availableFrom,
+  fields.title,
+  // fields.randomizeQuestion,
+  // fields.questionnaire,
+  fields.total,
+  fields.score,
+  fields.duration,
+  // fields.questions,
+  // fields.candidate,
   fields.createdAt,
   fields.updatedAt,
 ];

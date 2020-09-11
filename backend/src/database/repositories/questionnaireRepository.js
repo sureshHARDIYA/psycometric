@@ -45,8 +45,14 @@ class QuestionnaireRepository {
       options,
     );
 
-    const newRecord = await this.findById(record.id, options);
-    NotificationRepository.scheduleQuestionnaire(newRecord, options)
+    const newRecord = await this.findById(
+      record.id,
+      options,
+    );
+    NotificationRepository.scheduleQuestionnaire(
+      newRecord,
+      options,
+    );
 
     return newRecord;
   }
@@ -79,7 +85,10 @@ class QuestionnaireRepository {
     );
 
     const record = await this.findById(id, options);
-    NotificationRepository.scheduleQuestionnaire(record, options)
+    NotificationRepository.scheduleQuestionnaire(
+      record,
+      options,
+    );
 
     return record;
   }
@@ -141,7 +150,7 @@ class QuestionnaireRepository {
       options,
     );
 
-    NotificationRepository.delete(id)
+    NotificationRepository.delete(id);
 
     await this._createAuditLog(
       AuditLogRepository.DELETE,
@@ -258,13 +267,16 @@ class QuestionnaireRepository {
       if (filter.assgined) {
         criteria = {
           ...criteria,
-            $or: [{
-              audience: 'ALL'
-            }, {
+          $or: [
+            {
+              audience: 'ALL',
+            },
+            {
               audienceList: {
-                $in: [filter.assgined]
-              }
-            }]
+                $in: [filter.assgined],
+              },
+            },
+          ],
         };
       }
 
@@ -430,11 +442,12 @@ class QuestionnaireRepository {
    *
    */
   static async reloadAllSchedule() {
-    console.log('Reload all questionnaire')
     try {
       const list = await Questionnaire.find({});
       for (const Questionnaire of list) {
-        NotificationRepository.scheduleQuestionnaire(Questionnaire)
+        NotificationRepository.scheduleQuestionnaire(
+          Questionnaire,
+        );
       }
     } catch (e) {
       console.log('error');

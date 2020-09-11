@@ -6,7 +6,6 @@ const schema = `
     fullName: String
     firstName: String
     lastName: String
-    phoneNumber: String
     email: String!
     avatars: [File!]
     roles: [String]
@@ -33,7 +32,10 @@ const resolver = {
       !instance.roles || !instance.roles.length
         ? ['patient']
         : instance.roles,
-    fullName: (instance) => [instance.firstName || '', instance.lastName || ''].join(' ').trim(),
+    fullName: (instance) =>
+      [instance.firstName || '', instance.lastName || '']
+        .join(' ')
+        .trim(),
   },
 };
 

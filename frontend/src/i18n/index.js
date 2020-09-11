@@ -2,9 +2,9 @@ import React from 'react';
 import _get from 'lodash/get';
 import moment from 'moment';
 import 'moment/locale/pt-br';
-import antd_pt_BR from 'antd/lib/locale-provider/pt_BR';
+import antd_nb_NO from 'antd/lib/locale-provider/nb_NO';
 import { setLocale as setYupLocale } from 'yup';
-import ptBR from 'i18n/pt-BR';
+import nbNO from 'i18n/nb-NO';
 import en from 'i18n/en';
 
 let currentLanguageCode = null;
@@ -17,12 +17,12 @@ const languages = {
     dictionary: en,
     antd: undefined,
   },
-  'pt-BR': {
-    id: 'pt-BR',
-    label: 'Português',
-    flag: '/images/flags/24/Brazil.png',
-    dictionary: ptBR,
-    antd: antd_pt_BR,
+  'nb-NO': {
+    id: 'nb-NO',
+    label: 'Norsk',
+    flag: '/images/flags/24/norske.png',
+    dictionary: nbNO,
+    antd: antd_nb_NO,
   },
 };
 

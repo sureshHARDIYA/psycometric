@@ -124,14 +124,6 @@ const fields = {
       yesLabel: i18n('user.disabled'),
     },
   ),
-  phoneNumber: new StringField(
-    'phoneNumber',
-    label('phoneNumber'),
-    {
-      matches: /^[0-9]/,
-      max: 24,
-    },
-  ),
   avatarsIam: new ImagesField(
     'avatars',
     label('avatars'),

@@ -39,8 +39,11 @@ class ReminderRepository {
       options,
     );
 
-    const newRecord = await this.findById(record.id, options);
-    NotificationRepository.schedule(newRecord, options)
+    const newRecord = await this.findById(
+      record.id,
+      options,
+    );
+    NotificationRepository.schedule(newRecord, options);
 
     return newRecord;
   }
@@ -72,9 +75,8 @@ class ReminderRepository {
       options,
     );
 
-
     const record = await this.findById(id, options);
-    NotificationRepository.schedule(record, options)
+    NotificationRepository.schedule(record, options);
 
     return record;
   }
@@ -91,7 +93,7 @@ class ReminderRepository {
       options,
     );
 
-    NotificationRepository.delete(id)
+    NotificationRepository.delete(id);
 
     await this._createAuditLog(
       AuditLogRepository.DELETE,
@@ -296,12 +298,11 @@ class ReminderRepository {
    */
   static async reloadAllReminder() {
     QuestionnaireRepository.reloadAllSchedule();
-    console.log('Reload all reminder')
 
     try {
       const list = await Reminder.find({});
       for (const reminder of list) {
-        NotificationRepository.schedule(reminder)
+        NotificationRepository.schedule(reminder);
       }
     } catch (e) {
       console.log('error');

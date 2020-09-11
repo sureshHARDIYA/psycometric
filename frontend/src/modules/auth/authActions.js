@@ -248,10 +248,9 @@ const actions = {
   doUpdateProfile: (
     firstName,
     lastName,
-    phoneNumber,
     avatars,
     password,
-    newPassword
+    newPassword,
   ) => async (dispatch) => {
     try {
       dispatch({
@@ -261,10 +260,9 @@ const actions = {
       await service.updateProfile(
         firstName,
         lastName,
-        phoneNumber,
         avatars,
         password,
-        newPassword
+        newPassword,
       );
 
       dispatch({
@@ -334,10 +332,9 @@ const actions = {
     }
   },
 
-  doChangePassword: (
-    password,
-    newPassword,
-  ) => async (dispatch) => {
+  doChangePassword: (password, newPassword) => async (
+    dispatch,
+  ) => {
     try {
       dispatch({ type: actions.AUTH_CHANGPASSWORD_START });
 

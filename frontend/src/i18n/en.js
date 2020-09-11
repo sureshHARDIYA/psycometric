@@ -201,6 +201,12 @@ const en = {
         },
       },
     },
+    quizRecords: {
+      list: {
+        menu: 'Submissions',
+        title: 'Submissions',
+      },
+    },
     reminder: {
       name: 'Reminder',
       label: 'Reminder',
@@ -264,7 +270,7 @@ const en = {
           yes: 'Yes',
           no: 'No',
         },
-      }
+      },
     },
     feedback: {
       name: 'Feedback',
@@ -642,7 +648,6 @@ const en = {
       lastName: 'Last Name',
       status: 'Status',
       disabled: 'Disabled',
-      phoneNumber: 'Phone Number',
       role: 'Role',
       createdAt: 'Created at',
       updatedAt: 'Updated at',
