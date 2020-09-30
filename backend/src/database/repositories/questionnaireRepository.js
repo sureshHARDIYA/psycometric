@@ -1,8 +1,10 @@
 const MongooseRepository = require('./mongooseRepository');
+
 const MongooseQueryUtils = require('../utils/mongooseQueryUtils');
 const AuditLogRepository = require('./auditLogRepository');
 const Questionnaire = require('../models/questionnaire');
 const _find = require('lodash/find');
+const moment = require('moment');
 const _hasIn = require('lodash/hasIn');
 const { ObjectId } = require('mongodb');
 const NotificationRepository = require('./notificationRepository');
@@ -277,6 +279,18 @@ class QuestionnaireRepository {
               },
             },
           ],
+        };
+      }
+
+      if (filter.schedule) {
+        criteria = {
+          ...criteria,
+          schedule: {
+            ...criteria.schedule,
+            $lte: moment()
+              .startOf('day')
+              .utc(),
+          },
         };
       }
 

@@ -40,6 +40,7 @@ class CasedListTable extends Component {
     },
     fields.views.forTable(),
     fields.status.forTable(),
+    fields.schedule.forTable(),
     fields.createdAt.forTable(),
     {
       title: '',
