@@ -103,12 +103,7 @@ const actions = {
       });
 
       const response = await QuestionnaireService.list(
-        {
-          ...filter,
-          schedule: moment()
-            .startOf('day')
-            .utc(),
-        },
+        filter,
         selectors.selectOrderBy(getState()),
         selectors.selectLimit(getState()),
         selectors.selectOffset(getState()),
