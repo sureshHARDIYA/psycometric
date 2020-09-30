@@ -7,12 +7,13 @@ const schema = `
     description: String
     status: QuestionnaireStatusEnum
     availableFromRange: [ String ]
+    schedule: DateTime
     createdAtRange: [ DateTime ]
     createdBy: String
   }
-`;
+`
 
-const resolver = {};
+const resolver = {}
 
-exports.schema = schema;
-exports.resolver = resolver;
+exports.schema = schema
+exports.resolver = resolver
