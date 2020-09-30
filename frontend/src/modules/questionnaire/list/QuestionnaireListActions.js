@@ -1,5 +1,4 @@
 import { i18n } from 'i18n';
-import moment from 'moment';
 import Errors from 'modules/shared/error/errors';
 import Exporter from 'modules/shared/exporter/exporter';
 import QuestionnaireService from 'modules/questionnaire/QuestionnaireService';
