@@ -282,14 +282,16 @@ class QuestionnaireRepository {
         };
       }
 
-      if(filter.schedule) {
+      if (filter.schedule) {
         criteria = {
           ...criteria,
           schedule: {
             ...criteria.schedule,
-            $lte: moment(new Date()).utc()
-          }
-        }
+            $lte: moment()
+              .startOf('day')
+              .utc(),
+          },
+        };
       }
 
       if (filter.favourite) {

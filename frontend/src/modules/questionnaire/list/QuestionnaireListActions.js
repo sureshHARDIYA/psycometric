@@ -1,4 +1,5 @@
 import { i18n } from 'i18n';
+import moment from 'moment';
 import Errors from 'modules/shared/error/errors';
 import Exporter from 'modules/shared/exporter/exporter';
 import QuestionnaireService from 'modules/questionnaire/QuestionnaireService';
@@ -102,7 +103,12 @@ const actions = {
       });
 
       const response = await QuestionnaireService.list(
-        filter,
+        {
+          ...filter,
+          schedule: moment()
+            .startOf('day')
+            .utc(),
+        },
         selectors.selectOrderBy(getState()),
         selectors.selectLimit(getState()),
         selectors.selectOffset(getState()),
