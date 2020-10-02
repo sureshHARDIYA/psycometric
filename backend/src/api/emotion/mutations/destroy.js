@@ -4,11 +4,11 @@ const permissions = require('../../../security/permissions')
     .values;
 
 const schema = `
-  questionnaireDestroy(ids: [String!]!): Boolean
+  emotionDestroy(ids: [String!]!): Boolean
 `;
 
 const resolver = {
-    questionnaireDestroy: async (root, args, context) => {
+    emotionDestroy: async (root, args, context) => {
         new PermissionChecker(context).validateHas(
             permissions.questionnaireDestroy,
         );

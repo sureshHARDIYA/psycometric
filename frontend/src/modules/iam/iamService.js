@@ -1,16 +1,16 @@
-import gql from 'graphql-tag';
-import graphqlClient from 'modules/shared/graphql/graphqlClient';
+import gql from 'graphql-tag'
+import graphqlClient from 'modules/shared/graphql/graphqlClient'
 
 export default class IamService {
-  static async enable(ids) {
-    return this._changeStatus(ids, false);
+  static async enable (ids) {
+    return this._changeStatus(ids, false)
   }
 
-  static async disable(ids) {
-    return this._changeStatus(ids, true);
+  static async disable (ids) {
+    return this._changeStatus(ids, true)
   }
 
-  static async _changeStatus(ids, disabled) {
+  static async _changeStatus (ids, disabled) {
     const response = await graphqlClient.mutate({
       mutation: gql`
         mutation IAM_CHANGE_STATUS(
@@ -20,33 +20,26 @@ export default class IamService {
           iamChangeStatus(ids: $ids, disabled: $disabled)
         }
       `,
+      variables: { ids, disabled: !!disabled }
+    })
 
-      variables: {
-        ids,
-        disabled: !!disabled,
-      },
-    });
-
-    return response.data.iamChangeStatus;
+    return response.data.iamChangeStatus
   }
 
-  static async edit(data) {
+  static async edit (data) {
     const response = await graphqlClient.mutate({
       mutation: gql`
         mutation IAM_EDIT($data: IamEditInput!) {
           iamEdit(data: $data)
         }
       `,
+      variables: { data }
+    })
 
-      variables: {
-        data,
-      },
-    });
-
-    return response.data.iamEdit;
+    return response.data.iamEdit
   }
 
-  static async remove(emails, roles, all = false) {
+  static async remove (emails, roles, all = false) {
     const response = await graphqlClient.mutate({
       mutation: gql`
         mutation IAM_REMOVE(
@@ -61,34 +54,26 @@ export default class IamService {
           )
         }
       `,
+      variables: { emails, roles, all }
+    })
 
-      variables: {
-        emails,
-        roles,
-        all,
-      },
-    });
-
-    return response.data.iamRemove;
+    return response.data.iamRemove
   }
 
-  static async create(data) {
+  static async create (data) {
     const response = await graphqlClient.mutate({
       mutation: gql`
         mutation IAM_CREATE($data: IamCreateInput!) {
           iamCreate(data: $data)
         }
       `,
+      variables: { data }
+    })
 
-      variables: {
-        data,
-      },
-    });
-
-    return response.data.iamCreate;
+    return response.data.iamCreate
   }
 
-  static async import(values, importHash) {
+  static async import (values, importHash) {
     const response = await graphqlClient.mutate({
       mutation: gql`
         mutation IAM_IMPORT(
@@ -98,19 +83,13 @@ export default class IamService {
           iamImport(data: $data, importHash: $importHash)
         }
       `,
+      variables: { data: { ...values }, importHash }
+    })
 
-      variables: {
-        data: {
-          ...values,
-        },
-        importHash,
-      },
-    });
-
-    return response.data.iamImport;
+    return response.data.iamImport
   }
 
-  static async find(id) {
+  static async find (id) {
     const response = await graphqlClient.query({
       query: gql`
         query IAM_FIND($id: String!) {
@@ -146,6 +125,12 @@ export default class IamService {
                 createdAt
               }
             }
+            emotion {
+              rows {
+                emotion
+                degree
+              }
+            }
             avatars {
               id
               name
@@ -156,16 +141,13 @@ export default class IamService {
           }
         }
       `,
+      variables: { id }
+    })
 
-      variables: {
-        id,
-      },
-    });
-
-    return response.data.iamFind;
+    return response.data.iamFind
   }
 
-  static async fetchUsers(filter, orderBy, limit, offset) {
+  static async fetchUsers (filter, orderBy, limit, offset) {
     const response = await graphqlClient.query({
       query: gql`
         query IAM_LIST_USERS(
@@ -199,19 +181,13 @@ export default class IamService {
           }
         }
       `,
+      variables: { filter, orderBy, limit, offset }
+    })
 
-      variables: {
-        filter,
-        orderBy,
-        limit,
-        offset,
-      },
-    });
-
-    return response.data.iamListUsers;
+    return response.data.iamListUsers
   }
 
-  static async fetchRoles(filter, orderBy, limit, offset) {
+  static async fetchRoles (filter, orderBy, limit, offset) {
     const response = await graphqlClient.query({
       query: gql`
         query IAM_LIST_ROLES(
@@ -230,22 +206,15 @@ export default class IamService {
           }
         }
       `,
+      variables: { filter, orderBy }
+    })
 
-      variables: {
-        filter,
-        orderBy,
-      },
-    });
+    const rows = response.data.iamListRoles
 
-    const rows = response.data.iamListRoles;
-
-    return {
-      rows,
-      count: rows.length,
-    };
+    return { rows, count: rows.length }
   }
 
-  static async fetchUserAutocomplete(query, limit) {
+  static async fetchUserAutocomplete (query, limit) {
     const response = await graphqlClient.query({
       query: gql`
         query IAM_USER_AUTOCOMPLETE(
@@ -261,13 +230,9 @@ export default class IamService {
           }
         }
       `,
+      variables: { query, limit }
+    })
 
-      variables: {
-        query,
-        limit,
-      },
-    });
-
-    return response.data.iamUserAutocomplete;
+    return response.data.iamUserAutocomplete
   }
 }

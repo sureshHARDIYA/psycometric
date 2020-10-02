@@ -1,12 +1,12 @@
 const schema = `
   type EmotionPage {
-    rows: [Emotion!]!
+    rows: [Emotion]
     count: Int!
     offset: Int
   }
-`;
+`
 
-const resolver = {};
+const resolver = {}
 
-exports.schema = schema;
-exports.resolver = resolver;
+exports.schema = schema
+exports.resolver = resolver

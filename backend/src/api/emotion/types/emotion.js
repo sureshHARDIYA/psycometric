@@ -1,14 +1,14 @@
 const schema = `
   type Emotion {
-    id: String!
-    emotion: String!
-    degree: String!
+    id: String
+    emotion: String
+    degree: String
     createdAt: DateTime
     updatedAt: DateTime
   }
-`;
+`
 
-const resolver = {};
+const resolver = {}
 
-exports.schema = schema;
-exports.resolver = resolver;
+exports.schema = schema
+exports.resolver = resolver

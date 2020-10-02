@@ -4,11 +4,11 @@ const permissions = require('../../../security/permissions')
     .values;
 
 const schema = `
-  questionnaireUpdate(id: String!, data: EmotionInput!): Emotion!
+  emotionUpdate(id: String!, data: EmotionInput!): Emotion!
 `;
 
 const resolver = {
-    questionnaireUpdate: async (root, args, context) => {
+    emotionUpdate: async (root, args, context) => {
         new PermissionChecker(context).validateHas(
             permissions.questionnaireEdit,
         );
