@@ -4,5 +4,4 @@ module.exports = [
     require('./filterInput'),
     require('./orderByEnum'),
     require('./page'),
-    require('./enums'),
 ];

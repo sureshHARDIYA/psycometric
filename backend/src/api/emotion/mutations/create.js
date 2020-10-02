@@ -4,13 +4,13 @@ const permissions = require('../../../security/permissions')
     .values;
 
 const schema = `
-  emotionCreate(data: EmotionInput!): Emotion!
+  questionnaireCreate(data: EmotionInput!): Emotion!
 `;
 
 const resolver = {
-    emotionCreate: async (root, args, context) => {
+    questionnaireCreate: async (root, args, context) => {
         new PermissionChecker(context).validateHas(
-            permissions.emotionCreate,
+            permissions.questionnaireCreate,
         );
         return new EmotionService(context).create(args.data);
     },

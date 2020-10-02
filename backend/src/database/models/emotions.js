@@ -7,6 +7,12 @@ const EmotionSchema = new Schema(
         degree: {type: String, required: true},
         createdBy: {type: Schema.Types.ObjectId, ref: 'user'},
         updatedBy: {type: Schema.Types.ObjectId, ref: 'user'},
+
+    },
+    {
+        timestamps: true,
+        toObject: {getters: true},
+        toJSON: {getters: true, virtuals: true},
     },
 );
 

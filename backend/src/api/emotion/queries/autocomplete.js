@@ -15,7 +15,7 @@ const resolver = {
         info,
     ) => {
         new PermissionChecker(context).validateHas(
-            permissions.emotionAutocomplete,
+            permissions.questionnaireAutocomplete,
         );
 
         return new EmotionService(context).findAllAutocomplete(
