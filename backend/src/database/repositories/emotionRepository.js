@@ -36,6 +36,19 @@ class EmotionRepository {
   }
 
   /**
+   * Finds the QuizRecord and its relations.
+   *
+   * @param {string} id
+   * @param {Object} [options]
+   */
+  async findById (id, options) {
+    return MongooseRepository.wrapWithSessionIfExists(
+      Emotion.findById(id).populate('createdBy'),
+      options
+    )
+  }
+
+  /**
      * Finds the Emotion based on the query.
      * See https://mongoosejs.com/docs/queries.html to learn how
      * to customize the queries.

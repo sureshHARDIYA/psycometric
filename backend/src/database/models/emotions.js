@@ -15,5 +15,4 @@ const EmotionSchema = new Schema(
   }
 )
 
-        toObject: {getters: true},
 module.exports = database.model('emotion', EmotionSchema)
