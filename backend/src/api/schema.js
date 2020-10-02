@@ -54,6 +54,10 @@ const notificationMutations = require('./notification/mutations');
 const ruleTypes = require('./rule/types');
 const ruleMutations = require('./rule/mutations');
 
+const emotionTypes = require('./emotion/types');
+const emotionQueries = require('./emotion/queries');
+const emotionMutations = require('./emotion/mutations');
+
 const types = [
   ...sharedTypes,
   ...iamTypes,
@@ -67,6 +71,7 @@ const types = [
   ...feedbackTypes,
   ...answerTypes,
   ...ruleTypes,
+  ...emotionTypes,
 ].map((type) => type.schema);
 
 const mutations = [
@@ -82,6 +87,7 @@ const mutations = [
   ...answerMutations,
   ...notificationMutations,
   ...ruleMutations,
+  ...emotionMutations,
 ].map((mutation) => mutation.schema);
 
 const queries = [
@@ -95,6 +101,7 @@ const queries = [
   ...feedbackQueries,
   ...reminderQueries,
   ...answerQueries,
+  ...emotionQueries,
 ].map((query) => query.schema);
 
 const query = `

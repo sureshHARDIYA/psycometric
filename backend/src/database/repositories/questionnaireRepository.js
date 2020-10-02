@@ -1,13 +1,13 @@
-const MongooseRepository = require('./mongooseRepository');
+const MongooseRepository = require('./mongooseRepository')
 
-const MongooseQueryUtils = require('../utils/mongooseQueryUtils');
-const AuditLogRepository = require('./auditLogRepository');
-const Questionnaire = require('../models/questionnaire');
-const _find = require('lodash/find');
-const moment = require('moment');
-const _hasIn = require('lodash/hasIn');
-const { ObjectId } = require('mongodb');
-const NotificationRepository = require('./notificationRepository');
+const MongooseQueryUtils = require('../utils/mongooseQueryUtils')
+const AuditLogRepository = require('./auditLogRepository')
+const Questionnaire = require('../models/questionnaire')
+const _find = require('lodash/find')
+const moment = require('moment')
+const _hasIn = require('lodash/hasIn')
+const { ObjectId } = require('mongodb')
+const NotificationRepository = require('./notificationRepository')
 
 /**
  * Handles database operations for the Questionnaire.
@@ -20,43 +20,29 @@ class QuestionnaireRepository {
    * @param {Object} data
    * @param {Object} [options]
    */
-  async create(data, options) {
+  async create (data, options) {
     if (MongooseRepository.getSession(options)) {
-      await Questionnaire.createCollection();
+      await Questionnaire.createCollection()
     }
 
-    const currentUser = MongooseRepository.getCurrentUser(
-      options,
-    );
+    const currentUser = MongooseRepository.getCurrentUser(options)
 
-    const [record] = await Questionnaire.create(
-      [
-        {
-          ...data,
-          createdBy: currentUser.id,
-          updatedBy: currentUser.id,
-        },
-      ],
-      MongooseRepository.getSessionOptionsIfExists(options),
-    );
+    const [ record ] = await Questionnaire.create(
+      [ { ...data, createdBy: currentUser.id, updatedBy: currentUser.id } ],
+      MongooseRepository.getSessionOptionsIfExists(options)
+    )
 
     await this._createAuditLog(
       AuditLogRepository.CREATE,
       record.id,
       data,
-      options,
-    );
+      options
+    )
 
-    const newRecord = await this.findById(
-      record.id,
-      options,
-    );
-    NotificationRepository.scheduleQuestionnaire(
-      newRecord,
-      options,
-    );
+    const newRecord = await this.findById(record.id, options)
+    NotificationRepository.scheduleQuestionnaire(newRecord, options)
 
-    return newRecord;
+    return newRecord
   }
 
   /**
@@ -65,79 +51,48 @@ class QuestionnaireRepository {
    * @param {Object} data
    * @param {Object} [options]
    */
-  async update(id, data, options) {
+  async update (id, data, options) {
     await MongooseRepository.wrapWithSessionIfExists(
-      Questionnaire.updateOne(
-        { _id: id },
-        {
-          ...data,
-          updatedBy: MongooseRepository.getCurrentUser(
-            options,
-          ).id,
-        },
-      ),
-      options,
-    );
+      Questionnaire.updateOne({ _id: id }, {
+        ...data,
+        updatedBy: MongooseRepository.getCurrentUser(options).id
+      }),
+      options
+    )
 
-    await this._createAuditLog(
-      AuditLogRepository.UPDATE,
-      id,
-      data,
-      options,
-    );
+    await this._createAuditLog(AuditLogRepository.UPDATE, id, data, options)
 
-    const record = await this.findById(id, options);
-    NotificationRepository.scheduleQuestionnaire(
-      record,
-      options,
-    );
+    const record = await this.findById(id, options)
+    NotificationRepository.scheduleQuestionnaire(record, options)
 
-    return record;
+    return record
   }
 
-  async updateFavourites(id, data, options) {
-    const item = await Questionnaire.findById(id);
-    const currentUser = MongooseRepository.getCurrentUser(
-      options,
-    );
-    const user = ObjectId(currentUser.id).valueOf();
+  async updateFavourites (id, data, options) {
+    const item = await Questionnaire.findById(id)
+    const currentUser = MongooseRepository.getCurrentUser(options)
+    const user = ObjectId(currentUser.id).valueOf()
 
     if (
       _hasIn(item, 'favourites') &&
-      _find(item.favourites, {
-        user,
-      }) !== undefined
+        _find(item.favourites, { user }) !== undefined
     ) {
       await MongooseRepository.wrapWithSessionIfExists(
-        Questionnaire.updateOne(
-          { _id: id },
-          {
-            $pull: {
-              favourites: {
-                user,
-              },
-            },
-          },
-        ),
-        options,
-      );
+        Questionnaire.updateOne({ _id: id }, {
+          $pull: { favourites: { user } }
+        }),
+        options
+      )
     } else {
       await MongooseRepository.wrapWithSessionIfExists(
-        Questionnaire.updateOne(
-          { _id: id },
-          {
-            $push: {
-              favourites: {
-                user,
-              },
-            },
-          },
-        ),
-        options,
-      );
+        Questionnaire.updateOne({ _id: id }, {
+          $push: { favourites: { user } }
+        }),
+        options
+      )
     }
 
-    return await this.findById(id, options);
+    return await this.findById(id, options)
   }
 
   /**
@@ -146,20 +101,15 @@ class QuestionnaireRepository {
    * @param {string} id
    * @param {Object} [options]
    */
-  async destroy(id, options) {
+  async destroy (id, options) {
     await MongooseRepository.wrapWithSessionIfExists(
       Questionnaire.deleteOne({ _id: id }),
-      options,
-    );
+      options
+    )
 
-    NotificationRepository.delete(id);
+    NotificationRepository.delete(id)
 
-    await this._createAuditLog(
-      AuditLogRepository.DELETE,
-      id,
-      null,
-      options,
-    );
+    await this._createAuditLog(AuditLogRepository.DELETE, id, null, options)
   }
 
   /**
@@ -168,11 +118,11 @@ class QuestionnaireRepository {
    * @param {Object} filter
    * @param {Object} [options]
    */
-  async count(filter, options) {
+  async count (filter, options) {
     return MongooseRepository.wrapWithSessionIfExists(
       Questionnaire.countDocuments(filter),
-      options,
-    );
+      options
+    )
   }
 
   /**
@@ -181,18 +131,17 @@ class QuestionnaireRepository {
    * @param {string} id
    * @param {Object} [options]
    */
-  async findById(id, options) {
-    await Questionnaire.findOneAndUpdate(
-      { _id: id },
-      { $inc: { views: 1 } },
-      { new: true },
-    );
+  async findById (id, options) {
+    await Questionnaire.findOneAndUpdate({ _id: id }, { $inc: { views: 1 } }, {
+      new: true
+    })
     return MongooseRepository.wrapWithSessionIfExists(
-      Questionnaire.findById(id)
+      Questionnaire
+        .findById(id)
         .populate('favourites.user')
         .populate('createdBy'),
-      options,
-    );
+      options
+    )
   }
 
   /**
@@ -208,51 +157,42 @@ class QuestionnaireRepository {
    *
    * @returns {Promise<Object>} response - Object containing the rows and the count.
    */
-  async findAndCountAll(
+  async findAndCountAll (
     { filter, limit, offset, orderBy } = {
       filter: null,
       limit: 0,
       offset: 0,
-      orderBy: null,
+      orderBy: null
     },
-    options,
+    options
   ) {
-    let criteria = {};
+    let criteria = {}
 
-    const currentUser = MongooseRepository.getCurrentUser(
-      options,
-    );
+    const currentUser = MongooseRepository.getCurrentUser(options)
 
     if (filter) {
       if (filter.id) {
-        criteria = {
-          ...criteria,
-          _id: MongooseQueryUtils.uuid(filter.id),
-        };
+        criteria = { ...criteria, _id: MongooseQueryUtils.uuid(filter.id) }
       }
 
       if (filter.name) {
         criteria = {
           ...criteria,
           name: {
-            $regex: MongooseQueryUtils.escapeRegExp(
-              filter.name,
-            ),
-            $options: 'i',
-          },
-        };
+            $regex: MongooseQueryUtils.escapeRegExp(filter.name),
+            $options: 'i'
+          }
+        }
       }
 
       if (filter.description) {
         criteria = {
           ...criteria,
           description: {
-            $regex: MongooseQueryUtils.escapeRegExp(
-              filter.description,
-            ),
-            $options: 'i',
-          },
-        };
+            $regex: MongooseQueryUtils.escapeRegExp(filter.description),
+            $options: 'i'
+          }
+        }
       }
 
       if (filter.status) {
@@ -261,134 +201,89 @@ class QuestionnaireRepository {
           status: {
             $in: Array.isArray(filter.status)
               ? filter.status
-              : [filter.status],
-          },
-        };
+              : [ filter.status ]
+          }
+        }
       }
 
       if (filter.assgined) {
         criteria = {
           ...criteria,
           $or: [
-            {
-              audience: 'ALL',
-            },
-            {
-              audienceList: {
-                $in: [filter.assgined],
-              },
-            },
-          ],
-        };
+            { audience: 'ALL' },
+            { audienceList: { $in: [ filter.assgined ] } }
+          ]
+        }
       }
 
       if (filter.schedule) {
         criteria = {
           ...criteria,
-          schedule: {
-            ...criteria.schedule,
-            $lte: moment()
-              .startOf('day')
-              .utc(),
-          },
-        };
+          schedule: { ...criteria.schedule, $lte: moment(new Date()).utc() }
+        }
       }
 
       if (filter.favourite) {
-        criteria = {
-          ...criteria,
-          'favourites.user': filter.favourite,
-        };
+        criteria = { ...criteria, 'favourites.user': filter.favourite }
       }
 
       if (filter.createdBy) {
-        criteria = {
-          ...criteria,
-          createdBy: filter.createdBy,
-        };
+        criteria = { ...criteria, createdBy: filter.createdBy }
       }
 
       if (filter.availableFromRange) {
-        const [start, end] = filter.availableFromRange;
+        const [ start, end ] = filter.availableFromRange
 
-        if (
-          start !== undefined &&
-          start !== null &&
-          start !== ''
-        ) {
+        if (start !== undefined && start !== null && start !== '') {
           criteria = {
             ...criteria,
-            availableFrom: {
-              ...criteria.availableFrom,
-              $gte: start,
-            },
-          };
+            availableFrom: { ...criteria.availableFrom, $gte: start }
+          }
         }
 
-        if (
-          end !== undefined &&
-          end !== null &&
-          end !== ''
-        ) {
+        if (end !== undefined && end !== null && end !== '') {
           criteria = {
             ...criteria,
-            availableFrom: {
-              ...criteria.availableFrom,
-              $lte: end,
-            },
-          };
+            availableFrom: { ...criteria.availableFrom, $lte: end }
+          }
         }
       }
 
       if (filter.createdAtRange) {
-        const [start, end] = filter.createdAtRange;
+        const [ start, end ] = filter.createdAtRange
 
-        if (
-          start !== undefined &&
-          start !== null &&
-          start !== ''
-        ) {
+        if (start !== undefined && start !== null && start !== '') {
           criteria = {
             ...criteria,
-            createdAt: {
-              ...criteria.createdAt,
-              $gte: start,
-            },
-          };
+            createdAt: { ...criteria.createdAt, $gte: start }
+          }
         }
 
-        if (
-          end !== undefined &&
-          end !== null &&
-          end !== ''
-        ) {
+        if (end !== undefined && end !== null && end !== '') {
           criteria = {
             ...criteria,
-            createdAt: { ...criteria.createdAt, $lte: end },
-          };
+            createdAt: { ...criteria.createdAt, $lte: end }
+          }
         }
       }
     }
 
-    const sort = MongooseQueryUtils.sort(
-      orderBy || 'createdAt_DESC',
-    );
+    const sort = MongooseQueryUtils.sort(orderBy || 'createdAt_DESC')
 
-    const skip = Number(offset || 0) || undefined;
-    const limitEscaped = Number(limit || 0) || undefined;
+    const skip = Number(offset || 0) || undefined
+    const limitEscaped = Number(limit || 0) || undefined
 
-    const rows = await Questionnaire.find(criteria)
+    const rows = await Questionnaire
+      .find(criteria)
       .skip(skip)
       .limit(limitEscaped)
       .populate('favourites.user')
       .populate('createdBy')
-      .sort(sort);
+      .sort(sort)
 
-    const count = await Questionnaire.countDocuments(
-      criteria,
-    );
+    const count = await Questionnaire.countDocuments(criteria)
 
-    return { rows, count, offset: skip };
+    return { rows, count, offset: skip }
   }
 
   /**
@@ -399,8 +294,8 @@ class QuestionnaireRepository {
    * @param {Object} search
    * @param {number} limit
    */
-  async findAllAutocomplete(search, limit) {
-    let criteria = {};
+  async findAllAutocomplete (search, limit) {
+    let criteria = {}
 
     if (search) {
       criteria = {
@@ -408,27 +303,23 @@ class QuestionnaireRepository {
           { _id: MongooseQueryUtils.uuid(search) },
           {
             name: {
-              $regex: MongooseQueryUtils.escapeRegExp(
-                search,
-              ),
-              $options: 'i',
-            },
-          },
-        ],
-      };
+              $regex: MongooseQueryUtils.escapeRegExp(search),
+              $options: 'i'
+            }
+          }
+        ]
+      }
     }
 
-    const sort = MongooseQueryUtils.sort('name_ASC');
-    const limitEscaped = Number(limit || 0) || undefined;
+    const sort = MongooseQueryUtils.sort('name_ASC')
+    const limitEscaped = Number(limit || 0) || undefined
 
-    const records = await Questionnaire.find(criteria)
+    const records = await Questionnaire
+      .find(criteria)
       .limit(limitEscaped)
-      .sort(sort);
+      .sort(sort)
 
-    return records.map((record) => ({
-      id: record.id,
-      label: record['name'],
-    }));
+    return records.map(record => ({ id: record.id, label: record['name'] }))
   }
 
   /**
@@ -439,34 +330,32 @@ class QuestionnaireRepository {
    * @param {object} data - The new data passed on the request
    * @param {object} options
    */
-  async _createAuditLog(action, id, data, options) {
+  async _createAuditLog (action, id, data, options) {
     await AuditLogRepository.log(
       {
         entityName: Questionnaire.modelName,
         entityId: id,
         action,
-        values: data,
+        values: data
       },
-      options,
-    );
+      options
+    )
   }
 
   /**
    * Setup the questionnaire for push notification when server is started.
    *
    */
-  static async reloadAllSchedule() {
+  static async reloadAllSchedule () {
     try {
-      const list = await Questionnaire.find({});
+      const list = await Questionnaire.find({})
       for (const Questionnaire of list) {
-        NotificationRepository.scheduleQuestionnaire(
-          Questionnaire,
-        );
+        NotificationRepository.scheduleQuestionnaire(Questionnaire)
       }
     } catch (e) {
-      console.log('error');
+      console.log('error')
     }
   }
 }
 
-module.exports = QuestionnaireRepository;
+module.exports = QuestionnaireRepository

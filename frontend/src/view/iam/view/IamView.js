@@ -67,6 +67,28 @@ class IamView extends Component {
     },
   ];
 
+  columns3 = [
+    {
+      title: 'Emotion',
+      dataIndex: 'emotion',
+    },
+    {
+      title: 'Degree',
+      dataIndex: 'degree',
+    },
+    {
+      title: 'Time',
+      dataIndex: 'createdAt',
+      render: (_, record) => (
+        <span>
+          {moment(record.createdAt).format(
+            'YYYY-MM-DD HH:mm',
+          )}
+        </span>
+      ),
+    },
+  ];
+
   renderView() {
     const { user, loading } = this.props;
 
@@ -159,6 +181,18 @@ class IamView extends Component {
             loading={loading}
             columns={this.columns}
             dataSource={user.favourites.rows || []}
+            scroll={{ x: true }}
+          />
+        </TableWrapper>
+        <Divider dashed orientation="left">
+          {i18n('iam.view.emotions')}
+        </Divider>
+        <TableWrapper>
+          <Table
+            rowKey="id"
+            loading={loading}
+            columns={this.columns3}
+            dataSource={user.emotion.rows || []}
             scroll={{ x: true }}
           />
         </TableWrapper>

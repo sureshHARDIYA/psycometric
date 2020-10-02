@@ -201,6 +201,12 @@ const en = {
         },
       },
     },
+    emotion: {
+      menu: 'Emotions',
+      list: {
+        title: 'List of Emotions'
+      },
+    },
     quizRecords: {
       list: {
         menu: 'Submissions',
@@ -620,6 +626,7 @@ const en = {
       favouritedQuestionnaire: 'Favourited',
       title: 'View User',
       activity: 'Activity',
+      emotions: 'Emotions recorded by the user',
     },
     importer: {
       title: 'Import Users',

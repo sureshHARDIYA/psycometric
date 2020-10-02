@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const schema = `
   type User {
@@ -16,6 +16,7 @@ const schema = `
     updatedAt: DateTime
     favourites: [Questionnaire]
     playedQuizes: [QuizRecord]
+    emotion: [Emotion]
     settings: SettingsType
     notification: String
   }
@@ -24,20 +25,18 @@ const schema = `
     newQuestionnaireAlert: Boolean
     remindersAlert: Boolean
   }
-`;
+`
 
 const resolver = {
   User: {
-    roles: (instance) =>
+    roles: instance =>
       !instance.roles || !instance.roles.length
-        ? ['patient']
+        ? [ 'patient' ]
         : instance.roles,
-    fullName: (instance) =>
-      [instance.firstName || '', instance.lastName || '']
-        .join(' ')
-        .trim(),
-  },
-};
+    fullName: instance =>
+      [ instance.firstName || '', instance.lastName || '' ].join(' ').trim()
+  }
+}
 
-exports.schema = schema;
-exports.resolver = resolver;
+exports.schema = schema
+exports.resolver = resolver
