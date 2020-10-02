@@ -129,6 +129,7 @@ export default class IamService {
               rows {
                 emotion
                 degree
+                createdAt
               }
             }
             avatars {

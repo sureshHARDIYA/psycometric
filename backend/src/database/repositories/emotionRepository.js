@@ -80,6 +80,10 @@ class EmotionRepository {
         }
       }
 
+      if (filter.createdBy) {
+        criteria = { ...criteria, createdBy: filter.createdBy }
+      }
+
       if (filter.createdAtRange) {
         const [ start, end ] = filter.createdAtRange
 

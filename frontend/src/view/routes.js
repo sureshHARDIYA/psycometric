@@ -37,6 +37,16 @@ const privateRoutes = [
     menu: true,
   },
   {
+    path: '/emotion',
+    loader: () =>
+      import('view/emotion/list/EmotionPage'),
+    permissionRequired: permissions.reminderCreate,
+    exact: true,
+    icon: 'folder-add',
+    label: i18n('entities.emotion.menu'),
+    menu: true,
+  },
+  {
     path: '/feedback',
     loader: () =>
       import('view/feedback/list/FeedbackListPage'),

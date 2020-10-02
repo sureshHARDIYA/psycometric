@@ -3,6 +3,7 @@ const schema = `
     id: String
     emotion: String
     degree: String
+    createdBy: User
     createdAt: DateTime
     updatedAt: DateTime
   }
