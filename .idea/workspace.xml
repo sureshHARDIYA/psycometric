@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="641a896b-1aac-4a7b-8d55-380f3fbaf629" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/src/api/emotion/mutations/create.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/api/emotion/mutations/destroy.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/api/emotion/mutations/import.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/api/emotion/mutations/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/api/emotion/mutations/update.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/api/emotion/queries/autocomplete.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/api/emotion/queries/find.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/api/emotion/queries/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/api/emotion/queries/list.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/api/emotion/types/emotion.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/api/emotion/types/enums.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/api/emotion/types/filterInput.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/api/emotion/types/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/api/emotion/types/input.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/api/emotion/types/orderByEnum.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/api/emotion/types/page.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/database/models/emotions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/database/repositories/emotionRepository.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/services/emotionService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/api/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/api/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/api/resolvers.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/api/resolvers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/api/schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/api/schema.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="moodTracking" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1iJWxFxiSYyQ6blmCrJIQcGaT0l" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="641a896b-1aac-4a7b-8d55-380f3fbaf629" name="Default Changelist" comment="" />
+      <created>1601626419384</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1601626419384</updated>
+      <workItem from="1601626420440" duration="6175000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1460" height="393" key="GridCell.Tab.0.bottom" timestamp="1601626438537">
+      <screen x="66" y="30" width="3374" height="1410" />
+    </state>
+    <state width="1460" height="393" key="GridCell.Tab.0.bottom/66.30.3374.1410@66.30.3374.1410" timestamp="1601626438537" />
+    <state width="1460" height="393" key="GridCell.Tab.0.center" timestamp="1601626438536">
+      <screen x="66" y="30" width="3374" height="1410" />
+    </state>
+    <state width="1460" height="393" key="GridCell.Tab.0.center/66.30.3374.1410@66.30.3374.1410" timestamp="1601626438536" />
+    <state width="1460" height="393" key="GridCell.Tab.0.left" timestamp="1601626438536">
+      <screen x="66" y="30" width="3374" height="1410" />
+    </state>
+    <state width="1460" height="393" key="GridCell.Tab.0.left/66.30.3374.1410@66.30.3374.1410" timestamp="1601626438536" />
+    <state width="1460" height="393" key="GridCell.Tab.0.right" timestamp="1601626438536">
+      <screen x="66" y="30" width="3374" height="1410" />
+    </state>
+    <state width="1460" height="393" key="GridCell.Tab.0.right/66.30.3374.1410@66.30.3374.1410" timestamp="1601626438536" />
+  </component>
+</project>

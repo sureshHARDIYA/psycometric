@@ -13,6 +13,7 @@ const path = require('path')
 const fs = require('fs')
 const helmet = require('helmet')
 const ReminderService = require('../services/reminderService');
+const EmotionService = require('../services/emotionService');
 
 // Enables CORS
 app.use(cors({ origin: true }))
@@ -24,7 +25,10 @@ app.use(helmet())
 // Initializes the Database
 databaseInit()
   .catch(error => console.error(error))
-  .then(() => ReminderService.reloadAllReminder())
+  .then(() => {
+      ReminderService.reloadAllReminder();
+      EmotionService.reloadAllEmotion();
+  })
 
 // Sets up the Upload endpoint, which is required to be REST
 const upload = require('./file/upload')
