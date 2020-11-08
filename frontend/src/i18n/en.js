@@ -80,7 +80,7 @@ const en = {
           DRAFT: 'DRAFT',
         },
         frequency: {
-          ONCE: 'Once Time',
+          ONCE: 'Just once',
           WEEKLY: 'Weekly',
           BIWEEKLY: 'Biweekly',
           MONTHLY: 'Monthly',
@@ -205,7 +205,7 @@ const en = {
     emotion: {
       menu: 'Emotions',
       list: {
-        title: 'List of Emotions'
+        title: 'List of Emotions',
       },
     },
     quizRecords: {
@@ -265,7 +265,7 @@ const en = {
       },
       enumerators: {
         frequency: {
-          ONCE: 'Once Time',
+          ONCE: 'Just once',
           WEEKLY: 'Weekly',
           BIWEEKLY: 'Biweekly',
           MONTHLY: 'Monthly',

@@ -39,15 +39,17 @@ class ReminderForm extends Component {
     const record = this.props.record || {};
 
     if (!record.audience) {
-      record.audience = "ALL"
+      record.audience = 'ALL';
     }
 
     if (!record.frequency) {
-      record.frequency = "WEEKLY"
+      record.frequency = 'ONCE';
     }
 
     if (record.audienceList) {
-      record.audienceList = record.audienceList.filter(Boolean)
+      record.audienceList = record.audienceList.filter(
+        Boolean,
+      );
     }
 
     return this.schema.initialValues(record);
