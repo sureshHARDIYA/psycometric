@@ -7,6 +7,8 @@ const schema = `
     description_ASC
     description_DESC
     status_ASC
+    schedule_ASC
+    schedule_DESC
     status_DESC
     views_ASC
     views_DESC

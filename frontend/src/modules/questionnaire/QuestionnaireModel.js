@@ -56,6 +56,10 @@ const fields = {
     label('frequency'),
     [
       {
+        id: 'ONCE',
+        label: enumeratorLabel('frequency', 'ONCE'),
+      },
+      {
         id: 'WEEKLY',
         label: enumeratorLabel('frequency', 'WEEKLY'),
       },

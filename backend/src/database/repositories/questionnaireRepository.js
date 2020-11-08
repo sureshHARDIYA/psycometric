@@ -349,8 +349,8 @@ class QuestionnaireRepository {
   static async reloadAllSchedule () {
     try {
       const list = await Questionnaire.find({})
-      for (const Questionnaire of list) {
-        NotificationRepository.scheduleQuestionnaire(Questionnaire)
+      for (const questionnaire of list) {
+        NotificationRepository.scheduleQuestionnaire(questionnaire, {}, true);
       }
     } catch (e) {
       console.log('error')

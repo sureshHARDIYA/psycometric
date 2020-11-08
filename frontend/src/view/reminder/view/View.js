@@ -4,7 +4,7 @@ import Spinner from 'view/shared/Spinner';
 import ViewWrapper from 'view/shared/styles/ViewWrapper';
 import TextViewItem from 'view/shared/view/TextViewItem';
 import { Link } from 'react-router-dom';
-import QuestionnaireViewItem from 'view/questionnaire/view/QuestionnaireViewItem';
+
 const { fields } = model;
 
 class ReminderView extends Component {
@@ -48,10 +48,6 @@ class ReminderView extends Component {
         <TextViewItem
           label={fields.frequency.label}
           value={fields.frequency.forView(record.frequency)}
-        />
-        <QuestionnaireViewItem
-          label={fields.questionnaire.label}
-          value={fields.questionnaire.forView(record.questionnaire)}
         />
         <TextViewItem
           label={fields.createdAt.label}

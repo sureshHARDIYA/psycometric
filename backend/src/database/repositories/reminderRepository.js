@@ -124,7 +124,7 @@ class ReminderRepository {
    */
   async findById(id, options) {
     return MongooseRepository.wrapWithSessionIfExists(
-      Reminder.findById(id).populate('questionnaire'),
+      Reminder.findById(id),
       options,
     );
   }
@@ -223,7 +223,6 @@ class ReminderRepository {
     const limitEscaped = Number(limit || 0) || undefined;
 
     const rows = await Reminder.find(criteria)
-      .populate('questionnaire')
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort);
@@ -302,7 +301,7 @@ class ReminderRepository {
     try {
       const list = await Reminder.find({});
       for (const reminder of list) {
-        NotificationRepository.schedule(reminder);
+        NotificationRepository.schedule(reminder, {}, true);
       }
     } catch (e) {
       console.log('error');

@@ -7,7 +7,6 @@ const schema = `
     test: String
     audienceList: [String]
     frequency: Frequency
-    questionnaire: String!
   }
 `;
 
