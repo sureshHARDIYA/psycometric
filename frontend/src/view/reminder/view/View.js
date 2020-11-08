@@ -4,7 +4,7 @@ import Spinner from 'view/shared/Spinner';
 import ViewWrapper from 'view/shared/styles/ViewWrapper';
 import TextViewItem from 'view/shared/view/TextViewItem';
 import { Link } from 'react-router-dom';
-import QuestionnaireViewItem from 'view/questionnaire/view/QuestionnaireViewItem';
+
 const { fields } = model;
 
 class ReminderView extends Component {
