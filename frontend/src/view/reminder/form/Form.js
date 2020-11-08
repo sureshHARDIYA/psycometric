@@ -14,7 +14,6 @@ import TextAreaFormItem from 'view/shared/form/items/TextAreaFormItem';
 import RadioFormItem from 'view/shared/form/items/RadioFormItem';
 import DatePickerFormItem from 'view/shared/form/items/DatePickerFormItem';
 import UserAutocompleteFormItem from 'view/iam/autocomplete/UserAutocompleteFormItem';
-import QuestionnaireAutocompleteFormItem from 'view/questionnaire/autocomplete/QuestionnaireAutocompleteFormItem';
 
 const { fields } = model;
 
@@ -25,7 +24,6 @@ class ReminderForm extends Component {
     fields.schedule,
     fields.frequency,
     fields.audience,
-    fields.questionnaire,
     fields.test,
     fields.audienceList,
   ]);
@@ -100,12 +98,6 @@ class ReminderForm extends Component {
                     }),
                   )}
                   required={fields.test.required}
-                />
-                <QuestionnaireAutocompleteFormItem
-                  name={fields.questionnaire.name}
-                  label={fields.questionnaire.label}
-                  required={fields.questionnaire.required}
-                  form={form}
                 />
                 <RadioFormItem
                   name={fields.frequency.name}

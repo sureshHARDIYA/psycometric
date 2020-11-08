@@ -21,10 +21,6 @@ const ReminderSchema = new Schema(
       default: 'ONCE',
       enum: ['ONCE', 'WEEKLY', 'BIWEEKLY', 'MONTHLY'],
     },
-    questionnaire: {
-      type: Schema.Types.ObjectId,
-      ref: 'questionnaire',
-    },
     audienceList: [String],
     test: {
       type: String,

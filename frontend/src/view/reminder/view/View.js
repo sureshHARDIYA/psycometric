@@ -49,10 +49,6 @@ class ReminderView extends Component {
           label={fields.frequency.label}
           value={fields.frequency.forView(record.frequency)}
         />
-        <QuestionnaireViewItem
-          label={fields.questionnaire.label}
-          value={fields.questionnaire.forView(record.questionnaire)}
-        />
         <TextViewItem
           label={fields.createdAt.label}
           value={fields.createdAt.forView(record.createdAt)}

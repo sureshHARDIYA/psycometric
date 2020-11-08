@@ -4,22 +4,21 @@ import DateTimeField from 'modules/shared/fields/dateTimeField';
 import StringField from 'modules/shared/fields/stringField';
 import EnumeratorField from 'modules/shared/fields/enumeratorField';
 import RelationToManyField from 'modules/shared/fields/relationToManyField';
-import RelationToOneField from 'modules/shared/fields/relationToOneField';
 
-const label = (name) => i18n(`entities.reminder.fields.${name}`);
+const label = (name) =>
+  i18n(`entities.reminder.fields.${name}`);
 
-const enumeratorLabel = (name, value) => i18n(`entities.reminder.enumerators.${name}.${value}`);
+const enumeratorLabel = (name, value) =>
+  i18n(`entities.reminder.enumerators.${name}.${value}`);
 
 const fields = {
   id: new IdField('id', label('id')),
   title: new StringField('title', label('title'), {
     required: true,
   }),
-  message: new StringField(
-    'message',
-    label('message'),
-    { required: true, },
-  ),
+  message: new StringField('message', label('message'), {
+    required: true,
+  }),
   schedule: new DateTimeField(
     'schedule',
     label('schedule'),
@@ -81,12 +80,6 @@ const fields = {
     'audienceList',
     label('audienceList'),
     {},
-  ),
-  questionnaire: new RelationToOneField(
-    'questionnaire',
-    label('questionnaire'), {
-      required: true,
-    },
   ),
   createdAt: new DateTimeField(
     'createdAt',

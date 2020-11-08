@@ -55,16 +55,6 @@ class ReminderListTable extends Component {
       ellipsis: true,
     },
     {
-      title: 'Questionnaire',
-      key: 'questionnaire-reminder',
-      dataIndex: 'questionnaire',
-      render: (item) => !!item && (
-        <Link to={`/questionnaire/${item.id}`}>
-          {item.name}
-        </Link>
-      ),
-    },
-    {
       title: 'Created At',
       key: 'createdAt',
       dataIndex: 'createdAt',

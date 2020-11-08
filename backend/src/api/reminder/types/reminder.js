@@ -8,7 +8,6 @@ const schema = `
     audience: Audience
     test: String
     audienceList: [String]
-    questionnaire: Questionnaire
     createdAt: DateTime
     updatedAt: DateTime
   }
