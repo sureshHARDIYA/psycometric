@@ -1,6 +1,5 @@
 const moment = require('moment');
 const _get = require('lodash/get');
-const schedule = require('node-schedule');
 const { Expo } = require('expo-server-sdk');
 const MongooseRepository = require('./mongooseRepository');
 const MongooseQueryUtils = require('../utils/mongooseQueryUtils');
@@ -12,12 +11,20 @@ const manager = require('../crontab');
 
 const expo = new Expo();
 
+const schedule2 = require('node-schedule');
+
 const SCHEDULE_TIME = process.env.SCHEDULE_TIME || "[0 0]";
+
+const deleteJob = (id) => {
+  manager.deleteJob(id);
+  console.log('JOB LIST:', manager.list());
+}
 
 const parseTime = (frequence, date) => {
   switch (frequence) {
+    case 'ONCE': return date.format(`${SCHEDULE_TIME} D M [*]`);
     case 'MONTHLY': return date.format(`${SCHEDULE_TIME} D [* *]`);
-    case 'BIWEEKLY': return date.format(`${SCHEDULE_TIME} [*] [*] [*/2]`);
+    case 'BIWEEKLY': return date.format(`${SCHEDULE_TIME} [*]/15 [*] [*]`);
     default: return date.format(`${SCHEDULE_TIME} [*] [*] ddd`);
   }
 }
@@ -128,20 +135,22 @@ class NotificationRepository {
   }
 
   static async delete(id) {
-    manager.deleteJob(id)
+    manager.deleteJob(id);
     console.log('JOB LIST:', manager.list());
   }
 
-  static async schedule(data, options) {
+  static async schedule(data, options, reload) {
     if (MongooseRepository.getSession(options)) {
       await Notification.createCollection();
     }
+
     const reminderKey = data.id;
     const date = moment(data.schedule)
-    const task = manager.add(reminderKey, parseTime(data.frequency, date.clone().add(5, 'seconds')), () => this.pushNotification(reminderKey, options), null, date.toDate())
-    task && console.log(`[Reminder] ${data.title}: ${task.running ? "Running" : "Stopped"} at ${task.cronTime.source}`)
+    const time = parseTime(data.frequency, date.clone().add(5, 'seconds'));
+    const task = manager.add(reminderKey, time, () => this.pushNotification(reminderKey, options));
+    task && console.log(`[Reminder] ${data.title}: scheduled ${data.frequency} at ${time}`)
 
-    if (data && data.test === 'yes') {
+    if (!reload && data && data.test === 'yes') {
       this.pushNotification(reminderKey, options)
     }
   }
@@ -154,7 +163,13 @@ class NotificationRepository {
     try {
       const data = await Reminder.findById(id).populate('questionnaire')
 
+      console.log('pushNotification', id, options)
+
       const audienceList = await Notification.getTokens(data.audience, data.audienceList)
+
+      if (data.frequency === 'ONCE') {
+        deleteJob(id);
+      }
 
       for (const audience of audienceList) {
         const pushToken = audience.token;
@@ -189,7 +204,7 @@ class NotificationRepository {
         }
 
         console.log(`Scheduled push notification to ${userId} at ${date.toDate()}`)
-        schedule.scheduleJob(date.toDate(), () => {
+        manager.scheduleJob(date.toDate(), () => {
           console.log(`Send push notification to ${userId} at ${date.toDate()}`)
           // // Construct a message (see https://docs.expo.io/versions/latest/guides/push-notifications)
           this.sendNotification(message)
@@ -202,7 +217,7 @@ class NotificationRepository {
   }
 
 
-  static async scheduleQuestionnaire(data, options) {
+  static async scheduleQuestionnaire(data, options, reload) {
     if (MongooseRepository.getSession(options)) {
       await Notification.createCollection();
     }
@@ -210,13 +225,13 @@ class NotificationRepository {
     const questionnaireKey = data.id;
     const date = moment(data.schedule)
 
-    if (data && data.test === 'yes') {
-      console.log('test QuestionnaireNotification')
+    if (!reload && data && data.test === 'yes') {
       this.pushQuestionnaireNotification(questionnaireKey, options)
     }
 
-    const task = manager.add(questionnaireKey, parseTime(data.frequency, date.clone().add(5, 'seconds')), () => this.pushQuestionnaireNotification(questionnaireKey, options), null, date.toDate())
-    task && console.log(`[Questionnaire] ${data.name}: ${task.running ? "Running" : "Stopped"} at ${task.cronTime.source}`)
+    const time = parseTime(data.frequency, date.clone().add(5, 'seconds'));
+    const task = manager.add(questionnaireKey, time, () => this.pushQuestionnaireNotification(questionnaireKey, options));
+    task && console.log(`[Questionnaire] ${data.name}: scheduled ${data.frequency} at ${time}`)
   }
 
 
@@ -227,6 +242,10 @@ class NotificationRepository {
 
     try {
       const data = await Questionnaire.findById(id)
+
+      if (data.frequency === 'ONCE') {
+        deleteJob(id);
+      }
 
       const audienceList = await Notification.getTokens(data.audience, data.audienceList)
 
@@ -264,7 +283,7 @@ class NotificationRepository {
         }
 
         console.log(`Scheduled push notification to ${userId} at ${date.toDate()}`)
-        schedule.scheduleJob(date.toDate(), () => {
+        manager.scheduleJob(date.toDate(), () => {
           console.log(`Send push notification to ${userId} at ${date.toDate()}`)
           // // Construct a message (see https://docs.expo.io/versions/latest/guides/push-notifications)
           this.sendNotification(message)
@@ -278,6 +297,7 @@ class NotificationRepository {
 
   static async sendNotification(message) {
     const tickets = [];
+    console.log('sendNotification:')
     const [chunk] = expo.chunkPushNotifications([message]);
 
     if (chunk) {

@@ -19,7 +19,7 @@ const ReminderSchema = new Schema(
     frequency: {
       type: String,
       default: 'WEEKLY',
-      enum: ['WEEKLY', 'BIWEEKLY', 'MONTHLY']
+      enum: ['ONCE', 'WEEKLY', 'BIWEEKLY', 'MONTHLY']
     },
     questionnaire: {
       type: Schema.Types.ObjectId,

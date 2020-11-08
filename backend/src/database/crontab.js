@@ -1,8 +1,12 @@
-const CronJob = require('cron').CronJob;
+const schedule = require('node-schedule');
 
 class CronTab {
   constructor() {
     this.jobs = {};
+  }
+
+  scheduleJob(...args) {
+    schedule.scheduleJob(...args)
   }
 
   add(key, ...args) {
@@ -13,7 +17,7 @@ class CronTab {
         console.warn(`${key} already existed and was deleted from the manager...`);
       }
 
-      this.jobs[key] = new CronJob(...args);
+      this.jobs[key] = schedule.scheduleJob(key, ...args);
       return this.jobs[key];
     } catch (e) {
       console.error(`crontab: ${key} possibly not valid, job not started...${e.message}`);
@@ -23,7 +27,7 @@ class CronTab {
   deleteJob(key) {
     try {
       if (this.jobs[key]) {
-        this.jobs[key].stop();
+        this.jobs[key].cancel();
         delete this.jobs[key];
       } else {
         throw new Error(`${key} is not exist`);
@@ -48,7 +52,7 @@ class CronTab {
       if (! this.jobs[key].running ){
         console.warn(`${key} job already stopped`);
       } else {
-        this.jobs[key].stop();
+        this.jobs[key].cancel();
       }
     } catch(err) {
       console.error(`couldn't stop job: ${key}: ${err}`)
@@ -58,7 +62,7 @@ class CronTab {
   stopAll() {
     for (key in this.jobs) {
       try {
-        this.jobs[key].stop()
+        this.jobs[key].cancel()
       } catch(err) {
         console.error(`couldn't stop job: ${key}: ${err}`)
       }
@@ -73,7 +77,7 @@ class CronTab {
 
     return `
       {
-        ${Object.entries(this.jobs).map(([key, job]) => `'${key}': ${job.cronTime.source} status: ${job.running ? "Running" : "Stopped"}`).join('\n')}
+        ${Object.entries(this.jobs).map(([key, job]) => `'${key}': Running`).join('\n')}
       }
     `;
   }

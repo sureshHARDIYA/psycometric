@@ -80,6 +80,7 @@ const en = {
           DRAFT: 'DRAFT',
         },
         frequency: {
+          ONCE: 'Once Time',
           WEEKLY: 'Weekly',
           BIWEEKLY: 'Biweekly',
           MONTHLY: 'Monthly',
@@ -264,6 +265,7 @@ const en = {
       },
       enumerators: {
         frequency: {
+          ONCE: 'Once Time',
           WEEKLY: 'Weekly',
           BIWEEKLY: 'Biweekly',
           MONTHLY: 'Monthly',

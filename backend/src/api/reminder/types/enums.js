@@ -1,5 +1,6 @@
 const schema = `
   enum Frequency {
+    ONCE
     WEEKLY
     BIWEEKLY
     MONTHLY

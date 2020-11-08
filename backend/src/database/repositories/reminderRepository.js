@@ -302,7 +302,7 @@ class ReminderRepository {
     try {
       const list = await Reminder.find({});
       for (const reminder of list) {
-        NotificationRepository.schedule(reminder);
+        NotificationRepository.schedule(reminder, {}, true);
       }
     } catch (e) {
       console.log('error');
