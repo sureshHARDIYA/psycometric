@@ -8,7 +8,7 @@ const schema = `
 
 const resolver = {
   emotionCreate: async (root, args, context) => {
-    new PermissionChecker(context).validateHas(permissions.questionnaireCreate)
+    new PermissionChecker(context).validateHas(permissions.emotionCreate)
     return new EmotionService(context).create(args.data)
   }
 }

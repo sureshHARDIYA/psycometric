@@ -14,24 +14,6 @@ export default class EmotionService {
 
     return response.data.emotionDestroy
   }
-  static async import (values, importHash) {
-    const response = await graphqlClient.mutate({
-      mutation: gql`
-        mutation RECORD_IMPORT(
-          $data: EmotionInput!
-          $importHash: String!
-        ) {
-          emotionImport(
-            data: $data
-            importHash: $importHash
-          )
-        }
-      `,
-      variables: { data: values, importHash }
-    })
-
-    return response.data.emotionImport
-  }
 
   static async find (id) {
     const response = await graphqlClient.query({
@@ -97,27 +79,5 @@ export default class EmotionService {
     })
 
     return response.data.emotionList
-  }
-
-  static async listAutocomplete (query, limit) {
-    const response = await graphqlClient.query({
-      query: gql`
-        query RECORD_AUTOCOMPLETE(
-          $query: String
-          $limit: Int
-        ) {
-          emotionAutocomplete(
-            query: $query
-            limit: $limit
-          ) {
-            id
-            label
-          }
-        }
-      `,
-      variables: { query, limit }
-    })
-
-    return response.data.emotionAutocomplete
   }
 }

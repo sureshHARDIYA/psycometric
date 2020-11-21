@@ -11,11 +11,12 @@ const schema = `
 const resolver = {
     emotionList: async (root, args, context, info) => {
         new PermissionChecker(context).validateHas(
-            permissions.public,
+            permissions.emotionList,
         );
 
         return new EmotionService(context).findAndCountAll({
             ...args,
+            filter: { ...args.filter, createdBy: context.currentUser.id, roles: context.currentUser.roles},
             requestedAttributes: graphqlSelectRequestedAttributes(
                 info,
                 'rows',

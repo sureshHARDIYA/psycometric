@@ -10,7 +10,7 @@ const schema = `
 const resolver = {
     emotionDestroy: async (root, args, context) => {
         new PermissionChecker(context).validateHas(
-            permissions.questionnaireDestroy,
+            permissions.emotionDestroy,
         );
 
         await new EmotionService(context).destroyAll(args.ids);

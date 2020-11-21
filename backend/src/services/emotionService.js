@@ -1,7 +1,7 @@
 const ValidationError = require('../errors/validationError')
 const EmotionRepository = require('../database/repositories/emotionRepository')
 const MongooseRepository = require(
-  '../database/repositories/mongooseRepository'
+    '../database/repositories/mongooseRepository'
 )
 
 /**
@@ -15,10 +15,10 @@ module.exports = class EmotionService {
   }
 
   /**
-     * Creates an Emotion.
-     *
-     * @param {*} data
-     */
+   * Creates an Emotion.
+   *
+   * @param {*} data
+   */
   async create (data) {
     const session = await MongooseRepository.createSession()
 
@@ -38,11 +38,11 @@ module.exports = class EmotionService {
   }
 
   /**
-     * Updates an Emotion.
-     *
-     * @param {*} id
-     * @param {*} data
-     */
+   * Updates an Emotion.
+   *
+   * @param {*} id
+   * @param {*} data
+   */
   async update (id, data) {
     const session = await MongooseRepository.createSession()
 
@@ -62,19 +62,19 @@ module.exports = class EmotionService {
   }
 
   /**
-     * Creates an Emotion.
-     *
-     * @param {*} id
-     * @param {*} data
-     */
+   * Creates an Emotion.
+   *
+   * @param {*} id
+   * @param {*} data
+   */
   async createEmotion (id, data) {
     const session = await MongooseRepository.createSession()
 
     try {
       const record = await this.repository.findOneAndUpdate(
-        { _id: id },
-        { $push: { emotions: data } },
-        { session, currentUser: this.currentUser }
+          { _id: id },
+          { $push: { emotions: data } },
+          { session, currentUser: this.currentUser }
       )
 
       await MongooseRepository.commitTransaction(session)
@@ -87,10 +87,10 @@ module.exports = class EmotionService {
   }
 
   /**
-     * Destroy all emotions with those ids.
-     *
-     * @param {*} ids
-     */
+   * Destroy all emotions with those ids.
+   *
+   * @param {*} ids
+   */
   async destroyAll (ids) {
     const session = await MongooseRepository.createSession()
 
@@ -110,51 +110,51 @@ module.exports = class EmotionService {
   }
 
   /**
-     * Finds the Emotion by Id.
-     *
-     * @param {*} id
-     */
+   * Finds the Emotion by Id.
+   *
+   * @param {*} id
+   */
   async findById (id) {
     return this.repository.findById(id)
   }
 
   /**
-     * Finds emotions for Autocomplete.
-     *
-     * @param {*} search
-     * @param {*} limit
-     */
+   * Finds emotions for Autocomplete.
+   *
+   * @param {*} search
+   * @param {*} limit
+   */
   async findAllAutocomplete (search, limit) {
     return this.repository.findAllAutocomplete(search, limit)
   }
 
   /**
-     * Finds emotions based on the query.
-     *
-     * @param {*} args
-     */
+   * Finds emotions based on the query.
+   *
+   * @param {*} args
+   */
   async findAndCountAll (args) {
-    return this.repository.findAndCountAll(args)
+    return this.repository.findAndCountAll(args, { currentUser: this.currentUser })
   }
 
   /**
-     * Imports a list of emotions.
-     *
-     * @param {*} data
-     * @param {*} importHash
-     */
+   * Imports a list of emotions.
+   *
+   * @param {*} data
+   * @param {*} importHash
+   */
   async import (data, importHash) {
     if (!importHash) {
       throw new ValidationError(
-        this.language,
-        'importer.errors.importHashRequired'
+          this.language,
+          'importer.errors.importHashRequired'
       )
     }
 
     if (await this._isImportHashExistent(importHash)) {
       throw new ValidationError(
-        this.language,
-        'importer.errors.importHashExistent'
+          this.language,
+          'importer.errors.importHashExistent'
       )
     }
 
@@ -164,18 +164,14 @@ module.exports = class EmotionService {
   }
 
   /**
-     * Checks if the import hash already exists.
-     * Every item imported has a unique hash.
-     *
-     * @param {*} importHash
-     */
+   * Checks if the import hash already exists.
+   * Every item imported has a unique hash.
+   *
+   * @param {*} importHash
+   */
   async _isImportHashExistent (importHash) {
     const count = await this.repository.count({ importHash })
 
     return count > 0
-  }
-
-  static reloadAllEmotion () {
-    return EmotionRepository.reloadAllEmotion()
   }
 }
