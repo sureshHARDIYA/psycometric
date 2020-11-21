@@ -157,7 +157,6 @@ class Permissions {
           roles.editor,
           roles.doctor,
           roles.patient,
-          roles.patient,
           roles.public,
         ],
       },
@@ -168,7 +167,6 @@ class Permissions {
           roles.editor,
           roles.doctor,
           roles.patient,
-          roles.patient,
           roles.public,
         ],
       },
@@ -178,7 +176,6 @@ class Permissions {
           roles.owner,
           roles.editor,
           roles.doctor,
-          roles.patient,
           roles.patient,
           roles.public,
         ],
@@ -219,6 +216,60 @@ class Permissions {
           roles.doctor,
         ],
       },
+      emotionCreate: {
+        id: 'emotionCreate',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.doctor,
+          roles.patient,
+        ]
+      },
+      emotionDestroy: {
+        id: 'emotionDestroy',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.doctor,
+          roles.patient,
+        ]
+      },
+      emotionEdit: {
+        id: 'emotionEdit',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.doctor,
+          roles.patient,
+        ]
+      },
+      emotionAutocomplete: {
+        id: 'emotionAutocomplete',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.doctor,
+        ],
+      },
+      emotionFind: {
+        id: 'emotionFind',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.doctor,
+          roles.patient,
+        ],
+      },
+      emotionList: {
+        id: 'emotionList',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.doctor,
+          roles.patient,
+        ],
+      },
+
     };
   }
 

@@ -10,7 +10,7 @@ const schema = `
 const resolver = {
     emotionUpdate: async (root, args, context) => {
         new PermissionChecker(context).validateHas(
-            permissions.questionnaireEdit,
+            permissions.emotionEdit,
         );
 
         return new EmotionService(context).update(

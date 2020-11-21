@@ -27,7 +27,6 @@ databaseInit()
   .catch(error => console.error(error))
   .then(() => {
     ReminderService.reloadAllReminder()
-    EmotionService.reloadAllEmotion()
   })
 
 // Sets up the Upload endpoint, which is required to be REST

@@ -4,7 +4,7 @@ const EmotionService = require('../../../services/emotionService')
 const PermissionChecker = require('../../../services/iam/permissionChecker')
 const permissions = require('../../../security/permissions').values
 const graphqlSelectRequestedAttributes = require(
-  '../../shared/utils/graphqlSelectRequestedAttributes'
+    '../../shared/utils/graphqlSelectRequestedAttributes'
 )
 
 const schema = `
@@ -33,37 +33,37 @@ const schema = `
 const resolver = {
   UserWithRoles: {
     roles: instance =>
-      !instance.roles || !instance.roles.length
-        ? [ 'patient' ]
-        : instance.roles,
+        !instance.roles || !instance.roles.length
+            ? [ 'patient' ]
+            : instance.roles,
     fullName: instance =>
-      [ instance.firstName || '', instance.lastName || '' ].join(' ').trim(),
+        [ instance.firstName || '', instance.lastName || '' ].join(' ').trim(),
     favourites: async (root, args, context, info) => {
       new PermissionChecker(context).validateHas(permissions.public)
 
       return new QuestionnaireService(
-        context
+          context
       ).findAndCountAll({ ...args, filter: { ...args.filter, favourite: root.id }, requestedAttributes: graphqlSelectRequestedAttributes(info, 'rows') })
     },
     playedQuizes: async (root, args, context, info) => {
       new PermissionChecker(context).validateHas(permissions.member)
 
       return new QuizRecordService(
-        context
+          context
       ).findAndCountAll({ ...args, filter: { ...args.filter, candidate: root.id }, requestedAttributes: graphqlSelectRequestedAttributes(info, 'rows') })
     },
     emotion: async (root, args, context, info) => {
       new PermissionChecker(context).validateHas(permissions.member)
 
       return new EmotionService(
-        context
-      ).findAndCountAll({ ...args, filter: { ...args.filter, createdBy: root.id }, requestedAttributes: graphqlSelectRequestedAttributes(info, 'rows') })
+          context
+      ).findAndCountAll({ ...args, filter: { ...args.filter, createdBy: root.id}, requestedAttributes: graphqlSelectRequestedAttributes(info, 'rows') })
     },
     questionnaires: async (root, args, context, info) => {
       new PermissionChecker(context).validateHas(permissions.public)
 
       return new QuestionnaireService(
-        context
+          context
       ).findAndCountAll({ ...args, filter: { ...args.filter, createdBy: root.id }, requestedAttributes: graphqlSelectRequestedAttributes(info, 'rows') })
     }
   }
